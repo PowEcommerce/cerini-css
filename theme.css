@@ -1,0 +1,14 @@
+/* ==================================================================
+   CERINI — theme.css  (compose-only external CSS, served via GitHub Pages)
+   Edit here → git push → CDN. Loaded from the theme's css_code via @import.
+   ================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
+
+/* --- figma-to-tn --- */ .btn,button,input,select,.product-item,.card,.banner-block img,img{border-radius:0}
+
+/* Product-list section header: title left, link right (desktop) */ @media(min-width:768px){ .section-product-list .flex-row.justify-content-start{justify-content:space-between!important} }
+
+/* Transparent header over hero (home, desktop) */ @media(min-width:1024px){ body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .4s ease-in-out} body.template-home .js-header .js-head-main{background:transparent!important} body.template-home .js-header,body.template-home .js-header a{color:#000!important} body.template-home .js-header svg{fill:#000!important;color:#000!important} body.template-home .js-header.f2tn-solid{background:#fff!important;border-bottom:1px solid rgba(0,0,0,.08)} body.template-home .js-header.f2tn-solid .js-head-main{background:#fff!important} }
+
+/* --- Cerini product card (Figma) --- */ .product-item-image-container{background-color:#f6f5f3} .product-item-name{margin-bottom:4px;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block} .product-item-price-container{display:flex;flex-wrap:wrap;align-items:center;gap:4px} .product-item-price{font-size:12px;font-weight:500} .product-item-price-container:has(.product-item-price-compare:not([style*="none"])) .product-item-price{color:#b90000} .product-item-price-compare{order:-1;margin-bottom:0;font-size:12px;font-weight:300;text-decoration:line-through;opacity:1} .product-item-discount{display:inline-flex;align-items:center;justify-content:center;min-width:auto;margin-left:0;padding:3px 5px;font-size:10px;font-weight:300;line-height:1;color:#fff;background-color:#b90000}
