@@ -26,3 +26,6 @@
   .cerini-qv-desktop{display:inline-flex}
   .product-item-name{padding-right:22px}
 }
+
+/* hide the script-only custom section */
+[data-section-id="cerini_scripts"]{display:none!important}
