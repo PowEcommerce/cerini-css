@@ -12,3 +12,17 @@
 /* Transparent header over hero (home, desktop) */ @media(min-width:1024px){ body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .4s ease-in-out} body.template-home .js-header .js-head-main{background:transparent!important} body.template-home .js-header,body.template-home .js-header a{color:#000!important} body.template-home .js-header svg{fill:#000!important;color:#000!important} body.template-home .js-header.f2tn-solid{background:#fff!important;border-bottom:1px solid rgba(0,0,0,.08)} body.template-home .js-header.f2tn-solid .js-head-main{background:#fff!important} }
 
 /* --- Cerini product card (Figma) --- */ .product-item-image-container{background-color:#f6f5f3} .product-item-name{margin-bottom:4px;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block} .product-item-price-container{display:flex;flex-wrap:wrap;align-items:center;gap:4px} .product-item-price{font-size:12px;font-weight:500} .product-item-price-container:has(.product-item-price-compare:not([style*="none"])) .product-item-price{color:#b90000} .product-item-price-compare{order:-1;margin-bottom:0;font-size:12px;font-weight:300;text-decoration:line-through;opacity:1} .product-item-discount{display:inline-flex;align-items:center;justify-content:center;min-width:auto;margin-left:0;padding:3px 5px;font-size:10px;font-weight:300;line-height:1;color:#fff;background-color:#b90000}
+
+/* ==================================================================
+   Quick view (ojito) — injected by cerini.js
+   ================================================================== */
+.cerini-qv{position:absolute;z-index:10;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:transparent;color:#000;cursor:pointer;line-height:0}
+.cerini-qv svg{width:17px;height:17px;display:block}
+/* mobile: over the image, below the favorite */
+.cerini-qv-mobile{top:32px;right:10px}
+.cerini-qv-desktop{display:none;top:16px;right:8px}
+@media(min-width:768px){
+  .cerini-qv-mobile{display:none}
+  .cerini-qv-desktop{display:inline-flex}
+  .product-item-name{padding-right:22px}
+}
