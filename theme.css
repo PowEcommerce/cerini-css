@@ -14,17 +14,69 @@
 /* --- Cerini product card (Figma) --- */ .product-item-image-container{background-color:#f6f5f3} .product-item-name{margin-bottom:4px;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block} .product-item-price-container{display:flex;flex-wrap:wrap;align-items:center;gap:4px} .product-item-price{font-size:12px;font-weight:500} .product-item-price-container:has(.product-item-price-compare:not([style*="none"])) .product-item-price{color:#b90000} .product-item-price-compare{order:-1;margin-bottom:0;font-size:12px;font-weight:300;text-decoration:line-through;opacity:1} .product-item-discount{display:inline-flex;align-items:center;justify-content:center;min-width:auto;margin-left:0;padding:3px 5px;font-size:10px;font-weight:300;line-height:1;color:#fff;background-color:#b90000}
 
 /* ==================================================================
-   Quick view (ojito) — injected by cerini.js
+   Quick view — eye trigger + modal (Figma 1074:24144), injected by cerini.js
    ================================================================== */
-.cerini-qv{position:absolute;z-index:10;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:transparent;color:#000;cursor:pointer;line-height:0}
-.cerini-qv svg{width:17px;height:17px;display:block}
-/* mobile: over the image, below the favorite */
-.cerini-qv-mobile{top:32px;right:10px}
-.cerini-qv-desktop{display:none;top:16px;right:8px}
+/* --- eye trigger on the card --- */
+.cerini-qv-eye{position:absolute;z-index:10;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:transparent;color:#000;cursor:pointer;line-height:0}
+.cerini-qv-eye svg{width:17px;height:17px;display:block}
+.cerini-qv-eye-mobile{top:32px;right:10px}
+.cerini-qv-eye-desktop{display:none;top:16px;right:8px}
 @media(min-width:768px){
-  .cerini-qv-mobile{display:none}
-  .cerini-qv-desktop{display:inline-flex}
+  .cerini-qv-eye-mobile{display:none}
+  .cerini-qv-eye-desktop{display:inline-flex}
   .product-item-name{padding-right:22px}
+}
+
+/* --- modal --- */
+.cerini-qv-lock{overflow:hidden}
+.cerini-qv-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.45);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease;font-family:"Manrope",sans-serif;color:#000}
+.cerini-qv-overlay.is-open{visibility:visible}
+.cerini-qv-overlay.is-in{opacity:1}
+.cerini-qv-modal{position:absolute;top:0;right:0;height:100%;width:442px;max-width:100vw;background:#fff;display:flex;flex-direction:column;overflow:hidden;transform:translateX(100%);transition:transform .35s ease}
+.cerini-qv-overlay.is-in .cerini-qv-modal{transform:translateX(0)}
+
+.cerini-qv-header{display:flex;align-items:center;justify-content:space-between;flex:none;padding:16px 20px}
+.cerini-qv-title{font-size:14px;font-weight:600}
+.cerini-qv-x{border:0;background:transparent;cursor:pointer;color:#000;display:inline-flex;padding:0;width:20px;height:20px}
+.cerini-qv-x svg{width:20px;height:20px}
+
+.cerini-qv-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+
+.cerini-qv-images{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-bottom:22px}
+.cerini-qv-images::-webkit-scrollbar{display:none}
+.cerini-qv-slide{flex:0 0 auto;width:82%;aspect-ratio:1;background:#f6f5f3;scroll-snap-align:start;overflow:hidden}
+.cerini-qv-slide img{width:100%;height:100%;object-fit:contain}
+
+.cerini-qv-info{display:flex;flex-direction:column;gap:16px;padding:0 20px 24px}
+.cerini-qv-name{margin:0;font-size:24px;font-weight:600;line-height:1.1}
+.cerini-qv-highlights{display:flex;flex-wrap:wrap;gap:8px;font-size:10px;font-weight:400}
+.cerini-qv-sep{opacity:.6}
+.cerini-qv-price{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.cerini-qv-price-main{font-size:20px;font-weight:600}
+.cerini-qv-price-main.is-sale{color:#b90000}
+.cerini-qv-compare{order:-1;font-size:14px;font-weight:300;text-decoration:line-through}
+.cerini-qv-discount{display:inline-flex;align-items:center;padding:3px 6px;font-size:10px;font-weight:300;line-height:1;color:#fff;background:#b90000}
+.cerini-qv-cuotas{font-size:12px}
+.cerini-qv-more{font-size:12px;font-weight:500;color:#000;text-decoration:underline;align-self:flex-start}
+
+/* moved native variants + add-to-cart form (styling refined in QA) */
+.cerini-qv-native{display:block!important;margin:0;width:100%}
+.cerini-qv-native .btn{width:100%}
+
+.cerini-qv-footer{flex:none;display:flex;gap:16px;padding:20px;background:#fff;box-shadow:0 -1px 0 rgba(0,0,0,.25)}
+.cerini-qv-footer:empty{display:none}
+.cerini-qv-cta{flex:1;display:inline-flex;align-items:center;justify-content:center;height:45px;background:#000;color:#fff;font-size:14px;text-decoration:none}
+
+/* desktop: X floats over the image, no title */
+@media(min-width:768px){
+  .cerini-qv-header{position:absolute;top:24px;left:24px;right:24px;padding:0;z-index:2}
+  .cerini-qv-title{display:none}
+  .cerini-qv-slide{width:309px}
+}
+/* mobile: bottom sheet */
+@media(max-width:767px){
+  .cerini-qv-modal{top:auto;left:0;right:0;width:100%;height:auto;max-height:90vh;border-radius:16px 16px 0 0;transform:translateY(100%)}
+  .cerini-qv-overlay.is-in .cerini-qv-modal{transform:translateY(0)}
 }
 
 /* hide the script-only custom section */
