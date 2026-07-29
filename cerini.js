@@ -179,6 +179,10 @@
       form.classList.remove("hidden");
       form.classList.add("cerini-qv-native");
       options.appendChild(form);
+      // Figma order inside the form: variants -> "ver más" -> actions (qty + CTA sticky footer)
+      var actions = form.querySelector(".quickshop-actions");
+      var more = modalEl.querySelector(".cerini-qv-more");
+      if (actions && more) form.insertBefore(more, actions);
     } else {
       activeForm = null;
       // Simple product (no variants): footer CTA links to the product page.
@@ -197,7 +201,11 @@
     modalEl.classList.remove("is-in");
     document.documentElement.classList.remove("cerini-qv-lock");
     document.removeEventListener("keydown", onKey);
-    // Restore the native form to its card.
+    // Restore the native form to its card (rescue "ver más" first — it was moved inside the form).
+    if (activeForm && activeForm.node) {
+      var more = activeForm.node.querySelector(".cerini-qv-more");
+      if (more) modalEl.querySelector(".cerini-qv-info").appendChild(more);
+    }
     if (activeForm && activeForm.placeholder && activeForm.placeholder.parentNode) {
       activeForm.node.classList.remove("cerini-qv-native");
       activeForm.node.classList.add("hidden");
