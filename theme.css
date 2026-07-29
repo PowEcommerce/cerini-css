@@ -98,3 +98,9 @@
 
 /* hide the script-only custom section */
 [data-section-id="cerini_scripts"]{display:none!important}
+
+/* ==================================================================
+   Card cleanup — hide native elements not present in the Figma card
+   ================================================================== */
+.product-item .product-item-quick-shop-container{display:none!important}
+.product-item .product-item-stock-notice{display:none!important}
