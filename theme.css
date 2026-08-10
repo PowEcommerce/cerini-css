@@ -104,3 +104,37 @@
    ================================================================== */
 .product-item .product-item-quick-shop-container{display:none!important}
 .product-item .product-item-stock-notice{display:none!important}
+
+/* ==================================================================
+   Card add-ons injected by cerini.js — cucardas / favorite / quick-buy / 2nd-img
+   ================================================================== */
+/* cucardas (SALE now; BEST SELLER/CERINI FAV need category data) */
+.cerini-cucardas{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.cerini-cucardas-standalone{position:absolute;top:10px;left:10px;z-index:9}
+.cerini-cucarda{display:inline-flex;align-items:center;justify-content:center;padding:3px 6px;font-size:10px;font-weight:300;line-height:1;letter-spacing:.02em;text-transform:uppercase;color:#fff;white-space:nowrap}
+.cerini-cucarda-sale{background:#b90000}
+.cerini-cucarda-bestseller{background:#000}
+
+/* favorite heart (visual; real wishlist = TN app) */
+.cerini-fav{position:absolute;top:10px;right:10px;z-index:10;display:inline-flex;padding:0;border:0;background:transparent;color:#000;cursor:pointer;line-height:0}
+.cerini-fav svg{width:17px;height:17px;display:block}
+.cerini-fav.is-active svg{fill:#000}
+
+/* quick buy on hover (desktop): size chips over the image bottom */
+.cerini-quickbuy{position:absolute;left:0;right:0;bottom:0;z-index:8;display:none;gap:24px;align-items:center;justify-content:center;height:33px;background:rgba(255,255,255,.7);opacity:0;transition:opacity .2s ease;pointer-events:none}
+.cerini-quickbuy-chip{border:0;background:transparent;font-size:14px;line-height:1;color:#3e3e3e;cursor:pointer;padding:0}
+
+/* second-image indicator (mobile) */
+.cerini-img-indicator{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);z-index:7;display:none;gap:4px}
+.cerini-img-indicator i{display:block;width:24px;height:2px;background:rgba(0,0,0,.25)}
+.cerini-img-indicator i.is-active{background:#000}
+
+@media(min-width:768px){
+  .cerini-fav{top:8px;right:6px}
+  .cerini-fav svg{width:21px;height:21px}
+  .cerini-quickbuy{display:flex}
+  .product-item-image-container:hover .cerini-quickbuy{opacity:1;pointer-events:auto}
+}
+@media(max-width:767px){
+  .cerini-img-indicator{display:flex}
+}

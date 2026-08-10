@@ -35,6 +35,14 @@
       'stroke-linecap="round" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16"/></svg>'
     );
   }
+  function heartSVG() {
+    return (
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
+      '<path d="M12 20s-7.5-4.6-9.6-9.2C1.1 7.6 2.6 5 5.5 5c1.9 0 3.3 1.1 4.1 2.4C10.3 6.1 11.6 5 13.5 5' +
+      ' 16.4 5 17.9 7.6 16.6 10.8 14.5 15.4 12 20 12 20Z" transform="translate(-.5 -1)"/></svg>'
+    );
+  }
 
   /* ---------- helpers ---------- */
   function imgSrc(img) {
@@ -235,11 +243,90 @@
   function ensureRelative(el) {
     if (el && getComputedStyle(el).position === "static") el.style.position = "relative";
   }
+
+  /* ---------- card add-ons ---------- */
+  function isOnSale(card) {
+    var c = card.querySelector(".js-compare-price-display, .product-item-price-compare");
+    return !!(c && (c.getAttribute("style") || "").replace(/\s/g, "").indexOf("display:none") === -1 && c.textContent.trim());
+  }
+
+  // SALE cucarda over the image (BEST SELLER / CERINI FAV need category data -> later).
+  function injectCucardas(card, imgc) {
+    if (!isOnSale(card)) return;
+    var cont = document.createElement("div");
+    cont.className = "cerini-cucardas";
+    var sale = document.createElement("span");
+    sale.className = "cerini-cucarda cerini-cucarda-sale";
+    sale.textContent = "SALE";
+    cont.appendChild(sale);
+    var host = imgc.querySelector(".product-labels");
+    if (host) { host.insertBefore(cont, host.firstChild); }
+    else { cont.className += " cerini-cucardas-standalone"; imgc.appendChild(cont); }
+  }
+
+  // Favorite heart (visual). Real wishlist = TN app (to wire later).
+  function injectFavorite(card, imgc) {
+    var fav = document.createElement("button");
+    fav.type = "button";
+    fav.className = "cerini-fav";
+    fav.setAttribute("aria-label", "Favorito");
+    fav.innerHTML = heartSVG();
+    fav.addEventListener("click", function (e) {
+      e.preventDefault(); e.stopPropagation();
+      fav.classList.toggle("is-active");
+    });
+    imgc.appendChild(fav);
+  }
+
+  // Quick buy on hover (desktop): size chips over the image; click adds to cart.
+  function injectQuickBuy(card, imgc) {
+    var form = card.querySelector(".js-item-variants");
+    if (!form) return;
+    var groups = form.querySelectorAll(".js-product-variants-group");
+    if (groups.length !== 1) return; // v1: single variation (size) only
+    var btns = groups[0].querySelectorAll(".js-variant-button.btn-variant");
+    if (!btns.length) return;
+    var bar = document.createElement("div");
+    bar.className = "cerini-quickbuy";
+    for (var i = 0; i < btns.length; i++) {
+      (function (b) {
+        var chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "cerini-quickbuy-chip";
+        chip.textContent = (b.getAttribute("data-option") || b.textContent).trim();
+        chip.addEventListener("click", function (e) {
+          e.preventDefault(); e.stopPropagation();
+          b.click(); // native variant selection
+          var add = form.querySelector(".js-addtocart, .buy-button-container .btn, [type=submit]");
+          if (add) add.click();
+        });
+        bar.appendChild(chip);
+      })(btns[i]);
+    }
+    imgc.appendChild(bar);
+  }
+
+  // Second-image indicator bar (mobile), only when the product has a secondary image.
+  function injectSecondImageIndicator(card, imgc) {
+    if (!card.querySelector(".product-item-image-secondary")) return;
+    var ind = document.createElement("div");
+    ind.className = "cerini-img-indicator";
+    ind.innerHTML = '<i class="is-active"></i><i></i>';
+    imgc.appendChild(ind);
+  }
+
   function renderCard(card) {
     if (!card || card.getAttribute(DONE)) return;
     card.setAttribute(DONE, "1");
     var imgc = card.querySelector(".product-item-image-container");
-    if (imgc) { ensureRelative(imgc); imgc.appendChild(makeEye(card, "mobile")); }
+    if (imgc) {
+      ensureRelative(imgc);
+      injectCucardas(card, imgc);
+      injectFavorite(card, imgc);
+      injectQuickBuy(card, imgc);
+      injectSecondImageIndicator(card, imgc);
+      imgc.appendChild(makeEye(card, "mobile"));
+    }
     var info = card.querySelector(".product-item-information");
     if (info) { ensureRelative(info); info.appendChild(makeEye(card, "desktop")); }
   }
