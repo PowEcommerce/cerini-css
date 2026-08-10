@@ -89,9 +89,13 @@ body.template-home .js-head-main{border-bottom:0!important}
   body.template-home .js-header:not(.f2tn-solid) .search-container{grid-column:1/-1!important;grid-row:2!important;justify-self:stretch!important;width:auto!important;margin-top:8px!important}
   body.template-home .js-header:not(.f2tn-solid) .search-floating-container{display:block!important;position:static!important;width:100%!important;height:auto!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
   body.template-home .js-header:not(.f2tn-solid) .js-search-trigger{display:none!important}
-  /* pill styling (Figma: rounded outline, white on the transparent hero) */
-  body.template-home .js-header:not(.f2tn-solid) .search-input{height:36px!important;border-radius:18px!important;background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.55)!important;color:#fff!important}
-  body.template-home .js-header:not(.f2tn-solid) .search-input::placeholder{color:rgba(255,255,255,.8)!important}
+  /* box styling per Figma: thin 0.5px white outline, 2px radius, transparent bg,
+     magnifier on the LEFT + "Buscar" placeholder (Manrope 14px, white) */
+  body.template-home .js-header:not(.f2tn-solid) .search-form{position:relative!important}
+  body.template-home .js-header:not(.f2tn-solid) .search-input{height:40px!important;border-radius:2px!important;border:.5px solid rgba(255,255,255,.9)!important;background:transparent!important;color:#fff!important;font-size:14px!important;padding-left:44px!important;padding-right:12px!important}
+  body.template-home .js-header:not(.f2tn-solid) .search-input::placeholder{color:#fff!important;opacity:1!important}
+  body.template-home .js-header:not(.f2tn-solid) .search-submit-btn,
+  body.template-home .js-header:not(.f2tn-solid) .js-search-input-submit{position:absolute!important;left:10px!important;right:auto!important;top:50%!important;bottom:auto!important;transform:translateY(-50%)!important;margin:0!important;background:transparent!important}
   /* scrolled -> white background, black text */
   body.template-home .js-header.f2tn-solid,
   body.template-home .js-header.f2tn-solid .js-head-main{background:#fff!important}
