@@ -17,12 +17,12 @@
 /* ==================================================================
    Header — transparent over hero on home; white on hover/scroll.
    Scroll toggles .f2tn-solid on .js-header (inline script, home only).
-   Desktop (>=1024): transparent + white text on entry; hover -> white bg;
+   Desktop (>=768): transparent + white text on entry; hover -> white bg;
    scroll -> white bg + hide category nav (reduced height).
    ================================================================== */
 /* the theme's head-main border-bottom shouldn't show over the hero */
 body.template-home .js-head-main{border-bottom:0!important}
-@media(min-width:1024px){
+@media(min-width:768px){
   body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .3s ease-out}
   body.template-home .js-header .js-head-main{background:transparent!important;transition:background-color .3s ease-out}
   /* smooth 300ms color transitions on the header content (matches scroll/hover) */
@@ -69,10 +69,11 @@ body.template-home .js-head-main{border-bottom:0!important}
   body.template-home .js-header.f2tn-solid .menu-container{display:block!important;grid-column:1!important;grid-row:1!important;justify-self:start!important;color:#000!important}
 }
 
-/* Mobile (home): transparent + white on entry with the full-width search bar;
-   scroll -> white sticky. (search collapse to magnifier = next iteration) */
-@media(max-width:1023px){
-  body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .4s ease-in-out}
+/* Mobile (home, <768): transparent + white on entry with the full-width search
+   bar on line 2; scroll -> white sticky and the bar collapses to a magnifier next
+   to the hamburger. Categories live in the menu (mobile category strip hidden). */
+@media(max-width:767px){
+  body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .3s ease-out}
   body.template-home .js-header .js-head-main{background:transparent!important}
   body.template-home .js-header:not(.f2tn-solid)::after{content:"";position:absolute;top:0;left:0;right:0;bottom:-24px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.18) 60%,rgba(0,0,0,0) 100%)}
   /* default transparent -> white text / icons / logo */
@@ -91,6 +92,14 @@ body.template-home .js-head-main{border-bottom:0!important}
   body.template-home .js-header.f2tn-solid svg{fill:#000!important;color:#000!important}
   body.template-home .js-header.f2tn-solid .logo-img{filter:none}
   body.template-home .js-header.f2tn-solid{border-bottom:1px solid rgba(0,0,0,.08)}
+  /* scroll -> hide the full-width search bar, show the magnifier trigger next to
+     the hamburger (Figma: [hamburger][lupa] ... logo ... [cart]) */
+  body.template-home .js-header.f2tn-solid .head-row.logo-center{grid-template-columns:auto auto 1fr auto!important}
+  body.template-home .js-header.f2tn-solid .menu-container{grid-column:1!important;grid-row:1!important;justify-self:start!important}
+  body.template-home .js-header.f2tn-solid .search-container{grid-column:2!important;grid-row:1!important;justify-self:start!important;width:auto!important;margin:0!important}
+  body.template-home .js-header.f2tn-solid .header-cart{grid-column:4!important;grid-row:1!important;justify-self:end!important}
+  body.template-home .js-header.f2tn-solid .search-floating-container{display:none!important}
+  body.template-home .js-header.f2tn-solid .js-search-trigger{display:grid!important}
 }
 
 /* ==================================================================
