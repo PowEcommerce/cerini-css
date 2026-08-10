@@ -20,7 +20,7 @@
 .cerini-qv-eye{position:absolute;z-index:10;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:transparent;color:#000;cursor:pointer;line-height:0}
 .cerini-qv-eye svg{width:17px;height:17px;display:block}
 .cerini-qv-eye-mobile{top:32px;right:10px}
-.cerini-qv-eye-desktop{display:none;top:16px;right:8px}
+.cerini-qv-eye-desktop{display:none;top:8px;right:8px}
 @media(min-width:768px){
   .cerini-qv-eye-mobile{display:none}
   .cerini-qv-eye-desktop{display:inline-flex}
