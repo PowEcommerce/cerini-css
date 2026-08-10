@@ -196,7 +196,6 @@
     container.innerHTML = "";
     var price = card.querySelector(".js-price-display, .product-item-price");
     var compare = card.querySelector(".js-compare-price-display, .product-item-price-compare");
-    var discount = card.querySelector(".product-item-discount");
     var hasCompare = compare && (compare.getAttribute("style") || "").replace(/\s/g, "").indexOf("display:none") === -1 && textOf(compare);
     if (hasCompare) {
       var c = document.createElement("span");
@@ -208,13 +207,7 @@
     p.className = "cerini-qv-price-main" + (hasCompare ? " is-sale" : "");
     p.textContent = textOf(price);
     container.appendChild(p);
-    var hasDiscount = discount && (discount.getAttribute("style") || "").replace(/\s/g, "").indexOf("display:none") === -1 && textOf(discount);
-    if (hasDiscount) {
-      var d = document.createElement("span");
-      d.className = "cerini-qv-discount";
-      d.textContent = textOf(discount);
-      container.appendChild(d);
-    }
+    // No cucardas in the quick-view modal: SALE tag and % off badge are omitted.
   }
 
   function renderAttrs(el, card) {
@@ -244,20 +237,6 @@
 
     var imagesEl = modalEl.querySelector(".cerini-qv-images");
     renderImages(imagesEl, collectImages(card)); // instant: card cover image
-
-    // SALE cucarda over the modal carousel (mirrors the card cucarda).
-    var imagesWrap = modalEl.querySelector(".cerini-qv-images-wrap");
-    var oldCuc = imagesWrap.querySelector(".cerini-qv-cucardas");
-    if (oldCuc) oldCuc.parentNode.removeChild(oldCuc);
-    if (isOnSale(card)) {
-      var cuc = document.createElement("div");
-      cuc.className = "cerini-cucardas cerini-qv-cucardas";
-      var saleTag = document.createElement("span");
-      saleTag.className = "cerini-cucarda cerini-cucarda-sale";
-      saleTag.textContent = "SALE";
-      cuc.appendChild(saleTag);
-      imagesWrap.appendChild(cuc);
-    }
     (function (token) {
       openToken = token;
       fetchGallery(card, function (urls) {
