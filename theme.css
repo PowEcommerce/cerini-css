@@ -132,3 +132,11 @@
 @media(max-width:767px){
   .cerini-img-indicator{display:flex}
 }
+
+/* ==================================================================
+   General site
+   ================================================================== */
+/* Antialiasing en todo el sitio */
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+/* Cualquier <a> que envuelva una imagen NO baja la opacity en hover (el theme la baja a .8) */
+a:has(img):hover,a:has(picture):hover{opacity:1!important}
