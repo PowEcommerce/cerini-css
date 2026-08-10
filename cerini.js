@@ -35,14 +35,6 @@
       'stroke-linecap="round" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16"/></svg>'
     );
   }
-  function heartSVG() {
-    return (
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" ' +
-      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
-      '<path d="M12 20s-7.5-4.6-9.6-9.2C1.1 7.6 2.6 5 5.5 5c1.9 0 3.3 1.1 4.1 2.4C10.3 6.1 11.6 5 13.5 5' +
-      ' 16.4 5 17.9 7.6 16.6 10.8 14.5 15.4 12 20 12 20Z" transform="translate(-.5 -1)"/></svg>'
-    );
-  }
 
   /* ---------- helpers ---------- */
   function imgSrc(img) {
@@ -264,20 +256,6 @@
     else { cont.className += " cerini-cucardas-standalone"; imgc.appendChild(cont); }
   }
 
-  // Favorite heart (visual). Real wishlist = TN app (to wire later).
-  function injectFavorite(card, imgc) {
-    var fav = document.createElement("button");
-    fav.type = "button";
-    fav.className = "cerini-fav";
-    fav.setAttribute("aria-label", "Favorito");
-    fav.innerHTML = heartSVG();
-    fav.addEventListener("click", function (e) {
-      e.preventDefault(); e.stopPropagation();
-      fav.classList.toggle("is-active");
-    });
-    imgc.appendChild(fav);
-  }
-
   // Quick buy on hover (desktop): size chips over the image; click adds to cart.
   function injectQuickBuy(card, imgc) {
     var form = card.querySelector(".js-item-variants");
@@ -322,7 +300,6 @@
     if (imgc) {
       ensureRelative(imgc);
       injectCucardas(card, imgc);
-      injectFavorite(card, imgc);
       injectQuickBuy(card, imgc);
       injectSecondImageIndicator(card, imgc);
       imgc.appendChild(makeEye(card, "mobile"));
