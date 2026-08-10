@@ -1,2 +1,3 @@
 .DS_Store
 tools/.tn-secret.json
+.claude/settings.local.json
