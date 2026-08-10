@@ -69,6 +69,9 @@ body.template-home .js-head-main{border-bottom:0!important}
   body.template-home .js-header.f2tn-solid .menu-container{display:block!important;grid-column:1!important;grid-row:1!important;justify-self:start!important;color:#000!important}
 }
 
+/* categories live in the menu on mobile — hide the horizontal category strip */
+.main-categories-container{display:none!important}
+
 /* Mobile (home, <768): transparent + white on entry with the full-width search
    bar on line 2; scroll -> white sticky and the bar collapses to a magnifier next
    to the hamburger. Categories live in the menu (mobile category strip hidden). */
@@ -81,8 +84,13 @@ body.template-home .js-head-main{border-bottom:0!important}
   body.template-home .js-header a{color:#fff!important}
   body.template-home .js-header svg{fill:#fff!important;color:#fff!important}
   body.template-home .js-header .logo-img{filter:brightness(0) invert(1)}
-  /* full-width search bar styled for the transparent state */
-  body.template-home .js-header:not(.f2tn-solid) .search-input{background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.55)!important;color:#fff!important}
+  /* force the full-width search bar (line 2) in the transparent state, regardless
+     of the theme's icon/expanded search mode; magnifier hidden while the bar shows */
+  body.template-home .js-header:not(.f2tn-solid) .search-container{grid-column:1/-1!important;grid-row:2!important;justify-self:stretch!important;width:auto!important;margin-top:8px!important}
+  body.template-home .js-header:not(.f2tn-solid) .search-floating-container{display:block!important;position:static!important;width:100%!important;height:auto!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+  body.template-home .js-header:not(.f2tn-solid) .js-search-trigger{display:none!important}
+  /* pill styling (Figma: rounded outline, white on the transparent hero) */
+  body.template-home .js-header:not(.f2tn-solid) .search-input{height:36px!important;border-radius:18px!important;background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.55)!important;color:#fff!important}
   body.template-home .js-header:not(.f2tn-solid) .search-input::placeholder{color:rgba(255,255,255,.8)!important}
   /* scrolled -> white background, black text */
   body.template-home .js-header.f2tn-solid,
