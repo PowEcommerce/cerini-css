@@ -120,7 +120,6 @@
         '<div class="cerini-qv-scroll">' +
           '<div class="cerini-qv-images-wrap">' +
             '<div class="cerini-qv-images"></div>' +
-            '<div class="cerini-qv-progress" hidden></div>' +
           "</div>" +
           '<div class="cerini-qv-info">' +
             '<div class="cerini-qv-info-main">' +
@@ -144,10 +143,9 @@
     return ov;
   }
 
-  function renderImages(container, prog, urls) {
+  function renderImages(container, urls) {
     container.innerHTML = "";
-    prog.innerHTML = "";
-    if (!urls.length) { container.parentNode.style.display = "none"; prog.hidden = true; return; }
+    if (!urls.length) { container.parentNode.style.display = "none"; return; }
     container.parentNode.style.display = "";
     urls.forEach(function (u) {
       var slide = document.createElement("div");
@@ -159,25 +157,7 @@
       slide.appendChild(im);
       container.appendChild(slide);
     });
-    // carousel progress bar (one segment per image, only when there's more than one)
-    if (urls.length < 2) { prog.hidden = true; }
-    else {
-      for (var i = 0; i < urls.length; i++) {
-        var seg = document.createElement("i");
-        if (i === 0) seg.className = "is-active";
-        prog.appendChild(seg);
-      }
-      prog.hidden = false;
-    }
     container.scrollLeft = 0;
-    container.onscroll = function () {
-      var slides = container.querySelectorAll(".cerini-qv-slide");
-      if (!slides.length) return;
-      var step = slides[0].offsetWidth + 11; // slide width + gap
-      var idx = Math.round(container.scrollLeft / step);
-      var segs = prog.children;
-      for (var k = 0; k < segs.length; k++) segs[k].className = (k === idx ? "is-active" : "");
-    };
   }
 
   function renderPrice(container, card) {
@@ -231,13 +211,12 @@
     if (!modalEl) modalEl = buildModalShell();
 
     var imagesEl = modalEl.querySelector(".cerini-qv-images");
-    var progEl = modalEl.querySelector(".cerini-qv-progress");
-    renderImages(imagesEl, progEl, collectImages(card)); // instant: card cover image
+    renderImages(imagesEl, collectImages(card)); // instant: card cover image
     (function (token) {
       openToken = token;
       fetchGallery(card, function (urls) {
         // ignore if the user already opened a different product meanwhile
-        if (openToken === token && urls && urls.length) renderImages(imagesEl, progEl, urls);
+        if (openToken === token && urls && urls.length) renderImages(imagesEl, urls);
       });
     })((openToken || 0) + 1);
     modalEl.querySelector(".cerini-qv-name").textContent =
