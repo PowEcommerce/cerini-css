@@ -125,6 +125,7 @@
 /* cucardas (SALE now; BEST SELLER/CERINI FAV need category data) */
 .cerini-cucardas{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
 .cerini-cucardas-standalone{position:absolute;top:10px;left:10px;z-index:9}
+.cerini-qv-cucardas{position:absolute;top:16px;left:16px;z-index:2}
 .cerini-cucarda{display:inline-flex;align-items:center;justify-content:center;padding:3px 6px;font-size:10px;font-weight:300;line-height:1;letter-spacing:.02em;text-transform:uppercase;color:#fff;white-space:nowrap}
 .cerini-cucarda-sale{background:#b90000}
 .cerini-cucarda-bestseller{background:#000}

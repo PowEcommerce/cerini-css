@@ -212,6 +212,20 @@
 
     var imagesEl = modalEl.querySelector(".cerini-qv-images");
     renderImages(imagesEl, collectImages(card)); // instant: card cover image
+
+    // SALE cucarda over the modal carousel (mirrors the card cucarda).
+    var imagesWrap = modalEl.querySelector(".cerini-qv-images-wrap");
+    var oldCuc = imagesWrap.querySelector(".cerini-qv-cucardas");
+    if (oldCuc) oldCuc.parentNode.removeChild(oldCuc);
+    if (isOnSale(card)) {
+      var cuc = document.createElement("div");
+      cuc.className = "cerini-cucardas cerini-qv-cucardas";
+      var saleTag = document.createElement("span");
+      saleTag.className = "cerini-cucarda cerini-cucarda-sale";
+      saleTag.textContent = "SALE";
+      cuc.appendChild(saleTag);
+      imagesWrap.appendChild(cuc);
+    }
     (function (token) {
       openToken = token;
       fetchGallery(card, function (urls) {
