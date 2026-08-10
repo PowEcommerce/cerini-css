@@ -48,7 +48,7 @@
 .cerini-qv-slide{flex:0 0 auto;width:82%;aspect-ratio:1;background:#f7f7f7;scroll-snap-align:start;overflow:hidden}
 .cerini-qv-slide img{width:100%;height:100%;object-fit:contain}
 
-.cerini-qv-info{flex:1 1 auto;display:flex;flex-direction:column;gap:24px;padding:0 20px 24px}
+.cerini-qv-info{flex:1 1 auto;display:flex;flex-direction:column;gap:24px;padding:0 20px}
 .cerini-qv-info-main{display:flex;flex-direction:column;gap:16px}
 .cerini-qv-name{margin:0;font-size:24px;font-weight:600;line-height:normal}
 .cerini-qv-attrs{display:flex;flex-wrap:wrap;gap:8px;font-size:10px;font-weight:400;line-height:normal}
@@ -75,12 +75,12 @@
 .cerini-qv-native .js-variant-button.btn-variant{min-width:68px;height:35px;padding:0 8px;display:inline-flex;align-items:center;justify-content:center;border:.5px solid #000;border-radius:0;background:#fff;color:#000;font-size:14px;font-weight:400;margin:0}
 .cerini-qv-native .js-variant-button.btn-variant.selected{background:#000;color:#fff}
 /* actions row = sticky footer (qty box + add to cart) */
-.cerini-qv-native .quickshop-actions{position:sticky;bottom:0;display:flex;gap:16px;align-items:stretch;margin:auto -20px 0;padding:20px;background:#fff;box-shadow:0 -1px 0 rgba(0,0,0,.25)}
+.cerini-qv-native .quickshop-actions{position:sticky;bottom:0;z-index:2;display:flex;gap:16px;align-items:stretch;margin:auto -20px 0;padding:20px;background:#fff;box-shadow:0 -1px 0 rgba(0,0,0,.25)}
 /* quantity selector — override native .btn / .icon-45px / .form-control chrome */
 .cerini-qv-native .form-quantity-container{flex:none;margin:0;padding:0}
 .cerini-qv-native .form-group.js-quantity,
 .cerini-qv-native .product-quantity-input-group{margin:0;padding:0;border:0}
-.cerini-qv-native .form-quantity{width:101px;height:45px;border:.5px solid #000;display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;gap:25px;padding:0}
+.cerini-qv-native .form-quantity{width:101px;height:45px;border:.5px solid #000;border-radius:0;display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;gap:25px;padding:0}
 .cerini-qv-native .form-quantity-icon,
 .cerini-qv-native .form-quantity-icon.btn.icon-45px{width:15px;height:15px;min-width:0;min-height:0;max-width:none;flex:none;margin:0;padding:0;border:0;background:none;box-shadow:none;border-radius:0;display:inline-flex;align-items:center;justify-content:center;color:#000;cursor:pointer;line-height:1}
 .cerini-qv-native .form-quantity-icon svg,
