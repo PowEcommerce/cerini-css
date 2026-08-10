@@ -78,11 +78,18 @@
 .cerini-qv-native .js-variant-button.btn-variant.selected{background:#000;color:#fff}
 /* actions row = sticky footer (qty box + add to cart) */
 .cerini-qv-native .quickshop-actions{position:sticky;bottom:0;display:flex;gap:16px;align-items:stretch;margin:auto -20px 0;padding:20px;background:#fff;box-shadow:0 -1px 0 rgba(0,0,0,.25)}
-.cerini-qv-native .form-quantity-container{flex:none;margin:0}
-.cerini-qv-native .form-quantity{width:101px;height:45px;border:.5px solid #000;display:flex;align-items:center;justify-content:center;gap:25px}
-.cerini-qv-native .form-quantity-icon{width:auto;height:auto;min-width:0;border:0;background:transparent;padding:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
-.cerini-qv-native .form-quantity-icon svg{width:15px;height:15px}
-.cerini-qv-native .js-quantity-input{width:26px;border:0;text-align:center;font-size:14px;background:transparent;-moz-appearance:textfield}
+/* quantity selector — override native .btn / .icon-45px / .form-control chrome */
+.cerini-qv-native .form-quantity-container{flex:none;margin:0;padding:0}
+.cerini-qv-native .form-group.js-quantity,
+.cerini-qv-native .product-quantity-input-group{margin:0;padding:0;border:0}
+.cerini-qv-native .form-quantity{width:101px;height:45px;border:.5px solid #000;display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;gap:25px;padding:0}
+.cerini-qv-native .form-quantity-icon,
+.cerini-qv-native .form-quantity-icon.btn.icon-45px{width:15px;height:15px;min-width:0;min-height:0;max-width:none;flex:none;margin:0;padding:0;border:0;background:none;box-shadow:none;border-radius:0;display:inline-flex;align-items:center;justify-content:center;color:#000;cursor:pointer;line-height:1}
+.cerini-qv-native .form-quantity-icon svg,
+.cerini-qv-native .form-quantity-icon .icon-inline{width:15px;height:15px;display:block}
+.cerini-qv-native .form-control-container{margin:0;padding:0;border:0;width:auto}
+.cerini-qv-native input.js-quantity-input,
+.cerini-qv-native .js-quantity-input.form-control{width:14px;min-width:0;height:auto;margin:0;padding:0;border:0;box-shadow:none;text-align:center;font-size:14px;font-weight:400;line-height:1;color:#000;background:transparent;-moz-appearance:textfield}
 .cerini-qv-native .js-quantity-input::-webkit-outer-spin-button,
 .cerini-qv-native .js-quantity-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .cerini-qv-native .buy-button-container{flex:1;display:flex}

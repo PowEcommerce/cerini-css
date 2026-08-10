@@ -18,6 +18,7 @@
   var DONE = "data-cerini-qv";
   var modalEl = null;
   var activeForm = null; // { node, placeholder } for restoring the moved native form
+  var openToken = 0;     // guards async gallery fetch against rapid re-opens
 
   /* ---------- icons ---------- */
   function eyeSVG() {
@@ -49,6 +50,35 @@
       }
     }
     return src;
+  }
+
+  // The product card exposes only its cover image. Fetch the PDP once to get the
+  // full gallery so the modal slider + paginator match Figma (multiple images).
+  var galleryCache = {};
+  function fetchGallery(card, cb) {
+    var link = card.querySelector("a.product-item-link, a[href*='/productos/'], a[href]");
+    var url = link && link.href;
+    var pid = card.getAttribute("data-product-id") || url || "";
+    if (!url) { cb(null); return; }
+    if (galleryCache[pid]) { cb(galleryCache[pid]); return; }
+    if (typeof fetch !== "function" || typeof DOMParser !== "function") { cb(null); return; }
+    fetch(url, { credentials: "same-origin" })
+      .then(function (r) { return r.ok ? r.text() : null; })
+      .then(function (html) {
+        if (!html) { cb(null); return; }
+        var doc = new DOMParser().parseFromString(html, "text/html");
+        var slides = doc.querySelectorAll(".js-product-slide");
+        var urls = [], seen = {};
+        for (var i = 0; i < slides.length; i++) {
+          var a = slides[i].querySelector("a.js-product-slide-link, a[href]");
+          var u = (a && a.getAttribute("href")) || imgSrc(slides[i].querySelector("img"));
+          if (u && u.indexOf("//") === 0) u = "https:" + u;
+          if (u && !seen[u]) { seen[u] = 1; urls.push(u); }
+        }
+        galleryCache[pid] = urls;
+        cb(urls.length ? urls : null);
+      })
+      .catch(function () { cb(null); });
   }
 
   function collectImages(card) {
@@ -200,8 +230,16 @@
   function open(card) {
     if (!modalEl) modalEl = buildModalShell();
 
-    renderImages(modalEl.querySelector(".cerini-qv-images"),
-      modalEl.querySelector(".cerini-qv-progress"), collectImages(card));
+    var imagesEl = modalEl.querySelector(".cerini-qv-images");
+    var progEl = modalEl.querySelector(".cerini-qv-progress");
+    renderImages(imagesEl, progEl, collectImages(card)); // instant: card cover image
+    (function (token) {
+      openToken = token;
+      fetchGallery(card, function (urls) {
+        // ignore if the user already opened a different product meanwhile
+        if (openToken === token && urls && urls.length) renderImages(imagesEl, progEl, urls);
+      });
+    })((openToken || 0) + 1);
     modalEl.querySelector(".cerini-qv-name").textContent =
       textOf(card.querySelector(".js-item-name, .product-item-name"));
     renderAttrs(modalEl.querySelector(".cerini-qv-attrs"), card);
