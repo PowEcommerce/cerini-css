@@ -35,59 +35,67 @@
 .cerini-qv-modal{position:absolute;top:0;right:0;height:100%;width:442px;max-width:100vw;background:#fff;display:flex;flex-direction:column;overflow:hidden;transform:translateX(100%);transition:transform .35s ease}
 .cerini-qv-overlay.is-in .cerini-qv-modal{transform:translateX(0)}
 
-.cerini-qv-header{display:flex;align-items:center;justify-content:space-between;flex:none;padding:16px 20px}
-.cerini-qv-title{font-size:14px;font-weight:600}
-.cerini-qv-x{border:0;background:transparent;cursor:pointer;color:#000;display:inline-flex;padding:0;width:20px;height:20px}
+/* close X floats over the images (Figma: top 24 / right 24, no title) */
+.cerini-qv-x{position:absolute;top:24px;right:24px;z-index:2;border:0;background:transparent;cursor:pointer;color:#000;display:inline-flex;padding:0;width:20px;height:20px}
 .cerini-qv-x svg{width:20px;height:20px}
 
-.cerini-qv-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.cerini-qv-scroll{flex:1;display:flex;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch}
 
-.cerini-qv-images{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-bottom:22px}
+/* images carousel + progress bar */
+.cerini-qv-images-wrap{position:relative;margin-bottom:22px}
+.cerini-qv-images{display:flex;gap:11px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .cerini-qv-images::-webkit-scrollbar{display:none}
-.cerini-qv-slide{flex:0 0 auto;width:82%;aspect-ratio:1;background:#f6f5f3;scroll-snap-align:start;overflow:hidden}
+.cerini-qv-slide{flex:0 0 auto;width:82%;aspect-ratio:1;background:#f7f7f7;scroll-snap-align:start;overflow:hidden}
 .cerini-qv-slide img{width:100%;height:100%;object-fit:contain}
+.cerini-qv-progress{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:4px;z-index:1;pointer-events:none}
+.cerini-qv-progress i{display:block;width:40px;height:2px;background:rgba(0,0,0,.2);transition:background .2s ease}
+.cerini-qv-progress i.is-active{background:#000}
 
-.cerini-qv-info{display:flex;flex-direction:column;gap:16px;padding:0 20px 24px}
-.cerini-qv-name{margin:0;font-size:24px;font-weight:600;line-height:1.1}
-.cerini-qv-highlights{display:flex;flex-wrap:wrap;gap:8px;font-size:10px;font-weight:400}
-.cerini-qv-sep{opacity:.6}
+.cerini-qv-info{flex:1 1 auto;display:flex;flex-direction:column;gap:24px;padding:0 20px 24px}
+.cerini-qv-info-main{display:flex;flex-direction:column;gap:16px}
+.cerini-qv-name{margin:0;font-size:24px;font-weight:600;line-height:normal}
+.cerini-qv-attrs{display:flex;flex-wrap:wrap;gap:8px;font-size:10px;font-weight:400;line-height:normal}
+.cerini-qv-sep{opacity:1}
 .cerini-qv-price{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
 .cerini-qv-price-main{font-size:20px;font-weight:600}
 .cerini-qv-price-main.is-sale{color:#b90000}
 .cerini-qv-compare{order:-1;font-size:14px;font-weight:300;text-decoration:line-through}
 .cerini-qv-discount{display:inline-flex;align-items:center;padding:3px 6px;font-size:10px;font-weight:300;line-height:1;color:#fff;background:#b90000}
-.cerini-qv-cuotas{font-size:12px}
-.cerini-qv-more{font-size:12px;font-weight:500;color:#000;text-decoration:underline;align-self:flex-start}
+.cerini-qv-cuotas{font-size:12px;font-weight:400;line-height:normal}
+.cerini-qv-cuotas-n{font-weight:500}
+.cerini-qv-options{flex:1 1 auto;display:flex;flex-direction:column;gap:16px}
+.cerini-qv-more{font-size:12px;font-weight:500;color:#000;text-decoration:underline;text-underline-offset:3px;align-self:flex-start}
 
 /* moved native variants + add-to-cart form -> Figma chips / qty / sticky footer */
-.cerini-qv-native{display:block!important;margin:0;width:100%}
+.cerini-qv-native{display:flex!important;flex-direction:column;flex:1 1 auto;margin:0;width:100%}
+.cerini-qv-native .js-product-form{display:flex;flex-direction:column;flex:1 1 auto;gap:16px}
 .cerini-qv-native .form-group.d-none{display:none!important}
 .cerini-qv-native .product-detail-variants-group{display:flex;align-items:center;flex-wrap:wrap;gap:24px;margin:0}
-.cerini-qv-native .form-label{margin:0;font-size:14px;font-weight:500;text-transform:none}
+.cerini-qv-native .js-product-variants{display:flex;flex-direction:column;gap:16px}
+.cerini-qv-native .form-label{margin:0;font-size:14px;font-weight:500;text-transform:capitalize}
 .cerini-qv-native .form-label .js-insta-variation-label{display:none}
 .cerini-qv-native .js-variant-button.btn-variant{min-width:68px;height:35px;padding:0 8px;display:inline-flex;align-items:center;justify-content:center;border:.5px solid #000;border-radius:0;background:#fff;color:#000;font-size:14px;font-weight:400;margin:0}
 .cerini-qv-native .js-variant-button.btn-variant.selected{background:#000;color:#fff}
 /* actions row = sticky footer (qty box + add to cart) */
-.cerini-qv-native .quickshop-actions{position:sticky;bottom:0;display:flex;gap:16px;align-items:stretch;margin:24px -20px 0;padding:20px;background:#fff;box-shadow:0 -1px 0 rgba(0,0,0,.25)}
+.cerini-qv-native .quickshop-actions{position:sticky;bottom:0;display:flex;gap:16px;align-items:stretch;margin:auto -20px 0;padding:20px;background:#fff;box-shadow:0 -1px 0 rgba(0,0,0,.25)}
 .cerini-qv-native .form-quantity-container{flex:none;margin:0}
-.cerini-qv-native .form-quantity{width:101px;height:45px;border:.5px solid #000;display:flex;align-items:center;justify-content:center;gap:6px}
-.cerini-qv-native .form-quantity-icon{width:auto;height:auto;min-width:0;border:0;background:transparent;padding:0}
+.cerini-qv-native .form-quantity{width:101px;height:45px;border:.5px solid #000;display:flex;align-items:center;justify-content:center;gap:25px}
+.cerini-qv-native .form-quantity-icon{width:auto;height:auto;min-width:0;border:0;background:transparent;padding:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.cerini-qv-native .form-quantity-icon svg{width:15px;height:15px}
 .cerini-qv-native .js-quantity-input{width:26px;border:0;text-align:center;font-size:14px;background:transparent;-moz-appearance:textfield}
 .cerini-qv-native .js-quantity-input::-webkit-outer-spin-button,
 .cerini-qv-native .js-quantity-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .cerini-qv-native .buy-button-container{flex:1;display:flex}
 .cerini-qv-native .js-addtocart,
-.cerini-qv-native .buy-button-container .btn{flex:1;height:45px;background:#000;color:#fff;border:0;border-radius:0;font-size:14px}
+.cerini-qv-native .buy-button-container .btn{flex:1;height:45px;display:inline-flex;align-items:center;justify-content:center;background:#000;color:#fff;border:0;border-radius:0;font-size:14px;font-weight:400;text-transform:none;letter-spacing:0}
 .cerini-qv-native .product-quantity-stock{display:none}
 
 .cerini-qv-footer{flex:none;display:flex;gap:16px;padding:20px;background:#fff;box-shadow:0 -1px 0 rgba(0,0,0,.25)}
 .cerini-qv-footer:empty{display:none}
 .cerini-qv-cta{flex:1;display:inline-flex;align-items:center;justify-content:center;height:45px;background:#000;color:#fff;font-size:14px;text-decoration:none}
 
-/* desktop: X floats over the image, no title */
+/* desktop: fixed-width 442 drawer, square 309 slides */
 @media(min-width:768px){
-  .cerini-qv-header{position:absolute;top:24px;left:24px;right:24px;padding:0;z-index:2}
-  .cerini-qv-title{display:none}
   .cerini-qv-slide{width:309px}
 }
 /* mobile: bottom sheet */

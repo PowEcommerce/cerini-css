@@ -39,8 +39,16 @@
   /* ---------- helpers ---------- */
   function imgSrc(img) {
     if (!img) return "";
-    return img.getAttribute("src") || img.getAttribute("data-src") ||
-      (img.currentSrc || "");
+    var src = img.getAttribute("src") || "";
+    // Skip inline placeholders (lazy-load gifs); prefer the real source.
+    if (!src || src.indexOf("data:") === 0) {
+      src = img.getAttribute("data-src") || img.currentSrc || "";
+      if ((!src || src.indexOf("data:") === 0)) {
+        var ss = img.getAttribute("data-srcset") || img.getAttribute("srcset") || "";
+        if (ss) src = ss.split(",").pop().trim().split(" ")[0];
+      }
+    }
+    return src;
   }
 
   function collectImages(card) {
@@ -55,6 +63,18 @@
   }
 
   function textOf(el) { return el ? el.textContent.trim() : ""; }
+
+  // Native variant label reads "TAMAÑO: 240ml" — Figma wants just "Tamaño".
+  // Rewrite each visible group label to the part before the colon (CSS capitalizes it).
+  function cleanVariantLabels(form) {
+    var labels = form.querySelectorAll(".product-detail-variants-group > label.form-label");
+    for (var i = 0; i < labels.length; i++) {
+      if (labels[i].getAttribute("data-cerini-clean")) continue;
+      labels[i].setAttribute("data-cerini-clean", "1");
+      // lowercase so the CSS `text-transform:capitalize` yields "Tamaño", not "TAMAÑO"
+      labels[i].textContent = labels[i].textContent.split(":")[0].trim().toLowerCase();
+    }
+  }
   function isVisible(el) {
     return el && el.offsetParent !== null &&
       !(el.getAttribute("style") || "").replace(/\s/g, "").indexOf("display:none") >= 0;
@@ -66,19 +86,22 @@
     ov.className = "cerini-qv-overlay";
     ov.innerHTML =
       '<aside class="cerini-qv-modal" role="dialog" aria-modal="true" aria-label="Vista rápida">' +
-        '<div class="cerini-qv-header">' +
-          '<span class="cerini-qv-title">Vista rápida</span>' +
-          '<button type="button" class="cerini-qv-x" aria-label="Cerrar">' + closeSVG() + "</button>" +
-        "</div>" +
+        '<button type="button" class="cerini-qv-x" aria-label="Cerrar">' + closeSVG() + "</button>" +
         '<div class="cerini-qv-scroll">' +
-          '<div class="cerini-qv-images"></div>' +
+          '<div class="cerini-qv-images-wrap">' +
+            '<div class="cerini-qv-images"></div>' +
+            '<div class="cerini-qv-progress" hidden></div>' +
+          "</div>" +
           '<div class="cerini-qv-info">' +
-            '<h2 class="cerini-qv-name"></h2>' +
-            '<div class="cerini-qv-highlights" hidden></div>' +
-            '<div class="cerini-qv-price"></div>' +
-            '<div class="cerini-qv-cuotas" hidden></div>' +
-            '<div class="cerini-qv-options"></div>' +
-            '<a class="cerini-qv-more" href="#">Ver más detalles del producto</a>' +
+            '<div class="cerini-qv-info-main">' +
+              '<h2 class="cerini-qv-name"></h2>' +
+              '<div class="cerini-qv-attrs" hidden></div>' +
+              '<div class="cerini-qv-price"></div>' +
+              '<div class="cerini-qv-cuotas" hidden></div>' +
+            "</div>" +
+            '<div class="cerini-qv-options">' +
+              '<a class="cerini-qv-more" href="#">Ver más detalles del producto</a>' +
+            "</div>" +
           "</div>" +
         "</div>" +
         '<div class="cerini-qv-footer"></div>' +
@@ -91,10 +114,11 @@
     return ov;
   }
 
-  function renderImages(container, urls) {
+  function renderImages(container, prog, urls) {
     container.innerHTML = "";
-    if (!urls.length) { container.style.display = "none"; return; }
-    container.style.display = "";
+    prog.innerHTML = "";
+    if (!urls.length) { container.parentNode.style.display = "none"; prog.hidden = true; return; }
+    container.parentNode.style.display = "";
     urls.forEach(function (u) {
       var slide = document.createElement("div");
       slide.className = "cerini-qv-slide";
@@ -105,6 +129,25 @@
       slide.appendChild(im);
       container.appendChild(slide);
     });
+    // carousel progress bar (one segment per image, only when there's more than one)
+    if (urls.length < 2) { prog.hidden = true; }
+    else {
+      for (var i = 0; i < urls.length; i++) {
+        var seg = document.createElement("i");
+        if (i === 0) seg.className = "is-active";
+        prog.appendChild(seg);
+      }
+      prog.hidden = false;
+    }
+    container.scrollLeft = 0;
+    container.onscroll = function () {
+      var slides = container.querySelectorAll(".cerini-qv-slide");
+      if (!slides.length) return;
+      var step = slides[0].offsetWidth + 11; // slide width + gap
+      var idx = Math.round(container.scrollLeft / step);
+      var segs = prog.children;
+      for (var k = 0; k < segs.length; k++) segs[k].className = (k === idx ? "is-active" : "");
+    };
   }
 
   function renderPrice(container, card) {
@@ -132,14 +175,19 @@
     }
   }
 
-  function renderHighlights(el, card) {
-    // Highlights come from product custom fields — not in the card DOM yet.
-    // Supported via a pre-generated data attribute: data-cerini-highlights='["a","b","c"]'
-    var raw = card.getAttribute("data-cerini-highlights");
-    if (!raw) { el.hidden = true; return; }
-    var items;
-    try { items = JSON.parse(raw); } catch (e) { items = null; }
-    if (!items || !items.length) { el.hidden = true; return; }
+  function renderAttrs(el, card) {
+    // Product attributes row ("Nutrición · Crueltyfree · Todo tipo de cabellos").
+    // These are product categories — not in the card DOM. Fed via pre-generated
+    // data: a data-cerini-attrs='["a","b","c"]' attribute on the card, or a global
+    // window.CERINI_ATTRS = { "<productId>": ["a","b","c"] }. Hidden if absent.
+    var raw = card.getAttribute("data-cerini-attrs") || card.getAttribute("data-cerini-highlights");
+    var items = null;
+    if (raw) { try { items = JSON.parse(raw); } catch (e) { items = null; } }
+    if ((!items || !items.length) && window.CERINI_ATTRS) {
+      var pid = card.getAttribute("data-product-id");
+      if (pid && window.CERINI_ATTRS[pid]) items = window.CERINI_ATTRS[pid];
+    }
+    if (!items || !items.length) { el.hidden = true; el.innerHTML = ""; return; }
     el.innerHTML = "";
     items.slice(0, 3).forEach(function (t, i) {
       if (i) { var sep = document.createElement("span"); sep.className = "cerini-qv-sep"; sep.textContent = "·"; el.appendChild(sep); }
@@ -152,24 +200,37 @@
   function open(card) {
     if (!modalEl) modalEl = buildModalShell();
 
-    renderImages(modalEl.querySelector(".cerini-qv-images"), collectImages(card));
+    renderImages(modalEl.querySelector(".cerini-qv-images"),
+      modalEl.querySelector(".cerini-qv-progress"), collectImages(card));
     modalEl.querySelector(".cerini-qv-name").textContent =
       textOf(card.querySelector(".js-item-name, .product-item-name"));
-    renderHighlights(modalEl.querySelector(".cerini-qv-highlights"), card);
+    renderAttrs(modalEl.querySelector(".cerini-qv-attrs"), card);
     renderPrice(modalEl.querySelector(".cerini-qv-price"), card);
 
+    // Cuotas — rebuilt to Figma format "N cuotas sin interés de $X" from the card spans.
     var cuotas = modalEl.querySelector(".cerini-qv-cuotas");
-    var inst = card.querySelector(".product-item-installments");
-    if (inst && textOf(inst)) { cuotas.textContent = textOf(inst); cuotas.hidden = false; }
-    else { cuotas.hidden = true; }
+    var inst = card.querySelector(".js-max-installments-container, .product-item-installments");
+    var amt = inst && inst.querySelector(".js-installment-amount, .product-installment-amount");
+    var val = inst && inst.querySelector(".js-installment-price, .product-installment-value");
+    if (amt && val && textOf(amt) && textOf(val)) {
+      var price = textOf(val).replace(/,\d{2}$/, ""); // drop cents to match Figma ($29.983)
+      cuotas.innerHTML = '<span class="cerini-qv-cuotas-n"></span> cuotas sin interés de ' +
+        '<span class="cerini-qv-cuotas-n"></span>';
+      cuotas.children[0].textContent = textOf(amt);
+      cuotas.children[1].textContent = price;
+      cuotas.hidden = false;
+    } else if (inst && textOf(inst)) {
+      cuotas.textContent = textOf(inst); cuotas.hidden = false;
+    } else { cuotas.hidden = true; }
 
     var link = card.querySelector("a.product-item-link, a.js-product-item-image-link-private, a[href]");
     modalEl.querySelector(".cerini-qv-more").setAttribute("href", (link && link.href) || "#");
 
     // Move the native variants + add-to-cart form into the modal (keeps handlers).
+    // The "ver más" link is a permanent child of .cerini-qv-options — keep it.
     var options = modalEl.querySelector(".cerini-qv-options");
     var footer = modalEl.querySelector(".cerini-qv-footer");
-    options.innerHTML = "";
+    var more = options.querySelector(".cerini-qv-more");
     footer.innerHTML = "";
     var form = card.querySelector(".js-item-variants");
     if (form) {
@@ -178,11 +239,13 @@
       activeForm = { node: form, placeholder: ph };
       form.classList.remove("hidden");
       form.classList.add("cerini-qv-native");
-      options.appendChild(form);
-      // Figma order inside the form: variants -> "ver más" -> actions (qty + CTA sticky footer)
+      cleanVariantLabels(form);
+      options.insertBefore(form, more); // variants above "ver más"
+      // Figma order: variants -> "ver más" -> actions (qty + CTA sticky footer).
+      // .quickshop-actions lives inside the inner <form>, so insert relative to
+      // its real parent (insertBefore throws if the ref node isn't a direct child).
       var actions = form.querySelector(".quickshop-actions");
-      var more = modalEl.querySelector(".cerini-qv-more");
-      if (actions && more) form.insertBefore(more, actions);
+      if (actions && more) actions.parentNode.insertBefore(more, actions);
     } else {
       activeForm = null;
       // Simple product (no variants): footer CTA links to the product page.
@@ -204,7 +267,7 @@
     // Restore the native form to its card (rescue "ver más" first — it was moved inside the form).
     if (activeForm && activeForm.node) {
       var more = activeForm.node.querySelector(".cerini-qv-more");
-      if (more) modalEl.querySelector(".cerini-qv-info").appendChild(more);
+      if (more) modalEl.querySelector(".cerini-qv-options").appendChild(more);
     }
     if (activeForm && activeForm.placeholder && activeForm.placeholder.parentNode) {
       activeForm.node.classList.remove("cerini-qv-native");
