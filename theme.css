@@ -107,7 +107,7 @@
    sheet never reaches the top; drag it down (grab handle) or tap X to close */
 .cerini-qv-grab{display:none}
 @media(max-width:767px){
-  .cerini-qv-modal{top:auto;left:0;right:0;width:100%;height:auto;max-height:calc(100vh - 56px);max-height:calc(100dvh - 56px);border-radius:0;transform:translateY(100%);touch-action:pan-y}
+  .cerini-qv-modal{top:auto;bottom:0;left:0;right:0;width:100%;height:auto;max-height:calc(100vh - 56px);max-height:calc(100dvh - 56px);border-radius:0;transform:translateY(100%);touch-action:pan-y}
   .cerini-qv-overlay.is-in .cerini-qv-modal{transform:translateY(0)}
   .cerini-qv-grab{display:block;flex:none;width:40px;height:4px;margin:8px auto 0;border-radius:2px;background:rgba(0,0,0,.2)}
 }
