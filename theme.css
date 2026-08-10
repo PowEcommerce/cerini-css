@@ -26,7 +26,7 @@
   body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .4s ease-in-out}
   body.template-home .js-header .js-head-main{background:transparent!important}
   /* legibility scrim behind the transparent (default) header */
-  body.template-home .js-header:not(.f2tn-solid):not(:hover)::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,0))}
+  body.template-home .js-header:not(.f2tn-solid):not(:hover)::after{content:"";position:absolute;top:0;left:0;right:0;bottom:-48px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.22) 55%,rgba(0,0,0,0) 100%)}
   /* default transparent -> white text / icons / logo */
   body.template-home .js-header,
   body.template-home .js-header a{color:#fff!important}
