@@ -116,6 +116,7 @@
     ov.className = "cerini-qv-overlay";
     ov.innerHTML =
       '<aside class="cerini-qv-modal" role="dialog" aria-modal="true" aria-label="Vista rápida">' +
+        '<span class="cerini-qv-grab" aria-hidden="true"></span>' +
         '<button type="button" class="cerini-qv-x" aria-label="Cerrar">' + closeSVG() + "</button>" +
         '<div class="cerini-qv-scroll">' +
           '<div class="cerini-qv-images-wrap">' +
@@ -139,8 +140,39 @@
       if (e.target === ov) close();
     });
     ov.querySelector(".cerini-qv-x").addEventListener("click", close);
+    enableSheetDrag(ov);
     document.body.appendChild(ov);
     return ov;
+  }
+
+  // Mobile bottom-sheet: drag the sheet down (from the top, when the content is
+  // scrolled to the top) to close it. Past the threshold -> close, else snap back.
+  function enableSheetDrag(ov) {
+    var modal = ov.querySelector(".cerini-qv-modal");
+    var scroll = ov.querySelector(".cerini-qv-scroll");
+    var startY = 0, dy = 0, dragging = false;
+    function isMobile() { return window.matchMedia("(max-width:767px)").matches; }
+    modal.addEventListener("touchstart", function (e) {
+      if (!isMobile() || e.touches.length !== 1 || scroll.scrollTop > 0) return;
+      startY = e.touches[0].clientY; dy = 0; dragging = true;
+      modal.style.transition = "none";
+    }, { passive: true });
+    modal.addEventListener("touchmove", function (e) {
+      if (!dragging) return;
+      dy = e.touches[0].clientY - startY;
+      // a downward drag while at the top of the content pulls the sheet down
+      if (dy <= 0 || scroll.scrollTop > 0) { dy = 0; modal.style.transform = ""; return; }
+      modal.style.transform = "translateY(" + dy + "px)";
+    }, { passive: true });
+    function end() {
+      if (!dragging) return;
+      dragging = false;
+      modal.style.transition = "";
+      modal.style.transform = "";
+      if (dy > 110) close();
+    }
+    modal.addEventListener("touchend", end);
+    modal.addEventListener("touchcancel", end);
   }
 
   function renderImages(container, urls) {
