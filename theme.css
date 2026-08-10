@@ -9,7 +9,46 @@
 
 /* Product-list section header: title left, link right (desktop) */ @media(min-width:768px){ .section-product-list .flex-row.justify-content-start{justify-content:space-between!important} }
 
-/* Transparent header over hero (home, desktop) */ @media(min-width:1024px){ body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .4s ease-in-out} body.template-home .js-header .js-head-main{background:transparent!important} body.template-home .js-header,body.template-home .js-header a{color:#000!important} body.template-home .js-header svg{fill:#000!important;color:#000!important} body.template-home .js-header.f2tn-solid{background:#fff!important;border-bottom:1px solid rgba(0,0,0,.08)} body.template-home .js-header.f2tn-solid .js-head-main{background:#fff!important} }
+/* ==================================================================
+   Pre-header ticker (marquee) — ✦ separator between messages
+   Colors (bg/text) are editable via the announcement-bar section settings.
+   ================================================================== */
+.adbar-marquee .adbar-item{display:inline-flex;align-items:center}
+.adbar-marquee .adbar-item::after{content:"✦";margin:0 40px;font-size:10px;line-height:1;opacity:1}
+
+/* ==================================================================
+   Header — transparent over hero on home; white on hover/scroll.
+   Scroll toggles .f2tn-solid on .js-header (inline script, home only).
+   Desktop (>=1024): transparent + white text on entry; hover -> white bg;
+   scroll -> white bg + hide category nav (reduced height).
+   ================================================================== */
+@media(min-width:1024px){
+  body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .4s ease-in-out}
+  body.template-home .js-header .js-head-main{background:transparent!important}
+  /* legibility scrim behind the transparent (default) header */
+  body.template-home .js-header:not(.f2tn-solid):not(:hover)::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,0))}
+  /* default transparent -> white text / icons / logo */
+  body.template-home .js-header,
+  body.template-home .js-header a{color:#fff!important}
+  body.template-home .js-header svg{fill:#fff!important;color:#fff!important}
+  body.template-home .js-header .logo-img{filter:brightness(0) invert(1)}
+  /* hover OR scrolled -> white background, black text */
+  body.template-home .js-header:hover,
+  body.template-home .js-header:hover .js-head-main,
+  body.template-home .js-header.f2tn-solid,
+  body.template-home .js-header.f2tn-solid .js-head-main{background:#fff!important}
+  body.template-home .js-header:hover,
+  body.template-home .js-header:hover a,
+  body.template-home .js-header.f2tn-solid,
+  body.template-home .js-header.f2tn-solid a{color:#000!important}
+  body.template-home .js-header:hover svg,
+  body.template-home .js-header.f2tn-solid svg{fill:#000!important;color:#000!important}
+  body.template-home .js-header:hover .logo-img,
+  body.template-home .js-header.f2tn-solid .logo-img{filter:none}
+  body.template-home .js-header.f2tn-solid{border-bottom:1px solid rgba(0,0,0,.08)}
+  /* scrolled only -> hide the category nav bar (reduces header height) */
+  body.template-home .js-header.f2tn-solid .nav-desktop-container{display:none!important}
+}
 
 /* --- Cerini product card (Figma) --- */ .product-item-image-container{background-color:#f6f5f3} .product-item-name{margin-bottom:4px;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block} .product-item-price-container{display:flex;flex-wrap:wrap;align-items:center;gap:4px} .product-item-price{font-size:12px;font-weight:500} .product-item-price-container:has(.product-item-price-compare:not([style*="none"])) .product-item-price{color:#b90000} .product-item-price-compare{order:-1;margin-bottom:0;font-size:12px;font-weight:300;text-decoration:line-through;opacity:1} .product-item-discount{display:inline-flex;align-items:center;justify-content:center;min-width:auto;margin-left:0;padding:3px 5px;font-size:10px;font-weight:300;line-height:1;color:#fff;background-color:#b90000} .product-item-information-inner{padding-top:var(--spacing-2);padding-left:var(--spacing-2);padding-right:var(--spacing-2)}
 
