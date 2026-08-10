@@ -39,6 +39,11 @@
   body.template-home .js-header:hover .logo-img,
   body.template-home .js-header.f2tn-solid .logo-img{filter:none}
   body.template-home .js-header.f2tn-solid{border-bottom:1px solid rgba(0,0,0,.08)}
+  /* default transparent -> category nav bar transparent (not white), white links */
+  body.template-home .js-header:not(.f2tn-solid):not(:hover) .nav-desktop-container,
+  body.template-home .js-header:not(.f2tn-solid):not(:hover) .js-nav-desktop-container,
+  body.template-home .js-header:not(.f2tn-solid):not(:hover) .nav-desktop-list{background:transparent!important}
+  body.template-home .js-header:not(.f2tn-solid):not(:hover) .nav-desktop-container .nav-list-link{color:#fff!important}
   /* scrolled only -> hide the category nav bar (reduces header height) */
   body.template-home .js-header.f2tn-solid .nav-desktop-container{display:none!important}
 }
