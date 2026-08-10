@@ -63,9 +63,12 @@ body.template-home .js-head-main{border-bottom:0!important}
   body.template-home .js-header:not(.f2tn-solid):not(:hover) .js-search-trigger{color:#fff!important}
   body.template-home .js-header:not(.f2tn-solid):hover .js-search-trigger,
   body.template-home .js-header.f2tn-solid .js-search-trigger{color:#000!important}
-  /* scrolled -> hide categories (header 121->90px) and show the hamburger
-     (ri:menu-2-fill) on the left; categories and menu icon never coexist */
-  body.template-home .js-header.f2tn-solid .nav-desktop-container{display:none!important}
+  /* scrolled -> collapse the category nav (animated 121->90px over 300ms) and show
+     the hamburger (ri:menu-2-fill) on the left; categories and menu never coexist.
+     Collapse via max-height (not display:none) so the height change eases; overflow
+     stays visible while open so the category mega-menus aren't clipped. */
+  body.template-home .js-header .nav-desktop-container{overflow:visible;max-height:60px;transition:max-height .3s ease-out,padding .3s ease-out,opacity .3s ease-out}
+  body.template-home .js-header.f2tn-solid .nav-desktop-container{max-height:0;padding-top:0!important;padding-bottom:0!important;opacity:0;overflow:hidden}
   body.template-home .js-header.f2tn-solid .menu-container{display:block!important;grid-column:1!important;grid-row:1!important;justify-self:start!important;color:#000!important}
 }
 
