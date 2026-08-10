@@ -103,13 +103,15 @@
 @media(min-width:768px){
   .cerini-qv-slide{width:309px}
 }
-/* mobile: bottom sheet — opens from bottom, leaves a gap at the top so the
-   sheet never reaches the top; drag it down (grab handle) or tap X to close */
-.cerini-qv-grab{display:none}
+/* mobile: bottom sheet — opens from bottom, pinned to the bottom edge so a gap
+   stays at the top; header (title + X) on top; drag down or tap X to close */
+.cerini-qv-header{display:none}
 @media(max-width:767px){
   .cerini-qv-modal{top:auto;bottom:0;left:0;right:0;width:100%;height:auto;max-height:calc(100vh - 56px);max-height:calc(100dvh - 56px);border-radius:0;transform:translateY(100%);touch-action:pan-y}
   .cerini-qv-overlay.is-in .cerini-qv-modal{transform:translateY(0)}
-  .cerini-qv-grab{display:block;flex:none;width:40px;height:4px;margin:8px auto 0;border-radius:2px;background:rgba(0,0,0,.2)}
+  .cerini-qv-header{display:flex;flex:none;align-items:center;height:49px;padding:0 24px;background:#fff}
+  .cerini-qv-title{font-size:14px;font-weight:500;line-height:normal;color:#000}
+  .cerini-qv-x{top:15px;right:24px}
 }
 
 /* hide the script-only custom section */

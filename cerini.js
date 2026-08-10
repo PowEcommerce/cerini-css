@@ -116,7 +116,7 @@
     ov.className = "cerini-qv-overlay";
     ov.innerHTML =
       '<aside class="cerini-qv-modal" role="dialog" aria-modal="true" aria-label="Vista rápida">' +
-        '<span class="cerini-qv-grab" aria-hidden="true"></span>' +
+        '<header class="cerini-qv-header"><span class="cerini-qv-title">Vista rápida</span></header>' +
         '<button type="button" class="cerini-qv-x" aria-label="Cerrar">' + closeSVG() + "</button>" +
         '<div class="cerini-qv-scroll">' +
           '<div class="cerini-qv-images-wrap">' +
