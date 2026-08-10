@@ -9,6 +9,11 @@
 
 /* Product-list section header: title left, link right (desktop) */ @media(min-width:768px){ .section-product-list .flex-row.justify-content-start{justify-content:space-between!important} }
 
+/* Pre-header ticker: ✦ auto-separator between messages (42px gap each side),
+   not part of the message text. Marquee loop/pause-on-hover = theme native. */
+.adbar-marquee-content .adbar-item{padding:0!important}
+.adbar-marquee-content .adbar-item::after{content:"✦";display:inline-block;margin:0 42px;font-size:11px;line-height:1;vertical-align:middle}
+
 /* ==================================================================
    Header — transparent over hero on home; white on hover/scroll.
    Scroll toggles .f2tn-solid on .js-header (inline script, home only).
@@ -18,8 +23,14 @@
 /* the theme's head-main border-bottom shouldn't show over the hero */
 body.template-home .js-head-main{border-bottom:0!important}
 @media(min-width:1024px){
-  body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .4s ease-in-out}
-  body.template-home .js-header .js-head-main{background:transparent!important}
+  body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .3s ease-out}
+  body.template-home .js-header .js-head-main{background:transparent!important;transition:background-color .3s ease-out}
+  /* smooth 300ms color transitions on the header content (matches scroll/hover) */
+  body.template-home .js-header a,
+  body.template-home .js-header .js-search-trigger,
+  body.template-home .js-header svg,
+  body.template-home .js-header .utility-icon,
+  body.template-home .js-header .nav-list-link{transition:color .3s ease-out,fill .3s ease-out,background-color .3s ease-out}
   /* legibility scrim behind the transparent (default) header */
   body.template-home .js-header:not(.f2tn-solid):not(:hover)::after{content:"";position:absolute;top:0;left:0;right:0;bottom:-48px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.22) 55%,rgba(0,0,0,0) 100%)}
   /* default transparent -> white text / icons / logo */
@@ -27,18 +38,18 @@ body.template-home .js-head-main{border-bottom:0!important}
   body.template-home .js-header a{color:#fff!important}
   body.template-home .js-header svg{fill:#fff!important;color:#fff!important}
   body.template-home .js-header .logo-img{filter:brightness(0) invert(1)}
-  /* hover OR scrolled -> white background, black text */
-  body.template-home .js-header:hover,
-  body.template-home .js-header:hover .js-head-main,
+  /* hover (only while transparent) OR scrolled -> white background, black text */
+  body.template-home .js-header:not(.f2tn-solid):hover,
+  body.template-home .js-header:not(.f2tn-solid):hover .js-head-main,
   body.template-home .js-header.f2tn-solid,
   body.template-home .js-header.f2tn-solid .js-head-main{background:#fff!important}
-  body.template-home .js-header:hover,
-  body.template-home .js-header:hover a,
+  body.template-home .js-header:not(.f2tn-solid):hover,
+  body.template-home .js-header:not(.f2tn-solid):hover a,
   body.template-home .js-header.f2tn-solid,
   body.template-home .js-header.f2tn-solid a{color:#000!important}
-  body.template-home .js-header:hover svg,
+  body.template-home .js-header:not(.f2tn-solid):hover svg,
   body.template-home .js-header.f2tn-solid svg{fill:#000!important;color:#000!important}
-  body.template-home .js-header:hover .logo-img,
+  body.template-home .js-header:not(.f2tn-solid):hover .logo-img,
   body.template-home .js-header.f2tn-solid .logo-img{filter:none}
   body.template-home .js-header.f2tn-solid{border-bottom:1px solid rgba(0,0,0,.08)}
   /* default transparent -> category nav bar transparent (not white), white links */
@@ -50,10 +61,12 @@ body.template-home .js-head-main{border-bottom:0!important}
      force its color per state so the "Buscar" text, underline and magnifier
      (currentColor) are white on transparent, black on hover/scroll */
   body.template-home .js-header:not(.f2tn-solid):not(:hover) .js-search-trigger{color:#fff!important}
-  body.template-home .js-header:hover .js-search-trigger,
+  body.template-home .js-header:not(.f2tn-solid):hover .js-search-trigger,
   body.template-home .js-header.f2tn-solid .js-search-trigger{color:#000!important}
-  /* scrolled only -> hide the category nav bar (reduces header height) */
+  /* scrolled -> hide categories (header 121->90px) and show the hamburger
+     (ri:menu-2-fill) on the left; categories and menu icon never coexist */
   body.template-home .js-header.f2tn-solid .nav-desktop-container{display:none!important}
+  body.template-home .js-header.f2tn-solid .menu-container{display:block!important;grid-column:1!important;grid-row:1!important;justify-self:start!important;color:#000!important}
 }
 
 /* Mobile (home): transparent + white on entry with the full-width search bar;
