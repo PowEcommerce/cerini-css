@@ -279,9 +279,14 @@
       if (actions && more) actions.parentNode.insertBefore(more, actions);
     } else {
       activeForm = null;
-      // Simple product (no variants): footer CTA links to the product page.
-      footer.innerHTML =
-        '<a class="cerini-qv-cta" href="' + ((link && link.href) || "#") + '">Ver producto</a>';
+      // No variant form: out-of-stock -> disabled "Sin stock"; otherwise CTA to product page.
+      if (isOutOfStock(card)) {
+        footer.innerHTML =
+          '<span class="cerini-qv-cta is-disabled" aria-disabled="true">Sin stock</span>';
+      } else {
+        footer.innerHTML =
+          '<a class="cerini-qv-cta" href="' + ((link && link.href) || "#") + '">Ver producto</a>';
+      }
     }
 
     document.documentElement.classList.add("cerini-qv-lock");
@@ -331,6 +336,13 @@
   }
 
   /* ---------- card add-ons ---------- */
+  // The card carries a hidden stock beacon: data-store="stock-product-<id>-<n>",
+  // where <n> is 0 only when the product has no stock (else a number / "infinite").
+  function isOutOfStock(card) {
+    var s = card.querySelector('[data-store^="stock-product-"]');
+    return !!(s && /-0$/.test(s.getAttribute("data-store") || ""));
+  }
+
   function isOnSale(card) {
     var c = card.querySelector(".js-compare-price-display, .product-item-price-compare");
     return !!(c && (c.getAttribute("style") || "").replace(/\s/g, "").indexOf("display:none") === -1 && c.textContent.trim());

@@ -98,6 +98,7 @@
 .cerini-qv-footer{flex:none;display:flex;gap:16px;padding:20px;background:#fff;box-shadow:0 -1px 0 rgba(0,0,0,.25)}
 .cerini-qv-footer:empty{display:none}
 .cerini-qv-cta{flex:1;display:inline-flex;align-items:center;justify-content:center;height:45px;background:#000;color:#fff;font-size:14px;text-decoration:none}
+.cerini-qv-cta.is-disabled{background:#bdbdbd;color:#fff;cursor:not-allowed;pointer-events:none}
 
 /* desktop: fixed-width 442 drawer, square 309 slides */
 @media(min-width:768px){
