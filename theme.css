@@ -420,7 +420,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-menu-toggle-title{pointer-events:none;cursor:default;margin:0 0 10px}   /* Figma: title->links gap 10px */
   .footer-content .footer-menu-accordion .accordion-toggle-icon,
   .footer-content .footer-menu-accordion .d-md-none{display:none!important}
-  .footer-content .footer-menu-title{font-size:14px;font-weight:600;line-height:normal}          /* Manrope SemiBold 14 */
+  .footer-content .footer-menu-title{font-size:14px;font-weight:600;line-height:normal;margin-bottom:var(--spacing-2)}   /* Manrope SemiBold 14 */
   .footer-content .footer-menu-accordion-content{display:block!important;height:auto!important;max-height:none!important;overflow:visible!important;opacity:1!important}
   .footer-content .footer-menu-list{display:flex;flex-direction:column;gap:14px;margin:0}
   .footer-content .footer-menu-list li{margin:0;padding:0}
