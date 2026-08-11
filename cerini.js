@@ -515,11 +515,16 @@
 
   function openMenu(selIdx) {
     if (!menuEl) menuEl = buildMenu();
+    var fromHeader = typeof selIdx === "number" && selIdx >= 0;
     document.documentElement.classList.add("cerini-qv-lock");
+    menuEl.classList.remove("is-expanded", "is-firstopen");
     menuEl.classList.add("is-open");
-    menuEl.classList.remove("is-expanded");
-    requestAnimationFrame(function () { menuEl.classList.add("is-in"); });
-    if (typeof selIdx === "number" && selIdx >= 0) selectCat(selIdx);
+    if (fromHeader) menuEl.classList.add("is-firstopen"); // 2nd column enters with 150ms delay
+    requestAnimationFrame(function () {
+      menuEl.classList.add("is-in");
+      if (fromHeader) selectCat(selIdx);
+    });
+    if (fromHeader) setTimeout(function () { if (menuEl) menuEl.classList.remove("is-firstopen"); }, 700);
     document.addEventListener("keydown", onMenuKey);
   }
   function closeMenu() {
