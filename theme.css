@@ -458,7 +458,8 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 .footer-content{border-top:1px solid #000;gap:0!important}  /* footer 1px black top border (Figma); no gap */
 .footer-content .footer-secondary-info{border-top:1px solid #000;margin:0 -24px 0;padding:20px 24px 0}  /* BLACK divider, full-bleed, margin-top 0 */
 .footer-content .footer-legal-container{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px 24px;font-size:12px;color:#000}
-.footer-content .footer-legal-container > div{display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px}
+.footer-content .footer-legal-container > div,
+.footer-content .footer-legal-container > div > div{display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px}
 .footer-content .footer-seals-container{display:flex;align-items:center;gap:8px}
 .footer-content .footer-seals-container .footer-logo{max-height:34px}
 .footer-content .footer-logo img{max-height:20.5px;width:auto}
