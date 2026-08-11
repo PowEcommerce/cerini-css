@@ -411,7 +411,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
    the right, centered bottom bar (© Cerini · tiendanube · POW).
    ================================================================== */
 @media(min-width:768px){
-  .footer-content .footer-main-info{display:grid!important;grid-template-columns:auto auto auto auto 1fr;column-gap:68px;align-items:start;position:relative;padding-top:24px;padding-bottom:65px}
+  .footer-content .footer-main-info{display:grid!important;grid-template-columns:auto auto auto auto 1fr 446px;column-gap:68px;align-items:start;position:relative;padding-top:24px;padding-bottom:65px}
   .footer-content .footer-main-info > *{grid-row:1}
   /* menu columns: no +/- toggle on desktop, always open */
   .footer-content .footer-menu-accordion:nth-child(1){grid-column:1}
@@ -440,7 +440,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-social-link[href*="tiktok"]::after,
   .footer-content .footer-social-link[href*="tik.tok"]::after{content:"TikTok"}
   /* newsletter on the right with a vertical divider */
-  .footer-content .footer-newsletter-container{grid-column:5;grid-row:1;justify-self:end;width:446px;padding-left:75px;box-sizing:border-box}
+  .footer-content .footer-newsletter-container{grid-column:6;grid-row:1;width:100%;padding-left:75px;box-sizing:border-box}
   /* vertical divider: BLACK, full height of the footer (reaches down to the logo) */
   .footer-content .footer-main-info::after{content:"";position:absolute;top:0;bottom:0;right:446px;width:1px;background:#000}
   .footer-content .footer-newsletter-title{font-size:16px;font-weight:600;line-height:normal;margin-bottom:15px}   /* Manrope SemiBold 16 */
@@ -456,7 +456,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 .footer-content .footer-payments-shipping-container{display:none!important}  /* no payment methods (Figma) */
 .footer-content .claim-link{display:none!important}  /* consumer-defense text not in Figma bottom bar */
 .footer-content{border-top:1px solid #000;gap:0!important}  /* footer 1px black top border (Figma); no gap */
-.footer-content .footer-secondary-info{border-top:1px solid #000;margin:0 -24px 0;padding:20px 24px 0}  /* BLACK divider, full-bleed, margin-top 0 */
+.footer-content .footer-secondary-info{border-top:1px solid #000;margin:0 -24px 0;padding:20px 24px}  /* BLACK divider, full-bleed, margin-top 0 */
 .footer-content .footer-legal-container{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px 24px;font-size:12px;color:#000}
 .footer-content .footer-legal-container > div,
 .footer-content .footer-legal-container > div > div{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
