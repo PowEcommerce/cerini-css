@@ -170,6 +170,18 @@ body.template-home .js-head-main{border-bottom:0!important}
   .head-row.search-icon-md .js-search-trigger::after{content:"Buscar";font-size:14px;font-weight:400;line-height:1}
 }
 
+/* ==================================================================
+   Menu — desktop top nav shows category links only. The native mega-menu
+   (hover dropdown) is disabled: on entry only the categories are visible,
+   no menu opens. Subcategory navigation lives in the drawer (hamburger).
+   ================================================================== */
+@media(min-width:768px){
+  .nav-desktop-container .js-desktop-dropdown,
+  .nav-desktop-container .nav-dropdown-content,
+  .nav-desktop-container .desktop-dropdown-container{display:none!important}
+  .nav-desktop-list .nav-main-item .nav-list-link-icon{display:none!important}
+}
+
 /* --- Cerini product card (Figma) --- */ .product-item-image-container{background-color:#f6f5f3} .product-item-name{margin-bottom:4px;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block} .product-item-price-container{display:flex;flex-wrap:wrap;align-items:center;gap:4px} .product-item-price{font-size:12px;font-weight:500} .product-item-price-container:has(.product-item-price-compare:not([style*="none"])) .product-item-price{color:#b90000} .product-item-price-compare{order:-1;margin-bottom:0;font-size:12px;font-weight:300;text-decoration:line-through;opacity:1} .product-item-discount{display:inline-flex;align-items:center;justify-content:center;min-width:auto;margin-left:0;padding:3px 5px;font-size:10px;font-weight:300;line-height:1;color:#fff;background-color:#b90000} .product-item-information-inner{padding-top:var(--spacing-2);padding-left:var(--spacing-2);padding-right:var(--spacing-2)}
 
 /* ==================================================================
