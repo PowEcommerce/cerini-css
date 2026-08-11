@@ -411,7 +411,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
    the right, centered bottom bar (© Cerini · tiendanube · POW).
    ================================================================== */
 @media(min-width:768px){
-  .footer-content .footer-main-info{display:grid!important;grid-template-columns:auto auto auto auto 1fr 446px;column-gap:68px;align-items:start;position:relative;padding-top:24px;padding-bottom:65px}
+  .footer-content .footer-main-info{display:grid!important;grid-template-columns:auto auto auto auto 1fr 497px;column-gap:68px;align-items:start;position:relative;padding-top:24px;padding-bottom:65px}
   .footer-content .footer-main-info > *{grid-row:1}
   /* menu columns: no +/- toggle on desktop, always open */
   .footer-content .footer-menu-accordion:nth-child(1){grid-column:1}
@@ -440,9 +440,9 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-social-link[href*="tiktok"]::after,
   .footer-content .footer-social-link[href*="tik.tok"]::after{content:"TikTok"}
   /* newsletter on the right with a vertical divider */
-  .footer-content .footer-newsletter-container{grid-column:6;grid-row:1;width:100%;padding-left:75px;box-sizing:border-box}
+  .footer-content .footer-newsletter-container{grid-column:6;grid-row:1;width:100%;padding:0 51px 0 75px;box-sizing:border-box}
   /* vertical divider: BLACK, full height of the footer (reaches down to the logo) */
-  .footer-content .footer-main-info::after{content:"";position:absolute;top:0;bottom:0;right:446px;width:1px;background:#000}
+  .footer-content .footer-main-info::after{content:"";position:absolute;top:0;bottom:0;right:497px;width:1px;background:#000}
   .footer-content .footer-newsletter-title{font-size:16px;font-weight:600;line-height:normal;margin-bottom:15px}   /* Manrope SemiBold 16 */
   .footer-content .footer-newsletter-description{font-size:14px;font-weight:400;line-height:normal;margin-bottom:17px}  /* Manrope Regular 14 */
   .footer-content .newsletter-form-wrapper{display:flex;flex-wrap:wrap;align-items:stretch;gap:9px}
