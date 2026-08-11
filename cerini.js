@@ -580,15 +580,21 @@
 
   /* ================= Footer (Figma 1077:28029) ================= */
   function setupFooter() {
-    // footer logo = same source as the header logo
+    // footer logo = same source as the header logo (the native block only renders
+    // .footer-institutional-image when a logo setting is set, which it isn't, so
+    // inject into .footer-contact-info-container which always exists)
     var hlogo = document.querySelector(".js-header .logo-img");
-    var flogo = document.querySelector(".footer-institutional-image");
-    if (hlogo && flogo && !flogo.querySelector("img")) {
+    var fcont = document.querySelector(".footer-contact-info-container");
+    if (hlogo && fcont && !fcont.querySelector(".cerini-footer-logo")) {
+      var wrap = document.createElement("a");
+      wrap.className = "cerini-footer-logo";
+      wrap.href = "/";
       var img = document.createElement("img");
       img.src = hlogo.getAttribute("src") || "";
       img.alt = "Cerini Beauty";
       img.className = "cerini-footer-logo-img";
-      flogo.appendChild(img);
+      wrap.appendChild(img);
+      fcont.appendChild(wrap);
     }
     // newsletter: add a "nombre" field before the email (Figma: nombre + email)
     var wrap = document.querySelector(".footer-newsletter-form .newsletter-form-wrapper");
