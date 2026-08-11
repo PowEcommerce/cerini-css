@@ -444,6 +444,12 @@
   function menuArrowSVG() {
     return '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13.22 10.11 8.11 5 3"/></svg>';
   }
+  function menuBackSVG() { // mobile: 20/arrow-left (Figma)
+    return '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4 8 12 16 20"/></svg>';
+  }
+  function menuUserSVG() { // mobile footer: 24/Perfil (Figma 783:21227)
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.999 12.9375C14.588 12.9375 16.686 10.839 16.686 8.25C16.686 5.661 14.588 3.563 11.999 3.563C9.41 3.563 7.312 5.661 7.312 8.25C7.312 10.839 9.41 12.9375 11.999 12.9375Z"/><path d="M19.5 20.437C19.5 16.294 16.144 12.937 12 12.937C7.856 12.937 4.5 16.294 4.5 20.437"/></svg>';
+  }
   function isDesktopMenu() { return window.matchMedia("(min-width:768px)").matches; }
 
   function collectCategories() {
@@ -467,6 +473,9 @@
     var cats = collectCategories();
     var lg = document.querySelector(".js-header .logo-img");
     var logoSrc = lg ? (lg.getAttribute("src") || "") : "";
+    var acc = document.querySelector(".js-header .header-account a[href]");
+    var loginUrl = acc ? acc.getAttribute("href") : "#";
+    var logoImg = logoSrc ? '<img src="' + logoSrc + '" alt="Cerini Beauty">' : "";
     var catsHtml = "";
     for (var i = 0; i < cats.length; i++) {
       var hasSub = cats[i].subs.length > 0;
@@ -478,18 +487,32 @@
     ov.className = "cerini-menu-overlay";
     ov.innerHTML =
       '<aside class="cerini-menu-panel">' +
+        // mobile top bar (back + logo + close); hidden on desktop
+        '<div class="cerini-menu-topbar">' +
+          '<button type="button" class="cerini-menu-back" aria-label="Volver">' + menuBackSVG() + "</button>" +
+          '<span class="cerini-menu-tb-logo">' + logoImg + "</span>" +
+          '<button type="button" class="cerini-menu-tb-close" aria-label="Cerrar">' + menuCloseSVG() + "</button>" +
+        "</div>" +
         '<div class="cerini-menu-col1">' +
           '<button type="button" class="cerini-menu-close" aria-label="Cerrar">' + menuCloseSVG() + "</button>" +
           '<ul class="cerini-menu-cats list-unstyled">' + catsHtml + "</ul>" +
           '<div class="cerini-menu-promo"><div class="cerini-menu-promo-img"></div>' +
             '<a class="cerini-menu-promo-link" href="#">DESCUBRIR</a></div>' +
-          (logoSrc ? '<a class="cerini-menu-logo" href="/"><img src="' + logoSrc + '" alt="Cerini Beauty"></a>' : "") +
+          (logoSrc ? '<a class="cerini-menu-logo" href="/">' + logoImg + "</a>" : "") +
         "</div>" +
         '<div class="cerini-menu-col2"></div>' +
+        // mobile bottom bar (INICIAR SESIÓN); hidden on desktop
+        '<a class="cerini-menu-footer" href="' + loginUrl + '">' + menuUserSVG() + "<span>INICIAR SESIÓN</span></a>" +
       "</aside>";
     ov._cats = cats;
     ov.addEventListener("click", function (e) { if (e.target === ov) closeMenu(); });
     ov.querySelector(".cerini-menu-close").addEventListener("click", closeMenu);
+    ov.querySelector(".cerini-menu-tb-close").addEventListener("click", closeMenu);
+    ov.querySelector(".cerini-menu-back").addEventListener("click", function () {
+      ov.classList.remove("is-expanded");
+      var its = ov.querySelectorAll(".cerini-menu-cat");
+      for (var m = 0; m < its.length; m++) its[m].classList.remove("is-active");
+    });
     var catLinks = ov.querySelectorAll(".cerini-menu-cat");
     for (var j = 0; j < catLinks.length; j++) {
       catLinks[j].addEventListener("click", function (e) {
@@ -550,8 +573,7 @@
     var burgers = document.querySelectorAll(".js-header .menu-container .js-modal-open-private");
     for (var b = 0; b < burgers.length; b++) {
       burgers[b].addEventListener("click", function (e) {
-        if (!isDesktopMenu()) return;
-        e.preventDefault(); e.stopPropagation(); openMenu(-1);
+        e.preventDefault(); e.stopPropagation(); openMenu(-1); // desktop + mobile (custom drawer)
       }, true);
     }
   }
