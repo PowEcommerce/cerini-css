@@ -435,7 +435,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-social-container{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin:0}
   .footer-content .footer-social-container::before{content:"\2726 Redes";display:block;font-size:14px;font-weight:600;margin-bottom:10px}
   .footer-content .footer-social-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:300;color:#000}
-  .footer-content .footer-social-link svg{width:24px;height:24px}
+  .footer-content .footer-social-link svg{width:20px;height:20px}
   .footer-content .footer-social-link[href*="instagram"]::after{content:"Instagram"}
   .footer-content .footer-social-link[href*="tiktok"]::after,
   .footer-content .footer-social-link[href*="tik.tok"]::after{content:"TikTok"}
