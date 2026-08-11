@@ -459,4 +459,6 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 .footer-content .footer-seals-container .footer-logo{max-height:34px}
 .footer-content .footer-powered-by,
 .footer-content .footer-copyright{display:inline-flex;align-items:center;gap:6px}
+.footer-content .cerini-pow{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#000;white-space:nowrap}
+.footer-content .cerini-pow img{height:15px;width:auto;display:block}
 .footer-content .footer-legal-container a{color:#000;text-decoration:underline}

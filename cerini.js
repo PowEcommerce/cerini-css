@@ -580,21 +580,24 @@
 
   /* ================= Footer (Figma 1077:28029) ================= */
   function setupFooter() {
-    // footer logo = same source as the header logo (the native block only renders
-    // .footer-institutional-image when a logo setting is set, which it isn't, so
-    // inject into .footer-contact-info-container which always exists)
-    var hlogo = document.querySelector(".js-header .logo-img");
+    var CDN = "https://powecommerce.github.io/cerini-css/";
+    // footer logo — crisp vector CERINI BEAUTY (native block only renders a logo
+    // when the setting is set; inject into .footer-contact-info-container)
     var fcont = document.querySelector(".footer-contact-info-container");
-    if (hlogo && fcont && !fcont.querySelector(".cerini-footer-logo")) {
+    if (fcont && !fcont.querySelector(".cerini-footer-logo")) {
       var wrap = document.createElement("a");
       wrap.className = "cerini-footer-logo";
       wrap.href = "/";
-      var img = document.createElement("img");
-      img.src = hlogo.getAttribute("src") || "";
-      img.alt = "Cerini Beauty";
-      img.className = "cerini-footer-logo-img";
-      wrap.appendChild(img);
+      wrap.innerHTML = '<img class="cerini-footer-logo-img" src="' + CDN + 'cerini-logo.svg" alt="Cerini Beauty">';
       fcont.appendChild(wrap);
+    }
+    // POW branding in the bottom bar (theme only renders "creado con tiendanube")
+    var pb = document.querySelector(".footer-legal-container .footer-powered-by");
+    if (pb && !document.querySelector(".cerini-pow")) {
+      var pow = document.createElement("span");
+      pow.className = "cerini-pow";
+      pow.innerHTML = 'Powered and Developed by <img src="' + CDN + 'pow.svg" alt="POW">';
+      pb.parentNode.insertBefore(pow, pb.nextSibling);
     }
     // newsletter: add a "nombre" field before the email (Figma: nombre + email)
     var wrap = document.querySelector(".footer-newsletter-form .newsletter-form-wrapper");
