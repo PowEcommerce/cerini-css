@@ -198,11 +198,11 @@ body.template-home .js-head-main{border-bottom:0!important}
 .cerini-menu-arrow svg{width:16px;height:16px;display:block}
 .cerini-menu-promo{margin-top:16px;display:flex;flex-direction:column;gap:8px;width:215px}
 .cerini-menu-promo-img{width:215px;height:269px;background:#eee}
-.cerini-menu-promo-link{align-self:center;font-size:12px;color:#000;text-decoration:underline;text-underline-offset:2px}
+.cerini-menu-promo-link{align-self:flex-start;font-size:12px;color:#000;text-decoration:underline;text-underline-offset:2px}
 .cerini-menu-logo{margin-top:auto;display:block;width:215px}
 .cerini-menu-logo img{width:100%;height:auto;display:block}
 .cerini-menu-col2{flex:none;width:0;height:100%;box-sizing:border-box;background:#fff;overflow:hidden;transition:width .3s ease}
-.cerini-menu-overlay.is-expanded .cerini-menu-col2{width:280px;padding:73px 24px 26px;border-left:1px solid #eee}
+.cerini-menu-overlay.is-expanded .cerini-menu-col2{width:280px;padding:73px 24px 26px}
 .cerini-menu-subs{display:flex;flex-direction:column;gap:16px}
 .cerini-menu-subs a{font-size:14px;color:#000;text-decoration:none;text-transform:uppercase;white-space:nowrap}
 
