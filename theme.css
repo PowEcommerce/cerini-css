@@ -433,7 +433,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .cerini-footer-logo{position:absolute;left:0;bottom:28px;display:block;line-height:0}
   .footer-content .cerini-footer-logo-img{height:34px!important;width:auto!important;max-width:none!important;display:block}
   .footer-content .footer-social-container{display:flex;flex-direction:column;align-items:flex-start;gap:11px;margin:0}
-  .footer-content .footer-social-container::before{content:"\2726 Redes";display:block;font-size:14px;font-weight:600;margin:0}
+  .footer-content .footer-social-container::before{content:"\2726\00a0\00a0Redes";display:block;font-size:14px;font-weight:600;margin:0}
   .footer-content .footer-social-link{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:300;color:#000}
   .footer-content .footer-social-link svg{width:20px;height:20px}
   .footer-content .footer-social-link[href*="instagram"]::after{content:"Instagram"}
@@ -501,7 +501,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 
   /* Redes bar: #f7f7f7, 43px, horizontal, centered */
   .footer-content .footer-social-container{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:24px;height:43px;margin:0;width:100%;background:#f7f7f7}
-  .footer-content .footer-social-container::before{content:"\2726 Redes";display:inline;font-size:14px;font-weight:600;margin:0}
+  .footer-content .footer-social-container::before{content:"\2726\00a0\00a0Redes";display:inline;font-size:14px;font-weight:600;margin:0}
   .footer-content .footer-social-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:400;color:#000}
   .footer-content .footer-social-link svg{width:24px;height:24px}
   .footer-content .footer-social-link[href*="instagram"]::after{content:"Instagram"}
