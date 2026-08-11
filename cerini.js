@@ -578,9 +578,37 @@
     }
   }
 
+  /* ================= Footer (Figma 1077:28029) ================= */
+  function setupFooter() {
+    // footer logo = same source as the header logo
+    var hlogo = document.querySelector(".js-header .logo-img");
+    var flogo = document.querySelector(".footer-institutional-image");
+    if (hlogo && flogo && !flogo.querySelector("img")) {
+      var img = document.createElement("img");
+      img.src = hlogo.getAttribute("src") || "";
+      img.alt = "Cerini Beauty";
+      img.className = "cerini-footer-logo-img";
+      flogo.appendChild(img);
+    }
+    // newsletter: add a "nombre" field before the email (Figma: nombre + email)
+    var wrap = document.querySelector(".footer-newsletter-form .newsletter-form-wrapper");
+    var email = wrap && wrap.querySelector('input[type="email"]');
+    if (wrap && email && !wrap.querySelector(".cerini-nl-name")) {
+      var name = document.createElement("input");
+      name.type = "text";
+      name.name = "name";
+      name.autocomplete = "name";
+      name.className = "cerini-nl-name newsletter-form-input";
+      name.placeholder = "Ingresá tu nombre";
+      name.setAttribute("aria-label", "Ingresá tu nombre");
+      wrap.insertBefore(name, email);
+    }
+  }
+
   function init() {
     renderAll(document);
     wireMenuTriggers();
+    setupFooter();
     var obs = new MutationObserver(function (muts) {
       for (var i = 0; i < muts.length; i++) {
         var added = muts[i].addedNodes;
