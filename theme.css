@@ -423,7 +423,8 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-menu-title{font-size:14px;font-weight:500;line-height:normal}
   .footer-content .footer-menu-accordion-content{display:block!important;height:auto!important;max-height:none!important;overflow:visible!important;opacity:1!important}
   .footer-content .footer-menu-list{display:flex;flex-direction:column;gap:14px;margin:0}
-  .footer-content .footer-menu-list a{font-size:14px;font-weight:300;color:#000;text-decoration:none}
+  .footer-content .footer-menu-list li{margin:0;padding:0}
+  .footer-content .footer-menu-list a{font-size:14px;font-weight:300;line-height:normal;color:#000;text-decoration:none}
   /* institutional -> Redes column (social) + big logo absolute bottom-left */
   .footer-content .footer-contact-info-container{grid-column:4;grid-row:1;margin:0;width:auto;text-align:left}
   .footer-content .footer-institutional-description,
@@ -439,8 +440,9 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-social-link[href*="tiktok"]::after,
   .footer-content .footer-social-link[href*="tik.tok"]::after{content:"TikTok"}
   /* newsletter on the right with a vertical divider */
-  .footer-content .footer-newsletter-container{grid-column:5;grid-row:1;justify-self:end;width:371px;padding-left:89px;position:relative}
-  .footer-content .footer-newsletter-container::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(0,0,0,.2)}
+  .footer-content .footer-newsletter-container{grid-column:5;grid-row:1;justify-self:end;width:446px;padding-left:75px;box-sizing:border-box}
+  /* vertical divider: BLACK, full height of the footer (reaches down to the logo) */
+  .footer-content .footer-main-info::after{content:"";position:absolute;top:0;bottom:0;right:446px;width:1px;background:#000}
   .footer-content .footer-newsletter-title{font-size:16px;font-weight:500;line-height:normal;margin-bottom:15px}
   .footer-content .footer-newsletter-description{font-size:14px;font-weight:300;line-height:1.35;margin-bottom:19px}
   .footer-content .newsletter-form-wrapper{display:flex;flex-wrap:wrap;align-items:stretch;row-gap:9px}
@@ -453,7 +455,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 /* footer bottom bar (data fiscal · © Cerini · tiendanube · POW) — centered, compact */
 .footer-content .footer-payments-shipping-container{display:none!important}  /* no payment methods (Figma) */
 .footer-content .claim-link{display:none!important}  /* consumer-defense text not in Figma bottom bar */
-.footer-content .footer-secondary-info{border-top:1px solid rgba(0,0,0,.12);margin-top:24px;padding-top:20px}
+.footer-content .footer-secondary-info{border-top:1px solid #000;margin:24px -24px 0;padding:20px 24px 0}  /* BLACK, full-bleed */
 .footer-content .footer-legal-container{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px 24px;font-size:12px;color:#000}
 .footer-content .footer-legal-container > div{display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px}
 .footer-content .footer-seals-container{display:flex;align-items:center;gap:8px}
