@@ -591,6 +591,9 @@
       wrap.innerHTML = '<img class="cerini-footer-logo-img" src="' + CDN + 'cerini-logo.svg" alt="Cerini Beauty">';
       fcont.appendChild(wrap);
     }
+    // copyright -> "© Cerini <year>." (Figma) with a dynamic year
+    var cr = document.querySelector(".footer-copyright");
+    if (cr) cr.textContent = "© Cerini " + new Date().getFullYear() + ".";
     // POW branding in the bottom bar (theme only renders "creado con tiendanube")
     var pb = document.querySelector(".footer-legal-container .footer-powered-by");
     if (pb && !document.querySelector(".cerini-pow")) {
