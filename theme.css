@@ -111,7 +111,7 @@ body.template-home .js-head-main{border-bottom:0!important}
   body.template-home .js-header.f2tn-solid{border-bottom:1px solid rgba(0,0,0,.08)}
   /* scroll -> hide the full-width search bar, show the magnifier trigger next to
      the hamburger (Figma: [hamburger][lupa] ... logo ... [cart]) */
-  body.template-home .js-header.f2tn-solid .head-row.logo-center{grid-template-columns:auto auto 1fr auto!important}
+  body.template-home .js-header.f2tn-solid .head-row.logo-center{grid-template-columns:auto auto 1fr auto!important;column-gap:14px!important}
   body.template-home .js-header.f2tn-solid .menu-container{grid-column:1!important;grid-row:1!important;justify-self:start!important}
   body.template-home .js-header.f2tn-solid .search-container{grid-column:2!important;grid-row:1!important;justify-self:start!important;width:auto!important;margin:0!important}
   body.template-home .js-header.f2tn-solid .header-cart{grid-column:4!important;grid-row:1!important;justify-self:end!important}
