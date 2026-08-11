@@ -77,7 +77,12 @@ body.template-home .js-head-main{border-bottom:0!important}
    to the hamburger. Categories live in the menu (mobile category strip hidden). */
 @media(max-width:767px){
   body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .3s ease-out}
-  body.template-home .js-header .js-head-main{background:transparent!important}
+  body.template-home .js-header .js-head-main{background:transparent!important;transition:background-color .3s ease-out}
+  /* 300ms color transition on the content (transparent -> white), matches desktop */
+  body.template-home .js-header a,
+  body.template-home .js-header .utility-icon,
+  body.template-home .js-header svg,
+  body.template-home .js-header .logo-img{transition:color .3s ease-out,background-color .3s ease-out,fill .3s ease-out,filter .3s ease-out}
   body.template-home .js-header:not(.f2tn-solid)::after{content:"";position:absolute;top:0;left:0;right:0;bottom:-24px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.18) 60%,rgba(0,0,0,0) 100%)}
   /* default transparent -> white text / icons / logo */
   body.template-home .js-header,
@@ -116,7 +121,8 @@ body.template-home .js-head-main{border-bottom:0!important}
   body.template-home .js-header.f2tn-solid .search-container{grid-column:2!important;grid-row:1!important;justify-self:start!important;width:auto!important;margin:0!important}
   body.template-home .js-header.f2tn-solid .header-cart{grid-column:4!important;grid-row:1!important;justify-self:end!important}
   body.template-home .js-header.f2tn-solid .search-floating-container{display:none!important}
-  body.template-home .js-header.f2tn-solid .js-search-trigger{display:grid!important}
+  /* the magnifier enters staggered: 150ms delay + 200ms fade (ends at 350ms) */
+  body.template-home .js-header.f2tn-solid .js-search-trigger{display:grid!important;animation:cerini-fade-in .2s ease-out .15s both}
 }
 
 /* ==================================================================
@@ -216,12 +222,19 @@ body.template-home .js-head-main{border-bottom:0!important}
 .cerini-menu-subs a:hover::after{width:100%}
 /* top bar + footer are mobile-only chrome (desktop uses the col1 X + bottom logo) */
 .cerini-menu-topbar,.cerini-menu-footer{display:none}
+@keyframes cerini-fade-in{from{opacity:0}to{opacity:1}}
 
 /* ---- Menu MOBILE (<768) — Figma 992:27466: full-screen, top bar (logo + X,
    back when expanded), category list, promo, fixed "INICIAR SESIÓN" bar. The
    2nd level slides in from the right (stack) over the first. ---- */
 @media(max-width:767px){
+  /* mobile menu: NO overlay (panel covers the full 375px); stack navigation */
+  .cerini-menu-overlay{background:transparent}
   .cerini-menu-panel{width:100%}
+  /* level 2 swap slides from the RIGHT, 300ms ease-out in BOTH directions (nav, not modal) */
+  .cerini-menu-col2{transition:transform .3s ease-out}
+  /* the panel scrolls internally if the content exceeds the height */
+  .cerini-menu-col1,.cerini-menu-col2{overflow-y:auto;-webkit-overflow-scrolling:touch}
   .cerini-menu-topbar{display:flex;position:absolute;top:0;left:0;right:0;z-index:3;height:60px;align-items:center;justify-content:center;background:#fff;padding:0 16px}
   .cerini-menu-tb-logo{display:inline-flex;height:17px}
   .cerini-menu-tb-logo img{height:17px;width:auto;display:block}
