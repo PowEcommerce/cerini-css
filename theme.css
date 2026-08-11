@@ -452,6 +452,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 
 /* footer bottom bar (data fiscal · © Cerini · tiendanube · POW) — centered, compact */
 .footer-content .footer-payments-shipping-container{display:none!important}  /* no payment methods (Figma) */
+.footer-content .claim-link{display:none!important}  /* consumer-defense text not in Figma bottom bar */
 .footer-content .footer-secondary-info{border-top:1px solid rgba(0,0,0,.12);margin-top:24px;padding-top:20px}
 .footer-content .footer-legal-container{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px 24px;font-size:12px;color:#000}
 .footer-content .footer-legal-container > div{display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px}

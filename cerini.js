@@ -596,7 +596,7 @@
     if (pb && !document.querySelector(".cerini-pow")) {
       var pow = document.createElement("span");
       pow.className = "cerini-pow";
-      pow.innerHTML = 'Powered and Developed by <img src="' + CDN + 'pow.svg" alt="POW">';
+      pow.innerHTML = '<img src="' + CDN + 'pow.svg" alt="Powered and Developed by POW">';
       pb.parentNode.insertBefore(pow, pb.nextSibling);
     }
     // newsletter: add a "nombre" field before the email (Figma: nombre + email)
