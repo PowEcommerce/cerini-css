@@ -464,6 +464,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 .footer-content .footer-logo img{max-height:20.5px;width:auto}
 .footer-content .footer-powered-by,
 .footer-content .footer-copyright{display:inline-flex;align-items:center;gap:6px}
+.footer-content .footer-copyright{order:-1}   /* © Cerini goes first (right after data fiscal), before tiendanube/POW */
 .footer-content .cerini-pow{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#000;white-space:nowrap}
 .footer-content .cerini-pow img{height:15px;width:auto;display:block}
 .footer-content .footer-legal-container a{color:#000;text-decoration:underline}
