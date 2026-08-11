@@ -417,14 +417,14 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-menu-accordion:nth-child(1){grid-column:1}
   .footer-content .footer-menu-accordion:nth-child(2){grid-column:2}
   .footer-content .footer-menu-accordion:nth-child(3){grid-column:3}
-  .footer-content .footer-menu-toggle-title{pointer-events:none;cursor:default;margin:0 0 13px}
+  .footer-content .footer-menu-toggle-title{pointer-events:none;cursor:default;margin:0 0 10px}   /* Figma: title->links gap 10px */
   .footer-content .footer-menu-accordion .accordion-toggle-icon,
   .footer-content .footer-menu-accordion .d-md-none{display:none!important}
-  .footer-content .footer-menu-title{font-size:14px;font-weight:500;line-height:normal}
+  .footer-content .footer-menu-title{font-size:14px;font-weight:600;line-height:normal}          /* Manrope SemiBold 14 */
   .footer-content .footer-menu-accordion-content{display:block!important;height:auto!important;max-height:none!important;overflow:visible!important;opacity:1!important}
   .footer-content .footer-menu-list{display:flex;flex-direction:column;gap:14px;margin:0}
   .footer-content .footer-menu-list li{margin:0;padding:0}
-  .footer-content .footer-menu-list a{font-size:14px;font-weight:300;line-height:normal;color:#000;text-decoration:none}
+  .footer-content .footer-menu-list a{font-size:12px;font-weight:400;line-height:normal;color:#000;text-decoration:none}   /* Manrope Regular 12 */
   /* institutional -> Redes column (social) + big logo absolute bottom-left */
   .footer-content .footer-contact-info-container{grid-column:4;grid-row:1;margin:0;width:auto;text-align:left}
   .footer-content .footer-institutional-description,
@@ -433,7 +433,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .cerini-footer-logo{position:absolute;left:0;bottom:0;display:block;line-height:0}
   .footer-content .cerini-footer-logo-img{height:34px;width:auto;display:block}
   .footer-content .footer-social-container{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin:0}
-  .footer-content .footer-social-container::before{content:"\2726 Redes";display:block;font-size:14px;font-weight:500;margin-bottom:13px}
+  .footer-content .footer-social-container::before{content:"\2726 Redes";display:block;font-size:14px;font-weight:600;margin-bottom:10px}
   .footer-content .footer-social-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:300;color:#000}
   .footer-content .footer-social-link svg{width:24px;height:24px}
   .footer-content .footer-social-link[href*="instagram"]::after{content:"Instagram"}
@@ -455,7 +455,8 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 /* footer bottom bar (data fiscal · © Cerini · tiendanube · POW) — centered, compact */
 .footer-content .footer-payments-shipping-container{display:none!important}  /* no payment methods (Figma) */
 .footer-content .claim-link{display:none!important}  /* consumer-defense text not in Figma bottom bar */
-.footer-content .footer-secondary-info{border-top:1px solid #000;margin:24px -24px 0;padding:20px 24px 0}  /* BLACK, full-bleed */
+.footer-content{border-top:1px solid #000}  /* footer 1px black top border (Figma) */
+.footer-content .footer-secondary-info{border-top:1px solid #000;margin:0 -24px 0;padding:20px 24px 0}  /* BLACK divider, full-bleed, margin-top 0 */
 .footer-content .footer-legal-container{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px 24px;font-size:12px;color:#000}
 .footer-content .footer-legal-container > div{display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px}
 .footer-content .footer-seals-container{display:flex;align-items:center;gap:8px}
