@@ -431,8 +431,129 @@
     for (var i = 0; i < cards.length; i++) renderCard(cards[i]);
   }
 
+  /* ================= Menu drawer (desktop) — Figma 777:20950 =================
+   * Left drawer (280px). Category list read from the header nav. Clicking a
+   * category with subitems opens a second 280px column with its subcategories.
+   * Triggers: header category link (click) + hamburger (on scroll). Desktop only;
+   * mobile keeps the native #nav-hamburger menu. */
+  var menuEl = null;
+
+  function menuCloseSVG() {
+    return '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.399 18.308l-.708-.708L11.291 12 5.691 6.4l.708-.708L11.999 11.292l5.6-5.6.708.708L12.707 12l5.6 5.6-.708.708L11.999 12.708z"/></svg>';
+  }
+  function menuArrowSVG() {
+    return '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13.22 10.11 8.11 5 3"/></svg>';
+  }
+  function isDesktopMenu() { return window.matchMedia("(min-width:768px)").matches; }
+
+  function collectCategories() {
+    var out = [];
+    var items = document.querySelectorAll(".js-header .nav-desktop-list .nav-main-item");
+    for (var i = 0; i < items.length; i++) {
+      var link = items[i].querySelector(".nav-list-link");
+      if (!link) continue;
+      var subs = [];
+      var subEls = items[i].querySelectorAll(".desktop-list-subitems > li");
+      for (var k = 0; k < subEls.length; k++) {
+        var head = subEls[k].querySelector(".nav-list-link-heading, .nav-list-link");
+        if (head) subs.push({ name: (head.textContent || "").trim(), url: head.getAttribute("href") || "#" });
+      }
+      out.push({ name: (link.textContent || "").trim(), url: link.getAttribute("href") || "#", subs: subs });
+    }
+    return out;
+  }
+
+  function buildMenu() {
+    var cats = collectCategories();
+    var lg = document.querySelector(".js-header .logo-img");
+    var logoSrc = lg ? (lg.getAttribute("src") || "") : "";
+    var catsHtml = "";
+    for (var i = 0; i < cats.length; i++) {
+      var hasSub = cats[i].subs.length > 0;
+      catsHtml += '<li><a class="cerini-menu-cat' + (hasSub ? " has-sub" : "") + '" href="' + cats[i].url +
+        '" data-idx="' + i + '"><span>' + cats[i].name + "</span>" +
+        (hasSub ? '<span class="cerini-menu-arrow">' + menuArrowSVG() + "</span>" : "") + "</a></li>";
+    }
+    var ov = document.createElement("div");
+    ov.className = "cerini-menu-overlay";
+    ov.innerHTML =
+      '<aside class="cerini-menu-panel">' +
+        '<div class="cerini-menu-col1">' +
+          '<button type="button" class="cerini-menu-close" aria-label="Cerrar">' + menuCloseSVG() + "</button>" +
+          '<ul class="cerini-menu-cats list-unstyled">' + catsHtml + "</ul>" +
+          '<div class="cerini-menu-promo"><div class="cerini-menu-promo-img"></div>' +
+            '<a class="cerini-menu-promo-link" href="#">DESCUBRIR</a></div>' +
+          (logoSrc ? '<a class="cerini-menu-logo" href="/"><img src="' + logoSrc + '" alt="Cerini Beauty"></a>' : "") +
+        "</div>" +
+        '<div class="cerini-menu-col2"></div>' +
+      "</aside>";
+    ov._cats = cats;
+    ov.addEventListener("click", function (e) { if (e.target === ov) closeMenu(); });
+    ov.querySelector(".cerini-menu-close").addEventListener("click", closeMenu);
+    var catLinks = ov.querySelectorAll(".cerini-menu-cat");
+    for (var j = 0; j < catLinks.length; j++) {
+      catLinks[j].addEventListener("click", function (e) {
+        var idx = +this.getAttribute("data-idx");
+        if (cats[idx] && cats[idx].subs.length) { e.preventDefault(); selectCat(idx); }
+      });
+    }
+    document.body.appendChild(ov);
+    return ov;
+  }
+
+  function selectCat(idx) {
+    if (!menuEl) return;
+    var cats = menuEl._cats, c = cats[idx];
+    var items = menuEl.querySelectorAll(".cerini-menu-cat");
+    for (var i = 0; i < items.length; i++) items[i].classList.toggle("is-active", +items[i].getAttribute("data-idx") === idx);
+    if (!c || !c.subs.length) { menuEl.classList.remove("is-expanded"); return; }
+    var html = "";
+    for (var k = 0; k < c.subs.length; k++) html += '<li><a href="' + c.subs[k].url + '">' + c.subs[k].name + "</a></li>";
+    menuEl.querySelector(".cerini-menu-col2").innerHTML = '<ul class="cerini-menu-subs list-unstyled">' + html + "</ul>";
+    menuEl.classList.add("is-expanded");
+  }
+
+  function openMenu(selIdx) {
+    if (!menuEl) menuEl = buildMenu();
+    document.documentElement.classList.add("cerini-qv-lock");
+    menuEl.classList.add("is-open");
+    menuEl.classList.remove("is-expanded");
+    requestAnimationFrame(function () { menuEl.classList.add("is-in"); });
+    if (typeof selIdx === "number" && selIdx >= 0) selectCat(selIdx);
+    document.addEventListener("keydown", onMenuKey);
+  }
+  function closeMenu() {
+    if (!menuEl) return;
+    menuEl.classList.remove("is-in", "is-expanded");
+    document.documentElement.classList.remove("cerini-qv-lock");
+    document.removeEventListener("keydown", onMenuKey);
+    var el = menuEl;
+    setTimeout(function () { el.classList.remove("is-open"); }, 350);
+  }
+  function onMenuKey(e) { if (e.key === "Escape" || e.keyCode === 27) closeMenu(); }
+
+  function wireMenuTriggers() {
+    var catLinks = document.querySelectorAll(".js-header .nav-desktop-list .nav-main-item > .nav-list-link");
+    for (var i = 0; i < catLinks.length; i++) {
+      (function (idx) {
+        catLinks[idx].addEventListener("click", function (e) {
+          if (!isDesktopMenu()) return;
+          e.preventDefault(); openMenu(idx);
+        });
+      })(i);
+    }
+    var burgers = document.querySelectorAll(".js-header .menu-container .js-modal-open-private");
+    for (var b = 0; b < burgers.length; b++) {
+      burgers[b].addEventListener("click", function (e) {
+        if (!isDesktopMenu()) return;
+        e.preventDefault(); e.stopPropagation(); openMenu(-1);
+      }, true);
+    }
+  }
+
   function init() {
     renderAll(document);
+    wireMenuTriggers();
     var obs = new MutationObserver(function (muts) {
       for (var i = 0; i < muts.length; i++) {
         var added = muts[i].addedNodes;
