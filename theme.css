@@ -431,7 +431,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-contact-info-container .footer-menu-list{display:none!important}
   .footer-content .footer-institutional-header{display:none}
   .footer-content .cerini-footer-logo{position:absolute;left:0;bottom:0;display:block;line-height:0}
-  .footer-content .cerini-footer-logo-img{height:34px;width:auto;display:block}
+  .footer-content .cerini-footer-logo-img{height:34px!important;width:auto!important;max-width:none!important;display:block}
   .footer-content .footer-social-container{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin:0}
   .footer-content .footer-social-container::before{content:"\2726 Redes";display:block;font-size:14px;font-weight:600;margin-bottom:10px}
   .footer-content .footer-social-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:300;color:#000}
@@ -443,8 +443,8 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-newsletter-container{grid-column:5;grid-row:1;justify-self:end;width:446px;padding-left:75px;box-sizing:border-box}
   /* vertical divider: BLACK, full height of the footer (reaches down to the logo) */
   .footer-content .footer-main-info::after{content:"";position:absolute;top:0;bottom:0;right:446px;width:1px;background:#000}
-  .footer-content .footer-newsletter-title{font-size:16px;font-weight:500;line-height:normal;margin-bottom:15px}
-  .footer-content .footer-newsletter-description{font-size:14px;font-weight:300;line-height:1.35;margin-bottom:19px}
+  .footer-content .footer-newsletter-title{font-size:16px;font-weight:600;line-height:normal;margin-bottom:15px}   /* Manrope SemiBold 16 */
+  .footer-content .footer-newsletter-description{font-size:14px;font-weight:400;line-height:normal;margin-bottom:17px}  /* Manrope Regular 14 */
   .footer-content .newsletter-form-wrapper{display:flex;flex-wrap:wrap;align-items:stretch;row-gap:9px}
   .footer-content .newsletter-form-input{flex:1;min-width:0;height:35px;border:1px solid #000;border-right:0;border-radius:0;padding:0 16px;font-size:14px;background:transparent}
   .footer-content .cerini-nl-name{flex:0 0 100%;border-right:1px solid #000}   /* name on its own row */
