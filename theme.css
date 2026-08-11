@@ -478,7 +478,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
    ================================================================== */
 @media(max-width:767px){
   .footer-content{padding:16px!important}
-  .footer-content .footer-main-info{display:flex!important;flex-direction:column;gap:32px;padding:0;position:static}
+  .footer-content .footer-main-info{display:flex!important;flex-direction:column;gap:27px;padding:0;position:static}
   /* reorder: newsletter, Redes, accordions, logo (institutional split via display:contents) */
   .footer-content .footer-newsletter-container{order:-20;width:100%;padding:0}
   .footer-content .footer-contact-info-container{display:contents}
@@ -520,7 +520,11 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 
   /* bottom bar: © Cerini 10px, tiendanube, POW, centered */
   .footer-content .footer-secondary-info{border-top:1px solid #000;margin:0 -16px;padding:16px}
-  .footer-content .footer-legal-container{gap:15px;font-size:10px}
-  .footer-content .footer-copyright{font-size:10px}
+  /* bottom bar: AFIP · © Cerini · tiendanube · POW all on ONE row */
+  .footer-content .footer-legal-container{flex-wrap:nowrap;gap:10px;font-size:10px}
+  .footer-content .footer-legal-container > div,
+  .footer-content .footer-legal-container > div > div{flex-wrap:nowrap;gap:10px}
+  .footer-content .footer-seals-container{margin:0;flex:none}
+  .footer-content .footer-copyright{font-size:10px;white-space:nowrap}
   .footer-content .cerini-pow img{height:11px}
 }
