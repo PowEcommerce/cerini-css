@@ -508,10 +508,13 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-social-link[href*="tiktok"]::after,
   .footer-content .footer-social-link[href*="tik.tok"]::after{content:"TikTok"}
 
-  /* accordions: title Medium 14 + native +/- toggle */
-  .footer-content .footer-menu-accordion{width:100%}
-  .footer-content .footer-menu-toggle-title{display:flex;align-items:center;justify-content:space-between;margin:0;color:#000;text-decoration:none}
+  /* accordions: no borders/bg, title Medium 14, normalized +/- toggle */
+  .footer-content .footer-menu-accordion{width:100%;border:0!important;margin:0!important}
+  .footer-content .accordion-title,
+  .footer-content .footer-menu-toggle-title{display:flex;align-items:center;justify-content:space-between;margin:0!important;padding:0!important;background:transparent!important;color:#000;text-decoration:none}
   .footer-content .footer-menu-title{font-size:14px;font-weight:500;margin:0}
+  .footer-content .accordion-toggle-icon{width:15px!important;height:15px!important;margin:0!important;font-size:15px!important;line-height:1}
+  .footer-content .accordion-toggle-icon svg{width:15px!important;height:15px!important}
   .footer-content .footer-menu-list{display:flex;flex-direction:column;gap:11px;margin:14px 0 0}
   .footer-content .footer-menu-list a{font-size:12px;font-weight:400;color:#000;text-decoration:none}
 
