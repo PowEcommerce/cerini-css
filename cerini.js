@@ -605,6 +605,7 @@
     // newsletter: add a "nombre" field before the email (Figma: nombre + email)
     var wrap = document.querySelector(".footer-newsletter-form .newsletter-form-wrapper");
     var email = wrap && wrap.querySelector('input[type="email"]');
+    if (email) email.setAttribute("placeholder", "Ingresá tu e-mail");
     if (wrap && email && !wrap.querySelector(".cerini-nl-name")) {
       var name = document.createElement("input");
       name.type = "text";
