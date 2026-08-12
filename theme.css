@@ -545,7 +545,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 /* dash pagination (Figma divider-line indicator) — over the image, 50px from bottom, centered */
 .js-slideshow-container{position:relative}
 .js-slideshow-container .js-swiper-slideshow-pagination-bullets{position:absolute!important;left:50%!important;right:auto!important;transform:translateX(-50%);width:auto!important;bottom:50px;margin:0!important;padding:0!important;display:flex;justify-content:center;align-items:center;gap:10px;z-index:5;line-height:0}
-.js-slideshow-container .swiper-pagination-bullet{width:6px;height:5px;border-radius:0;color:#fff!important;border-color:rgba(255,255,255,.55)!important;background:rgba(255,255,255,.55)!important;opacity:1!important;margin:0!important;transition:width .3s ease}
+.js-slideshow-container .swiper-pagination-bullet{width:6px;height:5px;border-radius:0;color:#fff!important;border-color:rgba(255,255,255,.4)!important;background:rgba(255,255,255,.4)!important;opacity:1!important;margin:0!important;transition:width .3s ease}
 .js-slideshow-container .swiper-pagination-bullet-active{width:33px;border-color:#fff!important;background:#fff!important}
 @media(max-width:767px){
   /* mobile: text centered at the bottom, white, over a bottom gradient */
