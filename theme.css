@@ -567,3 +567,6 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 [data-section-id="novedades"] .js-swiper-products-list-prev,
 [data-section-id="novedades"] .js-swiper-products-list-next,
 [data-section-id="novedades"] .js-swiper-products-list-pagination{display:none!important}
+/* cards bleed to the right edge (4.1 peek); header keeps 24px like Figma */
+[data-section-id="novedades"]{padding-right:0!important}
+[data-section-id="novedades"] .group-block{padding-right:24px!important}
