@@ -570,18 +570,3 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 /* cards bleed to the right edge (4.1 peek); header keeps 24px like Figma */
 [data-section-id="novedades"]{padding-right:0!important}
 [data-section-id="novedades"] .group-block{padding-right:24px!important}
-
-/* ==================================================================
-   HOME · Block 4 — Banners duo (banners section, 2-up · Figma 775:15384 / 775:15385)
-   each banner 712x574 (aspect), 16px gap · content bottom-left (40/20), gap 20,
-   heading SemiBold 24 · desc Light 16 (w407) · button outlined 35px.
-   Scoped to the duplicated banners section id.
-   ================================================================== */
-[data-section-id="banners_1786549157291"] .js-banners-slider-container{--grid-gap:16px!important}
-[data-section-id="banners_1786549157291"] .banner-image-container{aspect-ratio:712/574}
-[data-section-id="banners_1786549157291"] .banner-image-container img{width:100%!important;height:100%!important;object-fit:cover}
-[data-section-id="banners_1786549157291"] .media-content-floating{gap:20px!important;padding:40px 20px!important;max-width:465px;align-items:flex-start!important}
-[data-section-id="banners_1786549157291"] .heading-block{font-size:24px!important;font-weight:600!important;line-height:normal!important}
-[data-section-id="banners_1786549157291"] .text-content,
-[data-section-id="banners_1786549157291"] .text-content p{font-size:16px!important;font-weight:300!important;line-height:normal!important;max-width:407px}
-[data-section-id="banners_1786549157291"] .btn{min-height:0!important;height:35px!important;padding:0 31px!important;font-size:14px!important;font-weight:400!important;display:inline-flex!important;align-items:center!important}
