@@ -565,4 +565,5 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 [data-section-id="novedades"] .group-block{width:100%!important}
 [data-section-id="novedades"] .group-content{width:100%!important;justify-content:space-between!important;flex-wrap:nowrap!important}
 [data-section-id="novedades"] .js-swiper-products-list-prev,
-[data-section-id="novedades"] .js-swiper-products-list-next{display:none!important}
+[data-section-id="novedades"] .js-swiper-products-list-next,
+[data-section-id="novedades"] .js-swiper-products-list-pagination{display:none!important}

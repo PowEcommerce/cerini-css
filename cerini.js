@@ -618,10 +618,37 @@
     }
   }
 
+  // Home · Novedades carousel: 4.1 slides on desktop, move 1 at a time, no pagination.
+  function setupNovedadesCarousel() {
+    var section = document.querySelector('[data-section-id="novedades"]');
+    if (!section) return;
+    var slider = section.querySelector(".js-products-list-swiper");
+    var wrapper = section.querySelector(".js-swiper-products-slider");
+    if (!slider || !wrapper) return;
+    var tries = 0;
+    (function apply() {
+      tries++;
+      if (!window.Swiper) { if (tries < 40) setTimeout(apply, 100); return; }
+      // let the theme create its instance first, then override cleanly
+      if (!slider.swiper && tries < 15) { setTimeout(apply, 100); return; }
+      var colMob = parseInt(wrapper.dataset.mobileColumns, 10) || 2;
+      if (slider.swiper) { try { slider.swiper.destroy(true, true); } catch (e) {} }
+      new window.Swiper(slider, {
+        lazy: true,
+        slidesPerView: colMob,
+        slidesPerGroup: 1,
+        spaceBetween: 16,
+        watchOverflow: true,
+        breakpoints: { 768: { slidesPerView: 4.1, slidesPerGroup: 1 } }
+      });
+    })();
+  }
+
   function init() {
     renderAll(document);
     wireMenuTriggers();
     setupFooter();
+    setupNovedadesCarousel();
     var obs = new MutationObserver(function (muts) {
       for (var i = 0; i < muts.length; i++) {
         var added = muts[i].addedNodes;
