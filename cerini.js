@@ -644,6 +644,36 @@
     })();
   }
 
+  // Home · Best sellers carousel: move 1 at a time + progress scrollbar paginator (the line under it).
+  function setupBestSellersCarousel() {
+    var section = document.querySelector("#ns-section-best_sellers");
+    if (!section) return;
+    var slider = section.querySelector(".js-products-list-swiper");
+    var wrapper = section.querySelector(".js-swiper-products-slider");
+    var host = section.querySelector("#ns-block-products") || section;
+    if (!slider || !wrapper) return;
+    var tries = 0;
+    (function apply() {
+      tries++;
+      if (!window.Swiper) { if (tries < 40) setTimeout(apply, 100); return; }
+      if (!slider.swiper && tries < 15) { setTimeout(apply, 100); return; }
+      var colD = parseInt(wrapper.dataset.desktopColumns, 10) || 4;
+      var colM = parseInt(wrapper.dataset.mobileColumns, 10) || 2;
+      if (slider.swiper) { try { slider.swiper.destroy(true, true); } catch (e) {} }
+      var sb = host.querySelector(".cerini-bs-scrollbar");
+      if (!sb) { sb = document.createElement("div"); sb.className = "cerini-bs-scrollbar"; host.appendChild(sb); }
+      new window.Swiper(slider, {
+        lazy: true,
+        slidesPerView: colM,
+        slidesPerGroup: 1,
+        spaceBetween: 16,
+        watchOverflow: true,
+        scrollbar: { el: sb, draggable: true, dragClass: "cerini-bs-drag" },
+        breakpoints: { 768: { slidesPerView: colD, slidesPerGroup: 1 } }
+      });
+    })();
+  }
+
   // Home · Nuestras marcas — continuous logo marquee (spec 08), like the pre-header ticker.
   // Ribbon scrolls right→left at 40px/s, linear, infinite; pauses on hover; per-brand hover bg.
   // Built from the theme's brand logos, duplicated ×2 (each set includes a trailing gap so
@@ -719,6 +749,7 @@
     wireMenuTriggers();
     setupFooter();
     setupNovedadesCarousel();
+    setupBestSellersCarousel();
     setupBrandsMarquee();
     var obs = new MutationObserver(function (muts) {
       for (var i = 0; i < muts.length; i++) {

@@ -598,19 +598,20 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 #ns-block-header_row::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(0,0,0,.35),rgba(0,0,0,0) 45%);pointer-events:none}
 #ns-block-header_row .heading-block{position:relative;z-index:2;color:#fff!important;font-size:28px!important;font-weight:600!important;line-height:normal!important;white-space:nowrap}
 #ns-block-header_row .btn{position:relative;z-index:2;color:#fff!important;font-size:12px!important;font-weight:500!important;padding:0!important;min-height:0!important;height:auto!important;border:0!important;background:none!important;text-decoration:underline!important;text-underline-offset:3px!important;text-decoration-thickness:1px!important}
-/* hide products arrows + dots (Figma: static grid + divider only) */
+/* hide the theme's products arrows + dots (paginator is the scrollbar below) */
 #ns-block-products .js-swiper-products-list-prev,
 #ns-block-products .js-swiper-products-list-next,
 #ns-block-products .js-swiper-products-list-pagination{display:none!important}
+/* products paginator = Swiper progress scrollbar (built by cerini.js): light track + dark moving thumb */
+#ns-block-products{position:relative;padding-bottom:14px}
+#ns-block-products .cerini-bs-scrollbar{position:absolute;left:0;bottom:0;width:100%;height:2px;background:#F7F7F7;z-index:2}
+#ns-block-products .cerini-bs-drag{position:absolute;top:0;left:0;height:100%;background:#000;cursor:grab}
 
 @media(min-width:768px){
   /* 2-column grid: left block (banner/image, 360px) + products (rest) */
   #ns-section-best_sellers .d-flex.flex-column{display:grid!important;grid-template-columns:360px minmax(0,1fr)!important;column-gap:16px!important;align-items:stretch!important}
   #ns-section-best_sellers .d-flex.flex-column > :first-child{grid-column:1!important;grid-row:1!important;align-self:stretch!important;min-height:396px}
-  #ns-block-products{grid-column:2!important;grid-row:1!important;min-width:0!important;position:relative;padding-bottom:10px}
-  /* divider under products (light full line + 78px black accent) */
-  #ns-block-products::before{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:#F7F7F7}
-  #ns-block-products::after{content:"";position:absolute;left:0;bottom:0;width:78px;height:1px;background:#000}
+  #ns-block-products{grid-column:2!important;grid-row:1!important;min-width:0!important}
 }
 
 /* ==================================================================
