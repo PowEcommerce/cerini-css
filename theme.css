@@ -538,7 +538,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
    ================================================================== */
 .js-slideshow-container .heading-block{font-size:20px!important;font-weight:600!important;line-height:1.2}
 .js-slideshow-container .text-content,
-.js-slideshow-container .text-content p{font-size:14px!important;font-weight:300!important;line-height:1.2}
+.js-slideshow-container .text-content p{font-size:14px!important;font-weight:300!important;line-height:normal!important}
 .js-slideshow-container .swiper-button-prev,
 .js-slideshow-container .swiper-button-next{display:none!important}   /* Figma: no arrows, bullets only */
 .js-slideshow-container .media-content .btn{min-height:0!important;height:35px!important;padding:0 31px!important;font-size:14px!important;font-weight:400!important;display:inline-flex!important;align-items:center!important}
