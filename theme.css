@@ -516,7 +516,8 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-menu-title{font-size:14px;font-weight:500;margin:0}
   .footer-content .accordion-toggle-icon{width:15px!important;height:15px!important;margin:0!important;font-size:15px!important;line-height:1}
   .footer-content .accordion-toggle-icon svg{width:15px!important;height:15px!important}
-  .footer-content .footer-menu-list{display:flex;flex-direction:column;gap:11px;margin:14px 0 0}
+  .footer-content .footer-menu-accordion-content{padding-left:0;padding-right:0}
+  .footer-content .footer-menu-list{display:flex;flex-direction:column;gap:17px;margin:8px 0 0}
   .footer-content .footer-menu-list a{font-size:12px;font-weight:400;color:#000;text-decoration:none}
 
   /* bottom bar: © Cerini 10px, tiendanube, POW, centered */
