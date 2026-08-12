@@ -644,24 +644,49 @@
     })();
   }
 
-  // Home · Nuestras marcas carousel: 6.5 slides on desktop, move 1 at a time.
-  // Theme inits it as columns-mode "auto" (slidesPerView:auto) so it doesn't scroll; override it.
-  function setupBrandsCarousel() {
-    var slider = document.querySelector(".featured-brands-section .js-carousel-slider");
+  // Home · Nuestras marcas — continuous logo marquee (spec 08), like the pre-header ticker.
+  // Ribbon scrolls right→left at 40px/s, linear, infinite; pauses on hover; per-brand hover bg.
+  // Built from the theme's brand logos, duplicated ×2 (each set includes a trailing gap so
+  // translateX(-50%) is seamless). animation-duration = setWidth / 40px/s, recalculated by count.
+  var BRAND_ITEM_W = 168, BRAND_GAP = 62, BRAND_SPEED = 40; // px / px / px-per-second
+  function setupBrandsMarquee() {
+    var section = document.querySelector(".featured-brands-section");
+    if (!section || section.querySelector(".brands-marquee")) return;
+    var slider = section.querySelector(".js-carousel-slider");
     if (!slider) return;
     var tries = 0;
     (function apply() {
       tries++;
-      if (!window.Swiper) { if (tries < 40) setTimeout(apply, 100); return; }
-      if (!slider.swiper && tries < 15) { setTimeout(apply, 100); return; }
+      var slides = [].slice.call(slider.querySelectorAll(".brand-logo-slide"));
+      if (!slides.length) { if (tries < 30) setTimeout(apply, 150); return; }
+      var links = slides.map(function (sl) {
+        return sl.querySelector(".brand-logo-link") || sl.firstElementChild;
+      }).filter(Boolean);
+      if (!links.length) return;
       if (slider.swiper) { try { slider.swiper.destroy(true, true); } catch (e) {} }
-      new window.Swiper(slider, {
-        slidesPerView: 2.5,
-        slidesPerGroup: 1,
-        spaceBetween: 48,
-        watchOverflow: false,
-        breakpoints: { 768: { slidesPerView: 6.5, slidesPerGroup: 1, spaceBetween: 48 } }
-      });
+
+      function buildSet() {
+        var set = document.createElement("div");
+        set.className = "brands-set";
+        links.forEach(function (lk) {
+          var item = document.createElement("div");
+          item.className = "brand-marquee-item";
+          item.appendChild(lk.cloneNode(true));
+          set.appendChild(item);
+        });
+        return set;
+      }
+      var marquee = document.createElement("div");
+      marquee.className = "brands-marquee";
+      var track = document.createElement("div");
+      track.className = "brands-track";
+      track.appendChild(buildSet());
+      track.appendChild(buildSet());
+      marquee.appendChild(track);
+      slider.parentNode.replaceChild(marquee, slider);
+      // setWidth = N items * itemW + N gaps (N-1 inner + 1 trailing) = N*(itemW+gap); dur = setWidth/speed
+      var setWidth = links.length * (BRAND_ITEM_W + BRAND_GAP);
+      track.style.animationDuration = (setWidth / BRAND_SPEED) + "s";
     })();
   }
 
@@ -670,7 +695,7 @@
     wireMenuTriggers();
     setupFooter();
     setupNovedadesCarousel();
-    setupBrandsCarousel();
+    setupBrandsMarquee();
     var obs = new MutationObserver(function (muts) {
       for (var i = 0; i < muts.length; i++) {
         var added = muts[i].addedNodes;
