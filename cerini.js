@@ -671,16 +671,8 @@
         links.forEach(function (lk) {
           var item = document.createElement("div");
           item.className = "brand-marquee-item";
-          var clone = lk.cloneNode(true);
-          // resolve lazy images so the admin logos actually load (real src is in data-src/data-srcset)
-          [].slice.call(clone.querySelectorAll("img")).forEach(function (img) {
-            var ds = img.getAttribute("data-src"), dss = img.getAttribute("data-srcset");
-            if (dss) img.setAttribute("srcset", dss);
-            if (ds) img.setAttribute("src", ds);
-            img.classList.remove("lazyload", "swiper-lazy");
-            img.removeAttribute("loading");
-          });
-          item.appendChild(clone);
+          // clone as-is: keep lazy attrs so the theme's lazy-loader loads the clones (it did in v7).
+          item.appendChild(lk.cloneNode(true));
           set.appendChild(item);
         });
         return set;
@@ -696,6 +688,11 @@
       // setWidth = N items * itemW + N gaps (N-1 inner + 1 trailing) = N*(itemW+gap); dur = setWidth/speed
       var setWidth = links.length * (BRAND_ITEM_W + BRAND_GAP);
       track.style.animationDuration = (setWidth / BRAND_SPEED) + "s";
+      // nudge the theme's lazy-loader to pick up the cloned logos
+      if (window.lazySizes && window.lazySizes.loader && window.lazySizes.loader.checkElems) {
+        window.lazySizes.loader.checkElems();
+      }
+      try { window.dispatchEvent(new Event("scroll")); window.dispatchEvent(new Event("resize")); } catch (e) {}
     })();
   }
 
