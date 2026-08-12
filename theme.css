@@ -478,7 +478,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
    ================================================================== */
 @media(max-width:767px){
   .footer-content{padding:16px!important}
-  .footer-content .footer-main-info{display:flex!important;flex-direction:column;gap:27px;padding:0;position:static}
+  .footer-content .footer-main-info{display:flex!important;flex-direction:column;gap:32px;padding:0;position:static}
   /* reorder: newsletter, Redes, accordions, logo (institutional split via display:contents) */
   .footer-content .footer-newsletter-container{order:-20;width:100%;padding:0 0 27px;border-bottom:1px solid #000}   /* Figma line between newsletter and Redes */
   .footer-content .footer-contact-info-container{display:contents}
