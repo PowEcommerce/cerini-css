@@ -644,11 +644,33 @@
     })();
   }
 
+  // Home · Nuestras marcas carousel: 6.5 slides on desktop, move 1 at a time.
+  // Theme inits it as columns-mode "auto" (slidesPerView:auto) so it doesn't scroll; override it.
+  function setupBrandsCarousel() {
+    var slider = document.querySelector(".featured-brands-section .js-carousel-slider");
+    if (!slider) return;
+    var tries = 0;
+    (function apply() {
+      tries++;
+      if (!window.Swiper) { if (tries < 40) setTimeout(apply, 100); return; }
+      if (!slider.swiper && tries < 15) { setTimeout(apply, 100); return; }
+      if (slider.swiper) { try { slider.swiper.destroy(true, true); } catch (e) {} }
+      new window.Swiper(slider, {
+        slidesPerView: 2.5,
+        slidesPerGroup: 1,
+        spaceBetween: 48,
+        watchOverflow: false,
+        breakpoints: { 768: { slidesPerView: 6.5, slidesPerGroup: 1, spaceBetween: 48 } }
+      });
+    })();
+  }
+
   function init() {
     renderAll(document);
     wireMenuTriggers();
     setupFooter();
     setupNovedadesCarousel();
+    setupBrandsCarousel();
     var obs = new MutationObserver(function (muts) {
       for (var i = 0; i < muts.length; i++) {
         var added = muts[i].addedNodes;
