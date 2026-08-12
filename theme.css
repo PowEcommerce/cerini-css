@@ -579,35 +579,33 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
    technique: ID scope #ns-section-best_sellers + display:grid on the direct
    child .js-products-list-slider > .d-flex.flex-column (NOT flex-row descendant).
    ================================================================== */
-/* scope covers both id (#ns-section-best_sellers) and class (.ns-section-best_sellers) forms */
-:is(#ns-section-best_sellers,.ns-section-best_sellers) .js-products-list-slider{padding-left:0!important;padding-right:0!important}
-/* left column (header_row group) as image with bottom-left overlay text */
-:is(#ns-section-best_sellers,.ns-section-best_sellers) .group-block{
+/* Real live DOM: section#ns-section-best_sellers > .js-products-list-slider > .container
+   > .d-flex.flex-column > [ #ns-block-header_row (.group-block) , #ns-block-products (.products-list-slider) ].
+   Section is page-width (has .container) → neutralize it for full-bleed like Figma. */
+#ns-section-best_sellers .js-products-list-slider .container{max-width:none!important;width:100%!important;padding-left:0!important;padding-right:0!important}
+/* left column (#ns-block-header_row) as image with bottom-left overlay text */
+#ns-block-header_row{
   background:linear-gradient(0deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 45%),url("https://powecommerce.github.io/cerini-css/best-sellers.jpg") center/cover no-repeat!important;
   display:flex!important;flex-direction:column!important;justify-content:flex-end!important;align-items:flex-start!important;
   padding:0 16px 24px 31px!important;margin:0!important;min-height:396px;
 }
-:is(#ns-section-best_sellers,.ns-section-best_sellers) .group-block > .group-content{flex-direction:column!important;align-items:flex-start!important;justify-content:flex-end!important;gap:20px!important;width:auto!important}
-:is(#ns-section-best_sellers,.ns-section-best_sellers) .group-block .heading-block{color:#fff!important;font-size:28px!important;font-weight:600!important;line-height:normal!important;white-space:nowrap}
-:is(#ns-section-best_sellers,.ns-section-best_sellers) .group-block .btn{color:#fff!important;font-size:12px!important;font-weight:500!important;padding:0!important;min-height:0!important;height:auto!important;border:0!important;background:none!important;text-decoration:underline!important;text-underline-offset:3px!important;text-decoration-thickness:1px!important}
+#ns-block-header_row .group-content{flex-direction:column!important;align-items:flex-start!important;justify-content:flex-end!important;gap:20px!important;width:auto!important}
+#ns-block-header_row .heading-block{color:#fff!important;font-size:28px!important;font-weight:600!important;line-height:normal!important;white-space:nowrap}
+#ns-block-header_row .btn{color:#fff!important;font-size:12px!important;font-weight:500!important;padding:0!important;min-height:0!important;height:auto!important;border:0!important;background:none!important;text-decoration:underline!important;text-underline-offset:3px!important;text-decoration-thickness:1px!important}
 
 @media(min-width:768px){
-  /* 2-column grid: image (360) + products (rest) — Kevingston editorial_products technique.
-     :has(> .group-block) targets the flex wrapper regardless of its exact classes. */
-  :is(#ns-section-best_sellers,.ns-section-best_sellers) .js-products-list-slider > .d-flex.flex-column,
-  :is(#ns-section-best_sellers,.ns-section-best_sellers) .js-products-list-slider > div:has(> .group-block){
-    display:grid!important;grid-template-columns:360px minmax(0,1fr)!important;column-gap:16px!important;align-items:stretch!important;
-  }
-  :is(#ns-section-best_sellers,.ns-section-best_sellers) .group-block{grid-column:1!important;grid-row:1!important;align-self:stretch!important;width:auto!important}
-  :is(#ns-section-best_sellers,.ns-section-best_sellers) .products-list-slider{grid-column:2!important;grid-row:1!important;min-width:0!important;position:relative;padding-bottom:10px}
+  /* 2-column grid on the flex wrapper (inside .container) */
+  #ns-section-best_sellers .d-flex.flex-column{display:grid!important;grid-template-columns:360px minmax(0,1fr)!important;column-gap:16px!important;align-items:stretch!important}
+  #ns-block-header_row{grid-column:1!important;grid-row:1!important;align-self:stretch!important;width:auto!important}
+  #ns-block-products{grid-column:2!important;grid-row:1!important;min-width:0!important;position:relative;padding-bottom:10px}
   /* divider under products (light full line + 78px black accent) */
-  :is(#ns-section-best_sellers,.ns-section-best_sellers) .products-list-slider::before{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:#F7F7F7}
-  :is(#ns-section-best_sellers,.ns-section-best_sellers) .products-list-slider::after{content:"";position:absolute;left:0;bottom:0;width:78px;height:1px;background:#000}
+  #ns-block-products::before{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:#F7F7F7}
+  #ns-block-products::after{content:"";position:absolute;left:0;bottom:0;width:78px;height:1px;background:#000}
 }
 
 @media(max-width:767px){
   /* mobile: image on top (full width, 196px), products below (default column) */
-  :is(#ns-section-best_sellers,.ns-section-best_sellers) .group-block{width:100%!important;min-height:196px!important;padding:0 16px 20px 20px!important;margin:0!important}
-  :is(#ns-section-best_sellers,.ns-section-best_sellers) .group-block > .group-content{gap:12px!important}
-  :is(#ns-section-best_sellers,.ns-section-best_sellers) .group-block .heading-block{font-size:24px!important}
+  #ns-block-header_row{width:100%!important;min-height:196px!important;padding:0 16px 20px 20px!important;margin:0!important}
+  #ns-block-header_row .group-content{gap:12px!important}
+  #ns-block-header_row .heading-block{font-size:24px!important}
 }
