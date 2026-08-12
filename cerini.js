@@ -671,7 +671,16 @@
         links.forEach(function (lk) {
           var item = document.createElement("div");
           item.className = "brand-marquee-item";
-          item.appendChild(lk.cloneNode(true));
+          var clone = lk.cloneNode(true);
+          // resolve lazy images so the admin logos actually load (real src is in data-src/data-srcset)
+          [].slice.call(clone.querySelectorAll("img")).forEach(function (img) {
+            var ds = img.getAttribute("data-src"), dss = img.getAttribute("data-srcset");
+            if (dss) img.setAttribute("srcset", dss);
+            if (ds) img.setAttribute("src", ds);
+            img.classList.remove("lazyload", "swiper-lazy");
+            img.removeAttribute("loading");
+          });
+          item.appendChild(clone);
           set.appendChild(item);
         });
         return set;

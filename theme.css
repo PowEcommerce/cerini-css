@@ -610,9 +610,13 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 .featured-brands-section .brands-marquee{overflow:hidden;width:100%}
 .featured-brands-section .brands-track{display:flex;width:max-content;animation-name:cerini-brands-marquee;animation-timing-function:linear;animation-iteration-count:infinite;animation-duration:34.5s;will-change:transform}
 .featured-brands-section .brands-marquee:hover .brands-track{animation-play-state:paused}
-.featured-brands-section .brands-set{display:flex;gap:62px;padding-right:62px}
-.featured-brands-section .brand-marquee-item{flex:0 0 168px;width:168px;height:76px;display:flex;align-items:center;justify-content:center;transition:background .2s ease-out}
+.featured-brands-section .brands-set{display:flex;gap:62px;padding-right:62px;flex:0 0 auto}
+.featured-brands-section .brand-marquee-item{flex:0 0 168px;width:168px;min-width:0;max-width:168px;height:76px;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:background .2s ease-out}
 .featured-brands-section .brand-marquee-item:hover{background:rgba(0,0,0,.02)}
+/* no arrows / pagination on the marquee (Figma) */
+.featured-brands-section .js-carousel-prev,
+.featured-brands-section .js-carousel-next,
+.featured-brands-section .js-carousel-pagination{display:none!important}
 .featured-brands-section .brand-marquee-item a{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
 .featured-brands-section .brand-marquee-item img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 @keyframes cerini-brands-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
