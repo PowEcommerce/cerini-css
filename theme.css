@@ -589,6 +589,19 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 #ns-section-best_sellers .banner-image-container img{width:100%!important;height:100%!important;object-fit:cover!important}
 #ns-section-best_sellers .banner-block .heading-block{font-size:28px!important;font-weight:600!important;line-height:normal!important;white-space:nowrap}
 #ns-section-best_sellers .banner-block .btn{font-size:12px!important;font-weight:500!important;padding:0!important;min-height:0!important;height:auto!important;border:0!important;background:none!important;text-decoration:underline!important;text-underline-offset:3px!important;text-decoration-thickness:1px!important}
+/* left block built as a GROUP with an image block (admin image) + heading + button:
+   image fills the column, text (Best sellers / Ver más) overlaid bottom-left in white. */
+#ns-block-header_row{position:relative!important;overflow:hidden}
+#ns-block-header_row > .group-content{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-end!important;gap:20px!important;width:100%!important;height:100%;min-height:396px;padding:0 16px 24px 31px!important;box-sizing:border-box}
+#ns-block-header_row .image-block{position:absolute!important;inset:0!important;z-index:0;margin:0!important;padding:0!important;width:auto!important;height:auto!important}
+#ns-block-header_row .image-block a,#ns-block-header_row .image-block picture,#ns-block-header_row .image-block img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important}
+#ns-block-header_row::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(0,0,0,.35),rgba(0,0,0,0) 45%);pointer-events:none}
+#ns-block-header_row .heading-block{position:relative;z-index:2;color:#fff!important;font-size:28px!important;font-weight:600!important;line-height:normal!important;white-space:nowrap}
+#ns-block-header_row .btn{position:relative;z-index:2;color:#fff!important;font-size:12px!important;font-weight:500!important;padding:0!important;min-height:0!important;height:auto!important;border:0!important;background:none!important;text-decoration:underline!important;text-underline-offset:3px!important;text-decoration-thickness:1px!important}
+/* hide products arrows + dots (Figma: static grid + divider only) */
+#ns-block-products .js-swiper-products-list-prev,
+#ns-block-products .js-swiper-products-list-next,
+#ns-block-products .js-swiper-products-list-pagination{display:none!important}
 
 @media(min-width:768px){
   /* 2-column grid: left block (banner/image, 360px) + products (rest) */
