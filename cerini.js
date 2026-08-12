@@ -660,15 +660,15 @@
       var colD = parseInt(wrapper.dataset.desktopColumns, 10) || 4;
       var colM = parseInt(wrapper.dataset.mobileColumns, 10) || 2;
       if (slider.swiper) { try { slider.swiper.destroy(true, true); } catch (e) {} }
-      var sb = host.querySelector(".cerini-bs-scrollbar");
-      if (!sb) { sb = document.createElement("div"); sb.className = "cerini-bs-scrollbar"; host.appendChild(sb); }
+      var sb = host.querySelector(".cerini-bs-progress");
+      if (!sb) { sb = document.createElement("div"); sb.className = "cerini-bs-progress"; host.appendChild(sb); }
       new window.Swiper(slider, {
         lazy: true,
         slidesPerView: colM,
         slidesPerGroup: 1,
         spaceBetween: 16,
         watchOverflow: true,
-        scrollbar: { el: sb, draggable: true, dragClass: "cerini-bs-drag" },
+        pagination: { el: sb, type: "progressbar" },
         breakpoints: { 768: { slidesPerView: colD, slidesPerGroup: 1 } }
       });
     })();

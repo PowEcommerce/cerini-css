@@ -602,10 +602,10 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 #ns-block-products .js-swiper-products-list-prev,
 #ns-block-products .js-swiper-products-list-next,
 #ns-block-products .js-swiper-products-list-pagination{display:none!important}
-/* products paginator = Swiper progress scrollbar (built by cerini.js): light track + dark moving thumb */
+/* products paginator = Swiper progressbar (built by cerini.js): light track + dark fill that grows */
 #ns-block-products{position:relative;padding-bottom:14px}
-#ns-block-products .cerini-bs-scrollbar{position:absolute;left:0;bottom:0;width:100%;height:2px;background:#F7F7F7;z-index:2}
-#ns-block-products .cerini-bs-drag{position:absolute;top:0;left:0;height:100%;background:#000;cursor:grab}
+#ns-block-products .cerini-bs-progress{position:absolute!important;left:0;bottom:0;top:auto!important;width:100%!important;height:2px!important;background:#F7F7F7!important;z-index:2}
+#ns-block-products .cerini-bs-progress .swiper-pagination-progressbar-fill{position:absolute;left:0;top:0;width:100%;height:100%;background:#000;transform-origin:left top}
 
 @media(min-width:768px){
   /* 2-column grid: left block (banner/image, 360px) + products (rest) */
