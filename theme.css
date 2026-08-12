@@ -557,3 +557,12 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .js-slideshow-container .media-overlay{background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.55) 100%)!important;opacity:1!important}
   .js-slideshow-container .js-swiper-slideshow-pagination-bullets{bottom:20px}
 }
+
+/* ==================================================================
+   HOME · Block 2 — Novedades (product-list, Figma 775:15373 / 777:23182)
+   header row: title left + "Ver todos" right · no carousel arrows (desktop+mobile).
+   ================================================================== */
+[data-section-id="novedades"] .group-block{width:100%!important}
+[data-section-id="novedades"] .group-content{width:100%!important;justify-content:space-between!important;flex-wrap:nowrap!important}
+[data-section-id="novedades"] .js-swiper-products-list-prev,
+[data-section-id="novedades"] .js-swiper-products-list-next{display:none!important}
