@@ -695,18 +695,6 @@
       if (!links.length) return;
       if (slider.swiper) { try { slider.swiper.destroy(true, true); } catch (e) {} }
 
-      // Resolve the real logo URL deterministically (don't depend on the lazy-loader
-      // reaching the clones — that's what made it load intermittently).
-      function realSrc(img) {
-        var c = img.currentSrc || "";
-        if (c && c.indexOf("data:") !== 0) return c;
-        var ds = img.getAttribute("data-src");
-        if (ds) return ds;
-        var dss = img.getAttribute("data-srcset") || img.getAttribute("srcset") || "";
-        if (dss) { var first = dss.split(",")[0].trim().split(/\s+/)[0]; if (first) return first; }
-        var s = img.getAttribute("src") || "";
-        return s.indexOf("data:") !== 0 ? s : "";
-      }
       function buildSet() {
         var set = document.createElement("div");
         set.className = "brands-set";
@@ -715,15 +703,15 @@
           item.className = "brand-marquee-item";
           var clone = lk.cloneNode(true);
           [].slice.call(clone.querySelectorAll("img")).forEach(function (img) {
-            var url = realSrc(img);
-            if (url) img.setAttribute("src", url);
-            // strip lazy machinery so nothing overwrites the resolved src
-            img.removeAttribute("srcset");
-            img.removeAttribute("data-src");
-            img.removeAttribute("data-srcset");
-            img.removeAttribute("sizes");
+            // KEEP the full srcset (the responsive sizes) so the browser can pick a
+            // sharp version — stripping it left only the tiny base src (50x23 → looked blank).
+            var dss = img.getAttribute("data-srcset"), ds = img.getAttribute("data-src");
+            if (dss && !img.getAttribute("srcset")) img.setAttribute("srcset", dss);
+            var cur = img.getAttribute("src") || "";
+            if (ds && (cur === "" || cur.indexOf("data:") === 0)) img.setAttribute("src", ds);
+            img.setAttribute("sizes", "200px"); // pick a candidate ~200px (item is 168px)
             img.removeAttribute("loading");
-            img.classList.remove("lazyload", "lazyloaded", "swiper-lazy");
+            img.classList.remove("lazyload", "swiper-lazy");
           });
           item.appendChild(clone);
           set.appendChild(item);
