@@ -544,7 +544,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 .js-slideshow-container .media-content .btn{min-height:0!important;height:35px!important;padding:0 31px!important;font-size:14px!important;font-weight:400!important;display:inline-flex!important;align-items:center!important}
 /* dash pagination (Figma divider-line indicator) — over the image, 50px from bottom, centered */
 .js-slideshow-container{position:relative}
-.js-slideshow-container .js-swiper-slideshow-pagination-bullets{position:absolute!important;left:0;right:0;bottom:50px;margin:0!important;padding:0!important;display:flex;justify-content:center;align-items:center;gap:10px;z-index:5;line-height:0}
+.js-slideshow-container .js-swiper-slideshow-pagination-bullets{position:absolute!important;left:50%!important;right:auto!important;transform:translateX(-50%);width:auto!important;bottom:50px;margin:0!important;padding:0!important;display:flex;justify-content:center;align-items:center;gap:10px;z-index:5;line-height:0}
 .js-slideshow-container .swiper-pagination-bullet{width:6px;height:2px;border-radius:0;background:rgba(255,255,255,.55);opacity:1;margin:0!important;transition:width .3s ease}
 .js-slideshow-container .swiper-pagination-bullet-active{width:33px;background:#fff}
 @media(max-width:767px){
