@@ -581,6 +581,14 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
    ================================================================== */
 /* section is page-width (has .container) → neutralize for full-bleed like Figma */
 #ns-section-best_sellers .js-products-list-slider .container{max-width:none!important;width:100%!important;padding-left:0!important;padding-right:0!important}
+/* left block should be a Banner (admin): image fills the column, text overlaid.
+   Alignment (bottom-left) + text color (white) are set in the admin; here just
+   fill + Figma type sizes (heading 28 SemiBold / "Ver más" 12 underlined). */
+#ns-section-best_sellers .banner-block{height:100%!important;min-height:396px}
+#ns-section-best_sellers .banner-image-container{height:100%!important}
+#ns-section-best_sellers .banner-image-container img{width:100%!important;height:100%!important;object-fit:cover!important}
+#ns-section-best_sellers .banner-block .heading-block{font-size:28px!important;font-weight:600!important;line-height:normal!important;white-space:nowrap}
+#ns-section-best_sellers .banner-block .btn{font-size:12px!important;font-weight:500!important;padding:0!important;min-height:0!important;height:auto!important;border:0!important;background:none!important;text-decoration:underline!important;text-underline-offset:3px!important;text-decoration-thickness:1px!important}
 
 @media(min-width:768px){
   /* 2-column grid: left block (banner/image, 360px) + products (rest) */
