@@ -520,7 +520,7 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-menu-list a{font-size:12px;font-weight:400;color:#000;text-decoration:none}
 
   /* bottom bar: © Cerini 10px, tiendanube, POW, centered */
-  .footer-content .footer-secondary-info{border-top:0;margin:0 -16px;padding:32px 16px 16px}
+  .footer-content .footer-secondary-info{border-top:0;margin:0 -16px;padding:28px 16px 16px}
   /* bottom bar: AFIP · © Cerini · tiendanube · POW all on ONE row */
   .footer-content .footer-legal-container{flex-wrap:nowrap;gap:10px;font-size:10px}
   .footer-content .footer-legal-container > div,
