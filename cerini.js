@@ -665,14 +665,37 @@
       if (!links.length) return;
       if (slider.swiper) { try { slider.swiper.destroy(true, true); } catch (e) {} }
 
+      // Resolve the real logo URL deterministically (don't depend on the lazy-loader
+      // reaching the clones — that's what made it load intermittently).
+      function realSrc(img) {
+        var c = img.currentSrc || "";
+        if (c && c.indexOf("data:") !== 0) return c;
+        var ds = img.getAttribute("data-src");
+        if (ds) return ds;
+        var dss = img.getAttribute("data-srcset") || img.getAttribute("srcset") || "";
+        if (dss) { var first = dss.split(",")[0].trim().split(/\s+/)[0]; if (first) return first; }
+        var s = img.getAttribute("src") || "";
+        return s.indexOf("data:") !== 0 ? s : "";
+      }
       function buildSet() {
         var set = document.createElement("div");
         set.className = "brands-set";
         links.forEach(function (lk) {
           var item = document.createElement("div");
           item.className = "brand-marquee-item";
-          // clone as-is: keep lazy attrs so the theme's lazy-loader loads the clones (it did in v7).
-          item.appendChild(lk.cloneNode(true));
+          var clone = lk.cloneNode(true);
+          [].slice.call(clone.querySelectorAll("img")).forEach(function (img) {
+            var url = realSrc(img);
+            if (url) img.setAttribute("src", url);
+            // strip lazy machinery so nothing overwrites the resolved src
+            img.removeAttribute("srcset");
+            img.removeAttribute("data-src");
+            img.removeAttribute("data-srcset");
+            img.removeAttribute("sizes");
+            img.removeAttribute("loading");
+            img.classList.remove("lazyload", "lazyloaded", "swiper-lazy");
+          });
+          item.appendChild(clone);
           set.appendChild(item);
         });
         return set;
@@ -688,11 +711,6 @@
       // setWidth = N items * itemW + N gaps (N-1 inner + 1 trailing) = N*(itemW+gap); dur = setWidth/speed
       var setWidth = links.length * (BRAND_ITEM_W + BRAND_GAP);
       track.style.animationDuration = (setWidth / BRAND_SPEED) + "s";
-      // nudge the theme's lazy-loader to pick up the cloned logos
-      if (window.lazySizes && window.lazySizes.loader && window.lazySizes.loader.checkElems) {
-        window.lazySizes.loader.checkElems();
-      }
-      try { window.dispatchEvent(new Event("scroll")); window.dispatchEvent(new Event("resize")); } catch (e) {}
     })();
   }
 
