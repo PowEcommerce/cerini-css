@@ -530,3 +530,27 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
   .footer-content .footer-copyright{font-size:10px;white-space:nowrap}
   .footer-content .cerini-pow img{height:11px}
 }
+
+/* ==================================================================
+   HOME · Block 1 — Slideshow (Figma 1125:29476 desktop / 1077:11559 mobile)
+   heading SemiBold 20 · desc Light 14 · button outlined 35px · no arrows ·
+   dash pagination · mobile: text centered at bottom, white, over gradient.
+   ================================================================== */
+.js-slideshow-container .heading-block{font-size:20px!important;font-weight:600!important;line-height:1.2}
+.js-slideshow-container .text-content,
+.js-slideshow-container .text-content p{font-size:14px!important;font-weight:300!important;line-height:1.2}
+.js-slideshow-container .swiper-button-prev,
+.js-slideshow-container .swiper-button-next{display:none!important}   /* Figma: no arrows, bullets only */
+.js-slideshow-container .media-content .btn{min-height:0!important;height:35px!important;padding:0 31px!important;font-size:14px!important;font-weight:400!important;display:inline-flex!important;align-items:center!important}
+/* dash pagination (Figma divider-line indicator) */
+.js-slideshow-container .swiper-pagination-bullet{width:6px;height:2px;border-radius:0;background:rgba(255,255,255,.55);opacity:1;margin:0 4px;transition:width .3s ease}
+.js-slideshow-container .swiper-pagination-bullet-active{width:33px;background:#fff}
+@media(max-width:767px){
+  /* mobile: text centered at the bottom, white, over a bottom gradient */
+  .js-slideshow-container .media-content{align-items:center!important;justify-content:flex-end!important;text-align:center!important;padding-bottom:60px!important}
+  .js-slideshow-container .heading-block,
+  .js-slideshow-container .text-content,
+  .js-slideshow-container .text-content p{color:#fff!important}
+  .js-slideshow-container .media-content .btn{color:#fff!important;border-color:#fff!important}
+  .js-slideshow-container .media-overlay{background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.55) 100%)!important;opacity:1!important}
+}
