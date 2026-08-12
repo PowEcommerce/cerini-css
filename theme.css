@@ -575,33 +575,37 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
    HOME · Block 5 — Best sellers (product-list · Figma 775:15394 / 777:23219)
    Desktop: left image column (header_row → bg image + "Best sellers" + "Ver más")
    + right 4-product grid + divider under products. Mobile: image on top, products below.
-   Left image hosted as best-sellers.jpg. Scope .ns-section-best_sellers.
+   Left image hosted as best-sellers.jpg. Uses Kevingston editorial_products
+   technique: ID scope #ns-section-best_sellers + display:grid on the direct
+   child .js-products-list-slider > .d-flex.flex-column (NOT flex-row descendant).
    ================================================================== */
 /* full-bleed: no horizontal padding (image to left edge, products to right edge) */
-.ns-section-best_sellers .js-products-list-slider{padding-left:0!important;padding-right:0!important}
+#ns-section-best_sellers .js-products-list-slider{padding-left:0!important;padding-right:0!important}
 /* left column (header_row group) as image with bottom-left overlay text */
-.ns-section-best_sellers .group-block{
+#ns-section-best_sellers .js-products-list-slider > .d-flex.flex-column > .group-block{
   background:linear-gradient(0deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 45%),url("https://powecommerce.github.io/cerini-css/best-sellers.jpg") center/cover no-repeat!important;
   display:flex!important;flex-direction:column!important;justify-content:flex-end!important;align-items:flex-start!important;
+  padding:0 16px 24px 31px!important;margin:0!important;min-height:396px;
 }
-.ns-section-best_sellers .group-content{flex-direction:column!important;align-items:flex-start!important;justify-content:flex-end!important;gap:20px!important;width:auto!important}
-.ns-section-best_sellers .group-block .heading-block{color:#fff!important;font-size:28px!important;font-weight:600!important;line-height:normal!important;white-space:nowrap}
-.ns-section-best_sellers .group-block .btn{color:#fff!important;font-size:12px!important;font-weight:500!important;padding:0!important;min-height:0!important;height:auto!important;border:0!important;background:none!important;text-decoration:underline!important;text-underline-offset:3px!important;text-decoration-thickness:1px!important}
+#ns-section-best_sellers .group-block > .group-content{flex-direction:column!important;align-items:flex-start!important;justify-content:flex-end!important;gap:20px!important;width:auto!important}
+#ns-section-best_sellers .group-block .heading-block{color:#fff!important;font-size:28px!important;font-weight:600!important;line-height:normal!important;white-space:nowrap}
+#ns-section-best_sellers .group-block .btn{color:#fff!important;font-size:12px!important;font-weight:500!important;padding:0!important;min-height:0!important;height:auto!important;border:0!important;background:none!important;text-decoration:underline!important;text-underline-offset:3px!important;text-decoration-thickness:1px!important}
 
 @media(min-width:768px){
-  /* section content → 2 columns */
-  .ns-section-best_sellers .d-flex.flex-column{flex-direction:row!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:16px!important}
-  .ns-section-best_sellers .group-block{flex:0 0 360px!important;width:360px!important;align-self:stretch;min-height:396px;padding:0 16px 24px 31px!important;margin:0!important}
-  /* right column: products grid fills remaining width */
-  .ns-section-best_sellers .js-products-list-slider-container{flex:1 1 auto!important;min-width:0!important;width:auto!important;position:relative;padding-bottom:10px}
+  /* 2-column grid: image (360) + products (rest) — Kevingston editorial_products technique */
+  #ns-section-best_sellers .js-products-list-slider > .d-flex.flex-column{
+    display:grid!important;grid-template-columns:360px minmax(0,1fr);column-gap:16px;align-items:stretch;
+  }
+  #ns-section-best_sellers .js-products-list-slider > .d-flex.flex-column > .group-block{grid-column:1;grid-row:1;align-self:stretch}
+  #ns-section-best_sellers .products-list-slider{grid-column:2;grid-row:1;min-width:0;position:relative;padding-bottom:10px}
   /* divider under products (light full line + 78px black accent) */
-  .ns-section-best_sellers .js-products-list-slider-container::before{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:#F7F7F7}
-  .ns-section-best_sellers .js-products-list-slider-container::after{content:"";position:absolute;left:0;bottom:0;width:78px;height:1px;background:#000}
+  #ns-section-best_sellers .products-list-slider::before{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:#F7F7F7}
+  #ns-section-best_sellers .products-list-slider::after{content:"";position:absolute;left:0;bottom:0;width:78px;height:1px;background:#000}
 }
 
 @media(max-width:767px){
   /* mobile: image on top (full width, 196px), products below (default column) */
-  .ns-section-best_sellers .group-block{width:100%!important;min-height:196px!important;padding:0 16px 20px 20px!important;margin:0!important}
-  .ns-section-best_sellers .group-content{gap:12px!important}
-  .ns-section-best_sellers .group-block .heading-block{font-size:24px!important}
+  #ns-section-best_sellers .group-block{width:100%!important;min-height:196px!important;padding:0 16px 20px 20px!important;margin:0!important}
+  #ns-section-best_sellers .group-block > .group-content{gap:12px!important}
+  #ns-section-best_sellers .group-block .heading-block{font-size:24px!important}
 }
