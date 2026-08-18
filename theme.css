@@ -738,6 +738,9 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
 }
 
 /* PDP · elements to hide */
+.js-product-detail .product-shipping-wrapper,
+.js-product-detail .social-share,
+.js-product-detail .product-purchase-info,
 .product-sku,
 .js-saved-money-message,
 .js-accordion-private-container,
