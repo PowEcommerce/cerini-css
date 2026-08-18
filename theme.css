@@ -736,3 +736,9 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
   .js-product-detail .cerini-pdp-nav{display:flex}
   .js-product-detail .product-images-thumbs{display:none!important}
 }
+
+/* PDP · elements to hide */
+.product-sku,
+.js-saved-money-message,
+.js-accordion-private-container,
+.promotion-detail-disclaimer{display:none!important}
