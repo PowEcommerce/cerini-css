@@ -258,6 +258,8 @@ body.template-home .js-head-main{border-bottom:0!important}
 }
 
 /* --- Cerini product card (Figma) --- */ .product-item-image-container{background-color:#f6f5f3} .product-item-name{margin-bottom:4px;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block} .product-item-price-container{display:flex;flex-wrap:wrap;align-items:center;gap:4px} .product-item-price{font-size:12px;font-weight:500} .product-item-price-container:has(.product-item-price-compare:not([style*="none"])) .product-item-price{color:#b90000} .product-item-price-compare{order:-1;margin-bottom:0;font-size:12px;font-weight:300;text-decoration:line-through;opacity:1} .product-item-discount{display:inline-flex;align-items:center;justify-content:center;min-width:auto;margin-left:0;padding:3px 5px;font-size:10px;font-weight:300;line-height:1;color:#fff;background-color:#b90000} .product-item-information-inner{padding-top:var(--spacing-2);padding-left:var(--spacing-2);padding-right:var(--spacing-2)}
+/* second (hover) product image: fill the container, no side gaps */
+.product-item-image-secondary{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important}
 
 /* ==================================================================
    Quick view — eye trigger + modal (Figma 1074:24144), injected by cerini.js
