@@ -744,14 +744,9 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
   /* two columns: gallery FIXED 687 (Figma) + fixed 453 info, big gap like Figma.
      Gallery no longer fills the row (that made the image too wide); both can
      shrink below their basis on narrower desktops (min-width:0). */
-  /* Section is full-width (no theme container). Cap the columns to the Figma
-     content block (687 gallery + 133 gap + 453 info = 1273) and CENTER it, so
-     on wide screens it's balanced — not a narrow block jammed left with a big
-     dead gap on the right. Gap fixed at 133 (must match the max-width or the
-     block won't fill) → overrides the template's inline column-gap:24. */
-  .js-product-detail .product-columns{max-width:1273px;margin-inline:auto;column-gap:133px!important;align-items:flex-start;justify-content:flex-start}
-  .js-product-detail .product-images{flex:0 1 687px!important;width:687px!important;max-width:687px;min-width:0;column-gap:16px}
-  .js-product-detail .product-info{flex:0 0 453px!important;width:453px!important;max-width:453px}
+  /* Column split left to the theme (fluid 60/40, fills the width — no dead space).
+     Only the thumb column + slider width are pinned so thumbs are 100px (below). */
+  .js-product-detail .product-images{column-gap:16px}
   /* thumb column 100px + 16 gap → slider takes the rest */
   .js-product-detail .product-images-thumbs{width:100px}
   .js-product-detail .product-images-slider{width:calc(100% - 116px)}
