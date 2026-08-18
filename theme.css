@@ -744,7 +744,8 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
   /* two columns: gallery FIXED 687 (Figma) + fixed 453 info, big gap like Figma.
      Gallery no longer fills the row (that made the image too wide); both can
      shrink below their basis on narrower desktops (min-width:0). */
-  .js-product-detail .product-columns{column-gap:clamp(40px,9.2vw,133px);align-items:flex-start;justify-content:flex-start}
+  /* !important: the section template sets an inline column-gap:24px on .product-columns */
+  .js-product-detail .product-columns{column-gap:clamp(40px,9.2vw,133px)!important;align-items:flex-start;justify-content:flex-start}
   .js-product-detail .product-images{flex:0 1 687px!important;width:687px!important;max-width:687px;min-width:0;column-gap:16px}
   .js-product-detail .product-info{flex:0 0 453px!important;width:453px!important;max-width:453px}
   /* thumb column 100px + 16 gap → slider takes the rest */
