@@ -712,6 +712,10 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
 .js-product-detail .product-slider-image,
 .js-product-detail .js-product-slide,
 .js-product-detail .product-thumb{background:#f7f7f7}
+/* --- Low-stock alert: replace "¡Solo quedan X en stock!" with "Últimas unidades" --- */
+.js-product-detail .product-stock-alert{font-size:0!important}
+.js-product-detail .product-stock-alert::before{content:"Últimas unidades";font-size:12px;font-weight:400}
+
 /* --- Description tabs: heading + rule lines (Descripción; Modo de uso/Highlights need fork) --- */
 .js-product-detail .product-description-heading{font-size:14px;font-weight:500}
 
