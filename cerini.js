@@ -798,9 +798,9 @@
   // PDP · turn the description block into a Figma-style accordion tab ("Descripción").
   // "Modo de uso" / "Highlights" tabs need custom fields (fork) — only Descripción exists here.
   function setupPdpTabs() {
-    var pdp = document.querySelector(".js-product-detail");
-    if (!pdp) return;
-    var desc = pdp.querySelector(".product-info-description");
+    if (!document.querySelector(".js-product-detail")) return; // product page only
+    // description block may live in its own section (outside .js-product-detail) — search doc-wide
+    var desc = document.querySelector(".product-info-description");
     if (!desc || desc.getAttribute("data-cerini-acc")) return;
     var head = desc.querySelector(".product-description-heading");
     var body = desc.querySelector(".js-product-description, .product-description-content");
