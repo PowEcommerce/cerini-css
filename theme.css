@@ -658,3 +658,4 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
 .login-form-section .account-form-container,
 .register-form-section .account-form-container,
 .reset-form-section .account-form-container{width:100%!important;max-width:600px!important;margin-left:auto!important;margin-right:auto!important;float:none!important}
+.account-form-subtitle{text-align:center!important}
