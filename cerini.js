@@ -851,6 +851,19 @@
     wrap.appendChild(mk("next"));
   }
 
+  // PDP · variant label reads just the variation name ("Tamaño"), not "Tamaño: 250ml".
+  // The ": value" strong is hidden via CSS; here we drop the ": " from the static
+  // prefix text node (theme JS only rewrites the strong, never this text node).
+  function setupPdpVariantLabels() {
+    var pdp = document.querySelector(".js-product-detail");
+    if (!pdp) return;
+    var labels = pdp.querySelectorAll(".product-detail-variants-group .form-label");
+    for (var i = 0; i < labels.length; i++) {
+      var tn = labels[i].firstChild;
+      if (tn && tn.nodeType === 3) tn.textContent = tn.textContent.replace(/\s*:\s*$/, "");
+    }
+  }
+
   function init() {
     renderAll(document);
     wireMenuTriggers();
@@ -860,6 +873,7 @@
     setupBrandsMarquee();
     setupPdpTabs();
     setupPdpGalleryArrows();
+    setupPdpVariantLabels();
     var obs = new MutationObserver(function (muts) {
       for (var i = 0; i < muts.length; i++) {
         var added = muts[i].addedNodes;

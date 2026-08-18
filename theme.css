@@ -681,8 +681,18 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
 .js-product-detail .breadcrumbs a,
 .js-product-detail .breadcrumbs .crumb,
 .js-product-detail .breadcrumbs .separator{color:#ccc!important;text-decoration:none}
+/* --- Vertical rhythm: 16px between every info block (Figma info container gap) --- */
+.js-product-detail .product-content{display:flex;flex-direction:column;gap:16px}
+.js-product-detail .product-form{display:flex;flex-direction:column;gap:16px}
+.js-product-detail .product-content > *,
+.js-product-detail .product-form > *{margin-top:0!important;margin-bottom:0!important}
+/* neutralize empty app/promo slots so the 16px gap doesn't create phantom space */
+.js-product-detail .product-content > :empty,
+.js-product-detail .product-form > :empty{display:none}
+/* Figma: size row lives in a container with 8px top padding → +8 above variants */
+.js-product-detail .product-form .js-product-variants{padding-top:8px}
 /* --- Title: SemiBold 32 --- */
-.js-product-detail .product-name{font-size:32px!important;font-weight:600!important;line-height:normal!important;margin-bottom:16px}
+.js-product-detail .product-name{font-size:32px!important;font-weight:600!important;line-height:normal!important}
 /* --- Price: SemiBold 20, all on one line, card-like discount --- */
 .js-product-detail .product-price-main{display:flex!important;flex-wrap:wrap;align-items:center;gap:8px}
 .js-product-detail .product-price-display{font-size:20px!important;font-weight:600!important}
@@ -697,8 +707,12 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
 .js-product-detail .js-variant-button.btn-variant{min-width:68px;height:35px;padding:0 8px;display:inline-flex;align-items:center;justify-content:center;border:.5px solid #000;border-radius:0;background:#fff;color:#000;font-size:14px;font-weight:400;margin:0}
 .js-product-detail .js-variant-button.btn-variant.selected{background:#000;color:#fff}
 .js-product-detail .js-variant-button.btn-variant.btn-variant-no-stock{background:transparent!important;color:var(--main-foreground-opacity-50,#8f8f8f)!important;border-color:rgba(0,0,0,.35)!important}
-.js-product-detail .product-detail-variants-group > label,
-.js-product-detail .product-detail-variants-group .js-insta-variation-label{font-size:14px;font-weight:500}
+/* label "Tamaño" (Medium 14) inline with chips, gap 24 (Figma Size Option Container) */
+.js-product-detail .product-detail-variants{margin:0}
+.js-product-detail .product-detail-variants-group{display:flex;flex-wrap:wrap;align-items:center;gap:24px;margin:0}
+.js-product-detail .product-detail-variants-group > label{font-size:14px;font-weight:500;margin:0}
+/* hide the selected value ("250ml") next to the label; cerini.js drops the ":" */
+.js-product-detail .product-detail-variants-group .js-insta-variation-label{display:none}
 /* --- Quantity box 101x45 (0.5px black border) + minus/plus --- */
 .js-product-detail .form-quantity-container{width:101px}
 .js-product-detail .form-quantity{height:45px;border:.5px solid #000;border-radius:0}
