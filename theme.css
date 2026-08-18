@@ -715,12 +715,12 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
 
 /* ========================================================================
    PDP gallery layout — pixel-perfect (Figma 781:16892 desktop)
-   Thumbs 100×100 (vert gap 24) · gap thumbs→img 16 · main image SQUARE
+   Thumbs 100×100 (vert gap 24) · gap thumbs→img 16 · main image keeps its
+   natural aspect ratio (theme padding-bottom) — only its WIDTH is set
+   (thumbs 100 + gap 16 → slider takes the rest)
    · info col 453 · gap gallery→info ~133. Store page_width=1440.
    ======================================================================== */
-/* Main image: force square grey box, product image contained & centered */
-.js-product-detail .product-slide-link{padding-bottom:0!important;aspect-ratio:1/1}
-.js-product-detail .js-product-slide .product-slider-image{top:50%!important;left:50%!important;width:100%!important;height:100%!important;transform:translate(-50%,-50%)!important;object-fit:contain}
+/* Main image: natural aspect ratio from the theme, NOT square — only width is constrained below */
 /* Thumbs: 100×100 square, contained, grey letterbox */
 .js-product-detail .product-thumb{padding-bottom:0!important;width:100px;height:100px;max-height:100px}
 .js-product-detail .product-thumb .img-absolute,
