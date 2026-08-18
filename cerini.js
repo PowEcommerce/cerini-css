@@ -799,21 +799,31 @@
   // "Modo de uso" / "Highlights" tabs need custom fields (fork) — only Descripción exists here.
   function setupPdpTabs() {
     if (!document.querySelector(".js-product-detail")) return; // product page only
-    // description block may live in its own section (outside .js-product-detail) — search doc-wide
-    var desc = document.querySelector(".product-info-description");
-    if (!desc || desc.getAttribute("data-cerini-acc")) return;
-    var head = desc.querySelector(".product-description-heading");
-    var body = desc.querySelector(".js-product-description, .product-description-content");
-    if (!head || !body) return;
-    // ensure there is a visible heading even if the theme hid it
-    if (!head.textContent.trim()) head.textContent = "Descripción";
-    desc.setAttribute("data-cerini-acc", "1");
-    desc.classList.add("cerini-pdp-acc", "is-collapsed");
-    var ic = document.createElement("span");
-    ic.className = "cerini-pdp-acc-ic";
-    head.appendChild(ic);
-    head.style.cursor = "pointer";
-    head.addEventListener("click", function () { desc.classList.toggle("is-collapsed"); });
+    // description may render as a block in product_info AND/OR as its own section — handle all
+    var blocks = document.querySelectorAll(".product-info-description");
+    for (var i = 0; i < blocks.length; i++) {
+      (function (desc) {
+        if (desc.getAttribute("data-cerini-acc")) return;
+        var body = desc.querySelector(".js-product-description, .product-description-content");
+        if (!body) return;
+        var head = desc.querySelector(".product-description-heading");
+        if (!head) { // theme hid the title -> create one so we get the accordion header
+          head = document.createElement("h3");
+          head.className = "product-description-heading";
+          head.textContent = "Descripción";
+          desc.insertBefore(head, desc.firstChild);
+        } else if (!head.textContent.trim()) {
+          head.textContent = "Descripción";
+        }
+        desc.setAttribute("data-cerini-acc", "1");
+        desc.classList.add("cerini-pdp-acc", "is-collapsed");
+        var ic = document.createElement("span");
+        ic.className = "cerini-pdp-acc-ic";
+        head.appendChild(ic);
+        head.style.cursor = "pointer";
+        head.addEventListener("click", function () { desc.classList.toggle("is-collapsed"); });
+      })(blocks[i]);
+    }
   }
 
   // PDP · inject side arrows on the main image slider (mobile shows them; desktop uses thumbs).
