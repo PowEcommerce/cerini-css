@@ -18,6 +18,7 @@
   var DONE = "data-cerini-qv";
   var modalEl = null;
   var activeForm = null; // { node, placeholder } for restoring the moved native form
+  var qvStockObs = null; // observes variant selection to gate the CTA on no-stock sizes
   var openToken = 0;     // guards async gallery fetch against rapid re-opens
 
   /* ---------- icons ---------- */
@@ -305,14 +306,52 @@
       }
     }
 
+    wireQvStockGate(modalEl);
+
     document.documentElement.classList.add("cerini-qv-lock");
     modalEl.classList.add("is-open");
     requestAnimationFrame(function () { modalEl.classList.add("is-in"); });
     document.addEventListener("keydown", onKey);
   }
 
+  // When the selected size has no stock: CTA -> "Sin stock" (disabled) and block add-to-cart,
+  // like the PDP / Kevingston. Restores when a size with stock is selected.
+  function wireQvStockGate(modal) {
+    if (qvStockObs) { qvStockObs.disconnect(); qvStockObs = null; }
+    var options = modal.querySelector(".cerini-qv-options");
+    var footer = modal.querySelector(".cerini-qv-footer");
+    if (!options || !footer) return;
+    function cta() { return footer.querySelector(".js-addtocart") || footer.querySelector('input[type="submit"], button.btn, .btn'); }
+    function setLabel(b, t) {
+      if (!b) return;
+      if (b.tagName === "INPUT") { b.value = t; return; }
+      var s = b.querySelector(".js-addtocart-text");
+      if (s) s.textContent = t; else b.textContent = t;
+    }
+    function selNoStock() { return options.querySelector(".js-variant-button.btn-variant-no-stock.selected"); }
+    function sync() {
+      var b = cta(); if (!b) return;
+      if (selNoStock()) {
+        b.disabled = true; b.classList.add("is-disabled"); b.setAttribute("aria-disabled", "true");
+        setLabel(b, "Sin stock");
+      } else {
+        b.disabled = false; b.classList.remove("is-disabled"); b.removeAttribute("aria-disabled");
+        setLabel(b, b.getAttribute("data-add-to-cart-label") || "Agregar al carrito");
+      }
+    }
+    qvStockObs = new MutationObserver(sync);
+    qvStockObs.observe(options, { subtree: true, attributes: true, attributeFilter: ["class"] });
+    footer.addEventListener("click", function (e) {
+      if (selNoStock() && e.target.closest && e.target.closest(".js-addtocart")) {
+        e.preventDefault(); e.stopImmediatePropagation();
+      }
+    }, true);
+    sync();
+  }
+
   function close() {
     if (!modalEl) return;
+    if (qvStockObs) { qvStockObs.disconnect(); qvStockObs = null; }
     modalEl.classList.remove("is-in");
     document.documentElement.classList.remove("cerini-qv-lock");
     document.removeEventListener("keydown", onKey);
