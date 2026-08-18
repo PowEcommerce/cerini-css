@@ -727,9 +727,11 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
 .js-product-detail .product-thumb img{top:50%!important;left:50%!important;width:100%!important;height:100%!important;transform:translate(-50%,-50%)!important;object-fit:contain}
 
 @media (min-width:992px){
-  /* two columns: gallery (fills) + fixed 453 info, big gap like Figma */
-  .js-product-detail .product-columns{column-gap:clamp(40px,9.2vw,133px);align-items:flex-start}
-  .js-product-detail .product-images{flex:1 1 auto!important;width:auto!important;column-gap:16px}
+  /* two columns: gallery FIXED 687 (Figma) + fixed 453 info, big gap like Figma.
+     Gallery no longer fills the row (that made the image too wide); both can
+     shrink below their basis on narrower desktops (min-width:0). */
+  .js-product-detail .product-columns{column-gap:clamp(40px,9.2vw,133px);align-items:flex-start;justify-content:flex-start}
+  .js-product-detail .product-images{flex:0 1 687px!important;width:687px!important;max-width:687px;min-width:0;column-gap:16px}
   .js-product-detail .product-info{flex:0 0 453px!important;width:453px!important;max-width:453px}
   /* thumb column 100px + 16 gap → slider takes the rest */
   .js-product-detail .product-images-thumbs{width:100px}
