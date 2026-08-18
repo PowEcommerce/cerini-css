@@ -667,3 +667,48 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
 .register-form-section .account-form-container,
 .reset-form-section .account-form-container{width:100%!important;max-width:600px!important;margin-left:auto!important;margin-right:auto!important;float:none!important}
 .account-form-subtitle{text-align:center!important}
+
+/* ==================================================================
+   PDP · FICHA DE PRODUCTO (Figma 781:16889 desktop / 781:23915 mobile)
+   Scope .js-product-detail. Content that needs custom fields (3 características,
+   "Modo de uso"/"Highlights" tabs) and the associable PDP banner = FORK.
+   ================================================================== */
+/* --- Breadcrumbs: Manrope 12, grey --- */
+.js-product-detail .breadcrumbs{font-size:12px}
+.js-product-detail .breadcrumbs,
+.js-product-detail .breadcrumbs a,
+.js-product-detail .breadcrumbs .crumb,
+.js-product-detail .breadcrumbs .separator{color:#ccc!important;text-decoration:none}
+/* --- Title: SemiBold 32 --- */
+.js-product-detail .product-name{font-size:32px!important;font-weight:600!important;line-height:normal!important;margin-bottom:16px}
+/* --- Price: SemiBold 20, all on one line, card-like discount --- */
+.js-product-detail .product-price-main{display:flex!important;flex-wrap:wrap;align-items:center;gap:8px}
+.js-product-detail .product-price-display{font-size:20px!important;font-weight:600!important}
+.js-product-detail .product-price-compare{order:-1;margin:0!important;font-size:14px!important;font-weight:300!important;text-decoration:line-through;opacity:1}
+.js-product-detail .product-price-main:has(.js-compare-price-display:not([style*="none"])) .product-price-display{color:#b90000}
+.js-product-detail .product-offer-label{display:inline-flex;align-items:center;justify-content:center;padding:3px 5px;font-size:10px;font-weight:300;line-height:1;color:#fff;background:#b90000;border-radius:0}
+/* --- Installments / cuotas: 12 --- */
+.js-product-detail .product-payments-info{gap:8px}
+.js-product-detail .product-installment,
+.js-product-detail .product-payment-discount{font-size:12px!important}
+/* --- Size selector: 68x35 chips, 0.5px black border, selected black (same as QV/Figma) --- */
+.js-product-detail .js-variant-button.btn-variant{min-width:68px;height:35px;padding:0 8px;display:inline-flex;align-items:center;justify-content:center;border:.5px solid #000;border-radius:0;background:#fff;color:#000;font-size:14px;font-weight:400;margin:0}
+.js-product-detail .js-variant-button.btn-variant.selected{background:#000;color:#fff}
+.js-product-detail .js-variant-button.btn-variant.btn-variant-no-stock{background:transparent!important;color:var(--main-foreground-opacity-50,#8f8f8f)!important;border-color:rgba(0,0,0,.35)!important}
+.js-product-detail .product-detail-variants-group > label,
+.js-product-detail .product-detail-variants-group .js-insta-variation-label{font-size:14px;font-weight:500}
+/* --- Quantity box 101x45 (0.5px black border) + minus/plus --- */
+.js-product-detail .form-quantity-container{width:101px}
+.js-product-detail .form-quantity{height:45px;border:.5px solid #000;border-radius:0}
+.js-product-detail .form-quantity-icon{width:auto;color:#000}
+.js-product-detail .js-quantity-input{font-size:14px}
+/* --- Add to cart: black, 45px, square, full remaining width --- */
+.js-product-detail .js-addtocart{height:45px!important;min-height:45px!important;background:#000!important;color:#fff!important;border:0!important;border-radius:0!important;font-size:14px!important;font-weight:400!important}
+/* qty + CTA side by side (theme grid grid-auto-1) */
+.js-product-detail .product-actions.grid-auto-1{display:grid!important;grid-template-columns:auto 1fr!important;align-items:center;column-gap:16px}
+/* --- Gallery: light-grey bg on images (Figma #f7f7f7) --- */
+.js-product-detail .product-slider-image,
+.js-product-detail .js-product-slide,
+.js-product-detail .product-thumb{background:#f7f7f7}
+/* --- Description tabs: heading + rule lines (Descripción; Modo de uso/Highlights need fork) --- */
+.js-product-detail .product-description-heading{font-size:14px;font-weight:500}
