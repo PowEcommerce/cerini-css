@@ -266,7 +266,7 @@ body.template-home .js-head-main{border-bottom:0!important}
 }
 /* label tweaks: square primary label */
 .label.label-primary{border-radius:0!important}
-.product-labels{border-radius:0!important}
+.product-labels .label{border-radius:0!important}
 /* move the "HASTA 15% OFF" promo group (order-first) INTO the image, below the SALE badge */
 .product-item{position:relative}
 .product-item .labels.order-first{position:absolute!important;top:calc(var(--spacing-2) + 40px);left:var(--spacing-2);z-index:9;order:0!important;margin:0!important}
