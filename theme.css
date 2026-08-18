@@ -712,6 +712,35 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
 .js-product-detail .product-slider-image,
 .js-product-detail .js-product-slide,
 .js-product-detail .product-thumb{background:#f7f7f7}
+
+/* ========================================================================
+   PDP gallery layout — pixel-perfect (Figma 781:16892 desktop)
+   Thumbs 100×100 (vert gap 24) · gap thumbs→img 16 · main image SQUARE
+   · info col 453 · gap gallery→info ~133. Store page_width=1440.
+   ======================================================================== */
+/* Main image: force square grey box, product image contained & centered */
+.js-product-detail .product-slide-link{padding-bottom:0!important;aspect-ratio:1/1}
+.js-product-detail .js-product-slide .product-slider-image{top:50%!important;left:50%!important;width:100%!important;height:100%!important;transform:translate(-50%,-50%)!important;object-fit:contain}
+/* Thumbs: 100×100 square, contained, grey letterbox */
+.js-product-detail .product-thumb{padding-bottom:0!important;width:100px;height:100px;max-height:100px}
+.js-product-detail .product-thumb .img-absolute,
+.js-product-detail .product-thumb img{top:50%!important;left:50%!important;width:100%!important;height:100%!important;transform:translate(-50%,-50%)!important;object-fit:contain}
+
+@media (min-width:992px){
+  /* two columns: gallery (fills) + fixed 453 info, big gap like Figma */
+  .js-product-detail .product-columns{column-gap:clamp(40px,9.2vw,133px);align-items:flex-start}
+  .js-product-detail .product-images{flex:1 1 auto!important;width:auto!important;column-gap:16px}
+  .js-product-detail .product-info{flex:0 0 453px!important;width:453px!important;max-width:453px}
+  /* thumb column 100px + 16 gap → slider takes the rest */
+  .js-product-detail .product-images-thumbs{width:100px}
+  .js-product-detail .product-images-slider{width:calc(100% - 116px)}
+  .js-product-detail .product-thumb-container{width:100px!important;height:auto}
+  /* stack thumbs as a static column with 24px gap (Figma), drop swiper transform/arrows */
+  .js-product-detail .swiper-product-thumb{height:auto;max-height:571px;overflow:hidden}
+  .js-product-detail .product-slider-thumbs .swiper-wrapper{display:flex;flex-direction:column;gap:24px;transform:none!important;height:auto!important}
+  .js-product-detail .js-product-slider-thumbs-prev,
+  .js-product-detail .js-product-slider-thumbs-next{display:none!important}
+}
 /* --- Low-stock alert: replace "¡Solo quedan X en stock!" with "Últimas unidades" --- */
 .js-product-detail .product-stock-alert{font-size:0!important}
 .js-product-detail .product-stock-alert::before{content:"Últimas unidades";font-size:12px;font-weight:400}
