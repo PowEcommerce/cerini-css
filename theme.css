@@ -265,6 +265,19 @@ body.template-home .js-head-main{border-bottom:0!important}
 /* move the "HASTA 15% OFF" promo group (order-first) INTO the image, below the SALE badge */
 .product-item{position:relative}
 .product-item .labels.order-first{position:absolute!important;top:calc(var(--spacing-2) + 40px);left:var(--spacing-2);z-index:9;order:0!important;margin:0!important}
+@media(max-width:767px){
+  /* mobile card image-slider paginator → segmented dashes at the bottom of the image (Figma 560:12182).
+     Reposition the container to the bottom, hide the arrows, restyle bullets as full-width dashes. */
+  .product-item-slider-controls-container{display:block!important}
+  .product-item-slider-direction-controls-container{display:none!important}
+  .product-item-slider-pagination-container{position:absolute!important;top:auto!important;right:auto!important;left:10px!important;bottom:8px!important;width:calc(100% - 20px)!important;z-index:2!important}
+  .product-item-slider-pagination{display:flex!important;align-items:center!important;gap:4px!important;width:100%!important;justify-content:stretch!important}
+  .product-item-slider-pagination > *{flex:1 1 0!important;min-width:0!important;width:auto!important;height:2px!important;border-radius:0!important;margin:0!important;padding:0!important;background:rgba(0,0,0,.18)!important;opacity:1!important;transition:background .2s ease}
+  .product-item-slider-pagination > *.is-active,
+  .product-item-slider-pagination > *.selected,
+  .product-item-slider-pagination > *.active,
+  .product-item-slider-pagination > *[class*="active"]{background:#000!important}
+}
 
 /* ==================================================================
    Quick view — eye trigger + modal (Figma 1074:24144), injected by cerini.js
