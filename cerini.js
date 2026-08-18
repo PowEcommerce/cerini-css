@@ -795,6 +795,52 @@
     })();
   }
 
+  // PDP · turn the description block into a Figma-style accordion tab ("Descripción").
+  // "Modo de uso" / "Highlights" tabs need custom fields (fork) — only Descripción exists here.
+  function setupPdpTabs() {
+    var pdp = document.querySelector(".js-product-detail");
+    if (!pdp) return;
+    var desc = pdp.querySelector(".product-info-description");
+    if (!desc || desc.getAttribute("data-cerini-acc")) return;
+    var head = desc.querySelector(".product-description-heading");
+    var body = desc.querySelector(".js-product-description, .product-description-content");
+    if (!head || !body) return;
+    // ensure there is a visible heading even if the theme hid it
+    if (!head.textContent.trim()) head.textContent = "Descripción";
+    desc.setAttribute("data-cerini-acc", "1");
+    desc.classList.add("cerini-pdp-acc", "is-collapsed");
+    var ic = document.createElement("span");
+    ic.className = "cerini-pdp-acc-ic";
+    head.appendChild(ic);
+    head.style.cursor = "pointer";
+    head.addEventListener("click", function () { desc.classList.toggle("is-collapsed"); });
+  }
+
+  // PDP · inject side arrows on the main image slider (mobile shows them; desktop uses thumbs).
+  // They drive the theme's own swiper on .js-product-slider.
+  function setupPdpGalleryArrows() {
+    var pdp = document.querySelector(".js-product-detail");
+    if (!pdp) return;
+    var wrap = pdp.querySelector(".product-images-slider");
+    var slider = pdp.querySelector(".js-product-slider");
+    if (!wrap || !slider || wrap.querySelector(".cerini-pdp-nav")) return;
+    var CH = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    function mk(dir) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "cerini-pdp-nav cerini-pdp-nav-" + dir;
+      b.setAttribute("aria-label", dir === "prev" ? "Anterior" : "Siguiente");
+      b.innerHTML = CH;
+      b.addEventListener("click", function () {
+        var sw = slider.swiper;
+        if (sw) { dir === "prev" ? sw.slidePrev() : sw.slideNext(); }
+      });
+      return b;
+    }
+    wrap.appendChild(mk("prev"));
+    wrap.appendChild(mk("next"));
+  }
+
   function init() {
     renderAll(document);
     wireMenuTriggers();
@@ -802,6 +848,8 @@
     setupNovedadesCarousel();
     setupBestSellersCarousel();
     setupBrandsMarquee();
+    setupPdpTabs();
+    setupPdpGalleryArrows();
     var obs = new MutationObserver(function (muts) {
       for (var i = 0; i < muts.length; i++) {
         var added = muts[i].addedNodes;

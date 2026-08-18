@@ -712,3 +712,25 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
 .js-product-detail .product-thumb{background:#f7f7f7}
 /* --- Description tabs: heading + rule lines (Descripción; Modo de uso/Highlights need fork) --- */
 .js-product-detail .product-description-heading{font-size:14px;font-weight:500}
+
+/* --- PDP tabs accordion: "Descripción" (+/- toggle, top rule). Modo de uso/Highlights = fork (custom fields) --- */
+.js-product-detail .cerini-pdp-acc{border-top:1px solid #000;padding:24px 0}
+.js-product-detail .cerini-pdp-acc .product-description-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0;font-size:20px;font-weight:600;line-height:1.2}
+.js-product-detail .cerini-pdp-acc-ic{position:relative;flex:0 0 15px;width:15px;height:15px}
+.js-product-detail .cerini-pdp-acc-ic::before,.js-product-detail .cerini-pdp-acc-ic::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#000}
+.js-product-detail .cerini-pdp-acc-ic::before{width:15px;height:1.5px}
+.js-product-detail .cerini-pdp-acc-ic::after{width:1.5px;height:15px;transition:opacity .2s}
+.js-product-detail .cerini-pdp-acc:not(.is-collapsed) .cerini-pdp-acc-ic::after{opacity:0}
+.js-product-detail .cerini-pdp-acc.is-collapsed .product-description-content,
+.js-product-detail .cerini-pdp-acc.is-collapsed .js-product-description{display:none!important}
+.js-product-detail .cerini-pdp-acc .product-description-content{padding-top:16px}
+/* --- PDP gallery side arrows (injected, drive the theme swiper). Desktop=thumbs, mobile=arrows --- */
+.js-product-detail .product-images-slider{position:relative}
+.js-product-detail .cerini-pdp-nav{display:none;position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:40px;height:40px;align-items:center;justify-content:center;background:none;border:0;cursor:pointer;padding:0}
+.js-product-detail .cerini-pdp-nav-prev{left:8px}
+.js-product-detail .cerini-pdp-nav-next{right:8px}
+.js-product-detail .cerini-pdp-nav-next svg{transform:scaleX(-1)}
+@media(max-width:767px){
+  .js-product-detail .cerini-pdp-nav{display:flex}
+  .js-product-detail .product-images-thumbs{display:none!important}
+}
