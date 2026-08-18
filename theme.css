@@ -641,3 +641,20 @@ a:has(img):hover,a:has(picture):hover{opacity:1!important}
 .featured-brands-section .brand-marquee-item a{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
 .featured-brands-section .brand-marquee-item img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 @keyframes cerini-brands-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ==================================================================
+   Account pages (login / register / reset): hide breadcrumbs,
+   center the title and the form container (like Kevingston).
+   ================================================================== */
+body.template-account-login .breadcrumbs,
+body.template-account-register .breadcrumbs,
+body.template-account-reset .breadcrumbs{display:none!important}
+body.template-account-login .page-header-title-row,
+body.template-account-login .page-header-title,
+body.template-account-register .page-header-title-row,
+body.template-account-register .page-header-title,
+body.template-account-reset .page-header-title-row,
+body.template-account-reset .page-header-title{text-align:center!important;justify-content:center!important}
+.login-form-section .account-form-container,
+.register-form-section .account-form-container,
+.reset-form-section .account-form-container{width:100%!important;max-width:600px!important;margin-left:auto!important;margin-right:auto!important;float:none!important}
