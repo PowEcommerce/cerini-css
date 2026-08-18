@@ -331,6 +331,8 @@ body.template-home .js-head-main{border-bottom:0!important}
 .cerini-qv-native .form-label .js-insta-variation-label{display:none}
 .cerini-qv-native .js-variant-button.btn-variant{min-width:68px;height:35px;padding:0 8px;display:inline-flex;align-items:center;justify-content:center;border:.5px solid #000;border-radius:0;background:#fff;color:#000;font-size:14px;font-weight:400;margin:0}
 .cerini-qv-native .js-variant-button.btn-variant.selected{background:#000;color:#fff}
+/* out-of-stock size: same look as the PDP (grey + theme's diagonal :after line) — my QV rule above was hiding it */
+.cerini-qv-native .js-variant-button.btn-variant.btn-variant-no-stock{background:transparent!important;color:var(--main-foreground-opacity-50,#8f8f8f)!important;border-color:rgba(0,0,0,.35)!important}
 /* actions row = sticky footer (qty box + add to cart) */
 .cerini-qv-native .quickshop-actions{position:sticky;bottom:0;z-index:2;display:flex;gap:16px;align-items:stretch;margin:auto -20px 0;padding:20px;background:#fff;box-shadow:0 -1px 0 rgba(0,0,0,.25)}
 /* quantity selector — override native .btn / .icon-45px / .form-control chrome */

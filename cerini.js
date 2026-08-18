@@ -282,6 +282,11 @@
       form.classList.remove("hidden");
       form.classList.add("cerini-qv-native");
       cleanVariantLabels(form);
+      // Mark out-of-stock sizes like the PDP (theme's noStockVariants, exposed on window).
+      // Reads the card's data-variants + the variant buttons (still inside the card here).
+      if (window.noStockVariants && card.getAttribute("data-variants")) {
+        try { window.noStockVariants(card); } catch (e) {}
+      }
       options.insertBefore(form, more); // variants above "ver más"
       // Figma order: variants -> "ver más" -> actions (qty + CTA sticky footer).
       // .quickshop-actions lives inside the inner <form>, so insert relative to
