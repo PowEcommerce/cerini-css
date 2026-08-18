@@ -408,6 +408,25 @@
     ind.className = "cerini-img-indicator";
     ind.innerHTML = '<i class="is-active"></i><i></i>';
     imgc.appendChild(ind);
+    syncImgIndicator(card, ind);
+  }
+
+  // Sync the active dash with the card image slider. LS.productItemSlider renders a
+  // "fraction" pagination ("1 / 2") that updates on swipe (kept in the DOM, just hidden);
+  // observe it and move .is-active to the matching dash.
+  function syncImgIndicator(card, ind, tries) {
+    tries = tries || 0;
+    var pag = card.querySelector(".js-product-item-slider-pagination, .product-item-slider-pagination");
+    if (!pag) { if (tries < 25) setTimeout(function () { syncImgIndicator(card, ind, tries + 1); }, 400); return; }
+    var dashes = ind.querySelectorAll("i");
+    function update() {
+      var m = (pag.textContent || "").match(/\d+/);
+      if (!m) return;
+      var idx = parseInt(m[0], 10) - 1;
+      for (var k = 0; k < dashes.length; k++) dashes[k].classList.toggle("is-active", k === idx);
+    }
+    new MutationObserver(update).observe(pag, { childList: true, characterData: true, subtree: true });
+    update();
   }
 
   function renderCard(card) {
