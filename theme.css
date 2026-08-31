@@ -139,10 +139,15 @@ body.template-home .js-head-main{border-bottom:0!important}
    Figma nodes: search 299:3273, user 783:21227, cart 1100:13258, menu 299:3284.
    ================================================================== */
 /* Contador del carrito DENTRO de la bolsa (como kevingston): sin pill, número
-   centrado en el cuerpo de la bolsa, color = currentColor (blanco en header
-   transparente, negro en solid/hover). */
+   centrado en el cuerpo de la bolsa. El número vive dentro de un <button> que
+   resetea el color a negro (no hereda el blanco del header), así que el color
+   se fuerza por estado abajo. */
 .js-header .header-cart .header-icon{position:relative}
-.js-header .header-cart .js-cart-widget-amount.badge{position:absolute;top:70%;left:50%;transform:translate(-50%,-50%);margin:0!important;padding:0!important;min-width:0!important;width:auto!important;height:auto!important;background:transparent!important;border:0!important;box-shadow:none!important;color:currentColor!important;font-family:'Manrope',sans-serif;font-size:9px;font-weight:500;line-height:1;display:inline-block}
+.js-header .header-cart .js-cart-widget-amount.badge{position:absolute;top:70%;left:50%;transform:translate(-50%,-50%);margin:0!important;padding:0!important;min-width:0!important;width:auto!important;height:auto!important;background:transparent!important;border:0!important;box-shadow:none!important;color:#000!important;font-family:'Manrope',sans-serif;font-size:9px;font-weight:500;line-height:1;display:inline-block}
+/* Home: el número sigue el estado del header — blanco en transparente, negro en hover/scroll (igual que el ícono y el "Buscar"). */
+body.template-home .js-header:not(.f2tn-solid):not(:hover) .header-cart .js-cart-widget-amount{color:#fff!important}
+body.template-home .js-header:not(.f2tn-solid):hover .header-cart .js-cart-widget-amount,
+body.template-home .js-header.f2tn-solid .header-cart .js-cart-widget-amount{color:#000!important}
 .js-header .menu-container .utility-icon,
 .js-header .js-search-trigger .utility-icon,
 .js-header .header-account > a .utility-icon,
