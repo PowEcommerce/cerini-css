@@ -222,7 +222,7 @@ body.template-home .js-header.f2tn-solid .header-cart .js-cart-widget-amount{col
 .cerini-menu-arrow{display:inline-flex;width:16px;height:16px;flex:none}
 .cerini-menu-arrow svg{width:16px;height:16px;display:block}
 .cerini-menu-promo{margin-top:16px;display:flex;flex-direction:column;gap:8px;width:215px}
-.cerini-menu-promo-img{width:215px;height:269px;background:#eee}
+.cerini-menu-promo-img{display:block;width:215px;height:269px;background:#eee center/cover no-repeat}
 .cerini-menu-promo-link{align-self:flex-start;font-size:12px;color:#000;text-decoration:underline;text-underline-offset:2px}
 .cerini-menu-logo{margin-top:auto;display:block;width:215px}
 .cerini-menu-logo img{width:100%;height:auto;display:block}

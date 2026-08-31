@@ -545,6 +545,15 @@
     var accountUrl = (headEl && headEl.getAttribute("data-account-url")) || loginUrl;
     var footHref = loggedIn ? accountUrl : loginUrl;
     var footLabel = loggedIn ? "MI CUENTA" : "INICIAR SESIÓN";
+    // Promo del menú (imagen general autoadministrable): la sube el cliente en un
+    // bloque navigation-banner y el template la pasa por data-menu-promo-*.
+    var promoImg = (headEl && headEl.getAttribute("data-menu-promo-img")) || "";
+    var promoUrl = (headEl && headEl.getAttribute("data-menu-promo-url")) || "#";
+    var promoTitle = (headEl && headEl.getAttribute("data-menu-promo-title")) || "DESCUBRIR";
+    var promoHtml = promoImg
+      ? '<div class="cerini-menu-promo"><a class="cerini-menu-promo-img" href="' + promoUrl + '" style="background-image:url(\'' + promoImg + '\')"></a>' +
+        '<a class="cerini-menu-promo-link" href="' + promoUrl + '">' + promoTitle + "</a></div>"
+      : "";
     var logoImg = logoSrc ? '<img src="' + logoSrc + '" alt="Cerini Beauty">' : "";
     var catsHtml = "";
     for (var i = 0; i < cats.length; i++) {
@@ -566,8 +575,7 @@
         '<div class="cerini-menu-col1">' +
           '<button type="button" class="cerini-menu-close" aria-label="Cerrar">' + menuCloseSVG() + "</button>" +
           '<ul class="cerini-menu-cats list-unstyled">' + catsHtml + "</ul>" +
-          '<div class="cerini-menu-promo"><div class="cerini-menu-promo-img"></div>' +
-            '<a class="cerini-menu-promo-link" href="#">DESCUBRIR</a></div>' +
+          promoHtml +
           (logoSrc ? '<a class="cerini-menu-logo" href="/">' + logoImg + "</a>" : "") +
         "</div>" +
         '<div class="cerini-menu-col2"></div>' +
