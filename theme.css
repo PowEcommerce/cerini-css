@@ -13,6 +13,8 @@
    not part of the message text. Marquee loop/pause-on-hover = theme native. */
 .adbar-marquee-content .adbar-item{padding:0!important}
 .adbar-marquee-content .adbar-item::after{content:"✦";display:inline-block;margin:0 42px;font-size:11px;line-height:1;vertical-align:middle}
+/* QA: pre-header exacto 30px (era 32.8 = 8+8 padding + 16.8 contenido) → 6.6px c/lado. Aplica desktop+mobile (contenido 12px/16.8 igual). */
+.adbar{padding-top:6.6px!important;padding-bottom:6.6px!important}
 
 /* ==================================================================
    Header — transparent over hero on home; white on hover/scroll.

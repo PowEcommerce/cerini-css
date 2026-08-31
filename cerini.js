@@ -537,7 +537,14 @@
     var lg = document.querySelector(".js-header .logo-img");
     var logoSrc = lg ? (lg.getAttribute("src") || "") : "";
     var acc = document.querySelector(".js-header .header-account a[href]");
-    var loginUrl = acc ? acc.getAttribute("href") : "#";
+    // Auth state comes from the header template (data-* on .js-head-main); fall
+    // back to the account link href if the attrs aren't present (stale header).
+    var headEl = document.querySelector(".js-head-main[data-logged-in]");
+    var loggedIn = headEl && headEl.getAttribute("data-logged-in") === "1";
+    var loginUrl = (headEl && headEl.getAttribute("data-login-url")) || (acc ? acc.getAttribute("href") : "#");
+    var accountUrl = (headEl && headEl.getAttribute("data-account-url")) || loginUrl;
+    var footHref = loggedIn ? accountUrl : loginUrl;
+    var footLabel = loggedIn ? "MI CUENTA" : "INICIAR SESIÓN";
     var logoImg = logoSrc ? '<img src="' + logoSrc + '" alt="Cerini Beauty">' : "";
     var catsHtml = "";
     for (var i = 0; i < cats.length; i++) {
@@ -565,7 +572,7 @@
         "</div>" +
         '<div class="cerini-menu-col2"></div>' +
         // mobile bottom bar (INICIAR SESIÓN); hidden on desktop
-        '<a class="cerini-menu-footer" href="' + loginUrl + '">' + menuUserSVG() + "<span>INICIAR SESIÓN</span></a>" +
+        '<a class="cerini-menu-footer" href="' + footHref + '">' + menuUserSVG() + "<span>" + footLabel + "</span></a>" +
       "</aside>";
     ov._cats = cats;
     ov.addEventListener("click", function (e) { if (e.target === ov) closeMenu(); });
