@@ -26,6 +26,11 @@
 body.template-home .js-head-main{border-bottom:0!important}
 /* no header border-bottom on any page */
 .head-main,.js-head-main{border-bottom:0!important}
+/* QA: acercar las categorías al logo = Figma (gap logo→menú 20px). El padding
+   nativo de la fila del logo es simétrico (16/16); el Figma es asimétrico
+   (~15 arriba / menos abajo), así que bajamos solo el padding-bottom a 12px en
+   desktop → categorías a top 95 (Figma), logo sin moverse. */
+@media(min-width:768px){ .js-header .head-row{padding-bottom:12px!important} }
 @media(min-width:768px){
   body.template-home .js-header{position:fixed;top:0;left:0;right:0;z-index:1001;background:transparent!important;transition:background-color .3s ease-out}
   body.template-home .js-header .js-head-main{background:transparent!important;transition:background-color .3s ease-out}
@@ -137,7 +142,7 @@ body.template-home .js-head-main{border-bottom:0!important}
    centrado en el cuerpo de la bolsa, color = currentColor (blanco en header
    transparente, negro en solid/hover). */
 .js-header .header-cart .header-icon{position:relative}
-.js-header .header-cart .js-cart-widget-amount.badge{position:absolute;top:59%;left:50%;transform:translate(-50%,-50%);margin:0!important;padding:0!important;min-width:0!important;width:auto!important;height:auto!important;background:transparent!important;border:0!important;box-shadow:none!important;color:currentColor!important;font-family:'Manrope',sans-serif;font-size:9px;font-weight:500;line-height:1;display:inline-block}
+.js-header .header-cart .js-cart-widget-amount.badge{position:absolute;top:70%;left:50%;transform:translate(-50%,-50%);margin:0!important;padding:0!important;min-width:0!important;width:auto!important;height:auto!important;background:transparent!important;border:0!important;box-shadow:none!important;color:currentColor!important;font-family:'Manrope',sans-serif;font-size:9px;font-weight:500;line-height:1;display:inline-block}
 .js-header .menu-container .utility-icon,
 .js-header .js-search-trigger .utility-icon,
 .js-header .header-account > a .utility-icon,
