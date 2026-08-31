@@ -133,6 +133,11 @@ body.template-home .js-head-main{border-bottom:0!important}
    Header icons — EXACT Figma SVGs (masked so color follows text color).
    Figma nodes: search 299:3273, user 783:21227, cart 1100:13258, menu 299:3284.
    ================================================================== */
+/* Contador del carrito DENTRO de la bolsa (como kevingston): sin pill, número
+   centrado en el cuerpo de la bolsa, color = currentColor (blanco en header
+   transparente, negro en solid/hover). */
+.js-header .header-cart .header-icon{position:relative}
+.js-header .header-cart .js-cart-widget-amount.badge{position:absolute;top:59%;left:50%;transform:translate(-50%,-50%);margin:0!important;padding:0!important;min-width:0!important;width:auto!important;height:auto!important;background:transparent!important;border:0!important;box-shadow:none!important;color:currentColor!important;font-family:'Manrope',sans-serif;font-size:9px;font-weight:500;line-height:1;display:inline-block}
 .js-header .menu-container .utility-icon,
 .js-header .js-search-trigger .utility-icon,
 .js-header .header-account > a .utility-icon,
