@@ -340,6 +340,12 @@ body.template-home .js-header.f2tn-solid .header-cart .js-cart-widget-amount{col
 .cerini-qv-cuotas-n{font-weight:500}
 .cerini-qv-options{flex:1 1 auto;display:flex;flex-direction:column;gap:16px}
 .cerini-qv-more{font-size:12px;font-weight:500;color:#000;text-decoration:underline;text-underline-offset:3px;align-self:flex-start}
+/* Centrado SOLO en el drawer desktop de 442px (Figma 1074:24094). El bottom
+   sheet mobile (781:24934) lo alinea a la izquierda, asi que estirar el link
+   sin acotar por viewport era una regresion en mobile. */
+@media(min-width:768px){
+  .cerini-qv-more{align-self:stretch;text-align:center}
+}
 
 /* moved native variants + add-to-cart form -> Figma chips / qty / sticky footer */
 .cerini-qv-native{display:flex!important;flex-direction:column;flex:1 1 auto;margin:0;width:100%}
@@ -811,7 +817,339 @@ body.template-account-reset .page-header-title{text-align:center!important;justi
 .js-product-detail .product-purchase-info,
 .js-product-detail .swiper-fractions,
 .js-product-detail .product-quantity-stock,
-.product-sku,
-.js-saved-money-message,
-.js-accordion-private-container,
-.promotion-detail-disclaimer{display:none!important}
+.js-product-detail .product-sku,
+.js-product-detail .js-saved-money-message,
+.js-product-detail .js-accordion-private-container,
+.js-product-detail .promotion-detail-disclaimer{display:none!important}
+
+/* ==================================================================
+   PLP / Categoría — Figma 779:32931 (desktop) · 779:34852 (mobile)
+   Markup: sections/category-hero.tpl, sections/main-products-grid.tpl,
+   snippets/product-list/filters/{filters-bar,filters-modals}.tpl
+   ================================================================== */
+
+/* --- Hero: breadcrumb + H1 sobre la imagen (Figma 779:33087) --- */
+.category-hero .category-banner{
+  position:relative;
+  min-height:var(--category-hero-height,246px);
+  overflow:hidden;
+  background:#f6f5f3;
+  display:flex;
+}
+.category-hero-with-image .category-banner img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.category-hero-with-image .category-banner .placeholder{position:absolute;inset:0}
+/* El texto va abajo: el degradado oscurece ABAJO para que el blanco se lea.
+   El Figma declara los stops #000 -> #FFF sin dirección fiable (ver
+   learnings: gradientHandlePositions miente); se elige por legibilidad. */
+.category-hero-overlay{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to top,
+    rgba(0,0,0,var(--category-hero-overlay-opacity,.55)) 0%,
+    rgba(0,0,0,0) 100%);
+}
+.category-hero-content{
+  position:relative;z-index:2;
+  align-self:flex-end;
+  width:100%;max-width:100%;
+  padding:24px 32px;
+  color:var(--category-hero-color,#fff);
+}
+.category-hero-content .breadcrumbs{
+  display:flex;align-items:center;flex-wrap:wrap;
+  gap:0 24px;margin:0 0 11px;padding:0;
+}
+.category-hero-content .breadcrumbs .crumb,
+.category-hero-content .breadcrumbs .crumb.active{
+  font-family:var(--body-font);font-size:12px;font-weight:400;line-height:16.39px;
+  color:var(--category-hero-color,#fff);text-decoration:none;opacity:1;
+}
+.category-hero-content .breadcrumbs .separator{
+  font-size:14px;line-height:19.12px;color:var(--category-hero-color,#fff);
+  margin:0 -20px 0 0;/* el gap de 24 del flex + 4px a cada lado del pipe */
+  padding:0 4px;
+}
+.category-hero-title{
+  margin:0;padding:0;
+  font-family:var(--body-font);font-size:32px;font-weight:400;line-height:43.71px;
+  letter-spacing:0;text-transform:none;text-align:left;
+  color:var(--category-hero-color,#fff);
+}
+.category-hero-no-image .category-banner{min-height:0;background:none}
+
+@media(max-width:767px){
+  .category-hero .category-banner{min-height:var(--category-hero-height-mobile,190px)}
+  .category-hero-content{padding:16px}
+  .category-hero-content .breadcrumbs{gap:0 24px;margin-bottom:6px}
+  .category-hero-content .breadcrumbs .crumb,
+  .category-hero-content .breadcrumbs .crumb.active{font-size:10px;line-height:18px}
+  .category-hero-content .breadcrumbs .separator{font-size:14px;line-height:18px}
+  .category-hero-title{font-size:30px;line-height:40.98px}
+}
+
+/* --- Barra de filtros (Figma 779:33048) --- */
+.cerini-plp-bar{
+  display:flex;align-items:center;gap:16px;
+  min-height:35px;margin:22px 0 20px;
+}
+.cerini-plp-bar-controls{display:flex;align-items:center;gap:24px}
+.cerini-plp-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  box-sizing:border-box;height:35px;padding:8px 16px;
+  border:.5px solid #000;border-radius:0;background:transparent;
+  font-family:var(--body-font);font-size:14px;font-weight:400;line-height:19.12px;
+  color:#1d1d1b;cursor:pointer;text-align:left;list-style:none;
+}
+.cerini-plp-btn::-webkit-details-marker{display:none}
+.cerini-plp-btn::marker{content:""}
+.cerini-plp-btn-filters{width:144px}
+.cerini-plp-btn-sort{width:131px;gap:6px}
+.cerini-plp-btn-icon{width:15px;height:15px;flex:0 0 15px;color:#1d1d1b}
+.cerini-plp-btn-chevron{width:14px;height:14px;flex:0 0 14px;color:#1d1d1b}
+
+/* chips de filtro aplicado — el gris sobre gris es literal del Figma */
+.cerini-plp-chips{margin-left:52px;min-width:0}
+.cerini-plp-chips .mb-md-4{margin-bottom:0!important;padding-bottom:0!important;
+  display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.cerini-plp-chips .chip{
+  display:inline-flex;align-items:center;gap:4px;
+  height:18px;padding:0 8px;margin:0;
+  border:0;border-radius:0;background:#eee;
+  font-family:var(--body-font);font-size:10px;font-weight:400;line-height:13.66px;color:#ccc;
+}
+.cerini-plp-chips .chip-remove-icon{order:-1;width:11px;height:11px;color:#adadad;margin:0}
+.cerini-plp-chips .filter-remove-all{
+  margin-left:0;font-size:10px;font-weight:400;line-height:13.66px;
+  color:#000;text-decoration:none;
+}
+.cerini-plp-count{
+  margin-left:auto;white-space:nowrap;
+  font-family:var(--body-font);font-size:14px;font-weight:400;line-height:19.12px;color:#b2b2b2;
+}
+
+/* --- Panel de filtros desktop: overlay anclado, NO empuja la grilla --- */
+.cerini-filters-dd{position:relative}
+.cerini-filters-dd > summary{display:inline-flex}
+.cerini-filters-panel{
+  position:absolute;top:calc(100% + 20px);left:0;z-index:60;
+  width:336px;max-height:480px;overflow-y:auto;
+  display:flex;flex-direction:column;gap:10px;
+  background:#fff;
+}
+.cerini-filters-panel .filters-properties-container,
+.cerini-filters-sheet .filters-properties-container{
+  display:flex!important;flex-direction:column;gap:10px;
+}
+.cerini-filters-panel .filters-overlay{display:none!important}
+
+/* acordeones (mismo componente en el panel desktop y en la hoja mobile) */
+.cerini-filters-panel .filter-accordion,
+.cerini-filters-sheet .filter-accordion{
+  background:#f7f7f7;border:0;margin:0;padding:0;
+}
+.cerini-filters-panel .accordion-toggle,
+.cerini-filters-sheet .accordion-toggle{
+  display:flex;align-items:center;justify-content:space-between;
+  box-sizing:border-box;height:60px;padding:0 16px;margin:0;
+  border:0;text-decoration:none;
+  font-family:var(--body-font);font-size:14px;font-weight:400;line-height:19.12px;color:#000;
+}
+.cerini-filters-panel .accordion-toggle-icon svg,
+.cerini-filters-sheet .accordion-toggle-icon svg{width:14px;height:14px;color:#000}
+.cerini-filters-panel .filters-options-accordion,
+.cerini-filters-sheet .filters-options-accordion{
+  padding:0 16px 16px;margin:0;
+}
+.cerini-filters-panel .checkbox-container,
+.cerini-filters-sheet .checkbox-container{
+  display:flex;align-items:center;min-height:30px;margin:0 0 14px;
+}
+.cerini-filters-panel .checkbox-container:last-child,
+.cerini-filters-sheet .checkbox-container:last-child{margin-bottom:0}
+.cerini-filters-panel .checkbox-icon,
+.cerini-filters-sheet .checkbox-icon{
+  width:14px;height:14px;border:1px solid #eee;border-radius:0;flex:0 0 14px;
+}
+.cerini-filters-panel .checkbox-text,
+.cerini-filters-sheet .checkbox-text{
+  font-family:var(--body-font);font-size:12px;font-weight:400;line-height:16.39px;color:#000;
+}
+.filter-option-count{color:#969696}
+.cerini-filters-panel .accordion-show-more,
+.cerini-filters-sheet .accordion-show-more{
+  display:inline-block;margin-top:8px;
+  font-family:var(--body-font);font-size:12px;font-weight:400;line-height:16.39px;
+  color:#000;text-decoration:none;
+}
+
+/* --- Hoja de filtros mobile: top sheet + acciones (Figma 779:36395) --- */
+@media(max-width:767px){
+  .cerini-filters-sheet{max-height:85vh;display:flex;flex-direction:column;border-radius:0}
+  .cerini-filters-sheet .modal-header{
+    flex:0 0 auto;height:60px;padding:16px 24px;background:#fff;
+    border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;
+  }
+  .cerini-filters-sheet .modal-title{
+    font-family:var(--body-font);font-size:16px;font-weight:500;line-height:21.86px;color:#000;
+  }
+  .cerini-filters-sheet .modal-close-icon{width:20px;height:20px}
+  .cerini-filters-sheet .modal-body{flex:1 1 auto;overflow-y:auto;padding:24px!important}
+  .cerini-filters-sheet .modal-footer{
+    flex:0 0 auto;padding:24px;background:#fff;border-top:1px solid #eee;
+  }
+  .cerini-filters-sheet-actions{display:flex;gap:21px}
+  .cerini-plp-action{
+    flex:1 1 0;display:inline-flex;align-items:center;justify-content:center;
+    box-sizing:border-box;height:44px;padding:10px 8px 9px;border-radius:0;
+    font-family:var(--body-font);font-size:14px;font-weight:400;line-height:19.12px;
+    text-decoration:none;cursor:pointer;
+  }
+  .cerini-plp-action-ghost{border:1px solid #000;background:transparent;color:#000}
+  .cerini-plp-action-solid{border:1px solid #000;background:#000;color:#fff}
+  .modal-overlay{background:rgba(0,0,0,.4)}
+}
+
+/* --- Barra en mobile: dos filas (botones al 50% + contador) --- */
+@media(max-width:767px){
+  .cerini-plp-bar{flex-wrap:wrap;gap:14px;margin:16px 0 16px;padding:0 16px}
+  .cerini-plp-bar-controls{flex:1 1 100%;gap:16px}
+  .cerini-plp-bar-controls > *{flex:1 1 0;width:auto!important}
+  .cerini-plp-chips{flex:1 1 100%;margin-left:0}
+  .cerini-plp-count{flex:1 1 100%;margin-left:0;text-align:left}
+  /* en mobile "Ver filtros" abre la hoja, no el dropdown */
+  .cerini-filters-dd{display:none}
+  .cerini-plp-btn-filters-mobile{display:inline-flex}
+}
+@media(min-width:768px){
+  .cerini-plp-btn-filters-mobile{display:none}
+}
+/* en desktop la hoja de filtros no se usa (el panel es el dropdown) */
+@media(min-width:768px){
+  #modal-filters,#modal-filters + .modal-overlay{display:none!important}
+}
+
+/* --- Grilla (Figma 779:32957) --- */
+.section-main-products-grid .js-product-table{--grid-gap:16px}
+.section-main-products-grid .grid{--grid-gap:16px}
+@media(max-width:767px){
+  .section-main-products-grid .js-product-table{--grid-gap:9px}
+  /* único bloque de la página sin margen lateral: 183 + 9 + 183 = 375.
+     Solo en categoría: /search/ mantiene su margen (section_width: page). */
+  body.template-category .section-main-products-grid .js-product-table{margin-left:-16px;margin-right:-16px}
+  body.template-category .section-main-products-grid .products-grid{padding-left:16px!important;padding-right:16px!important}
+  /* nombre del producto a dos líneas (Figma mobile) */
+  .section-main-products-grid .product-item-name{
+    white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+    overflow:hidden;min-height:32px;
+  }
+}
+
+/* --- Banner intercalado en la grilla (Figma 779:34314) --- */
+.cerini-grid-banner{grid-column:span 2;position:relative}
+.cerini-grid-banner-link{
+  position:relative;display:block;width:100%;height:100%;min-height:100%;
+  overflow:hidden;text-decoration:none;color:#fff;
+}
+.cerini-grid-banner-img,
+.cerini-grid-banner-link img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.cerini-grid-banner-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 100%);
+}
+.cerini-grid-banner-content{
+  position:absolute;left:0;bottom:0;z-index:2;
+  display:flex;flex-direction:column;align-items:flex-start;gap:16px;
+  max-width:375px;padding:32px 16px;
+}
+.cerini-grid-banner-eyebrow{
+  font-family:var(--body-font);font-size:16px;font-weight:400;line-height:24px;color:#fff;
+}
+.cerini-grid-banner-title{
+  margin-top:-8px;/* gap 8px entre antetítulo y título, 16px al link */
+  font-family:var(--body-font);font-size:38px;font-weight:400;line-height:51.91px;
+  letter-spacing:.5px;color:#fff;
+}
+.cerini-grid-banner-cta{
+  font-family:var(--body-font);font-size:14px;font-weight:400;line-height:19.12px;color:#fff;
+  border-bottom:1px solid #fff;padding-bottom:2px;
+}
+@media(max-width:767px){
+  .cerini-grid-banner{grid-column:span 2}
+  .cerini-grid-banner-link{aspect-ratio:688/412}
+  .cerini-grid-banner-content{padding:24px 16px;gap:12px}
+  .cerini-grid-banner-title{font-size:28px;line-height:38px;margin-top:-6px}
+}
+
+/* --- Paginado (Figma 779:32978) --- */
+.section-main-products-grid .cerini-pagination-progress{
+  width:172px;margin:24px auto 0;text-align:center;
+}
+.cerini-pagination-count{
+  font-family:var(--body-font);font-size:14px;font-weight:400;line-height:19.12px;
+  color:#000;text-align:center;
+}
+.cerini-pagination-rail{
+  position:relative;width:171px;height:1px;margin:16px auto 0;background:#f7f7f7;
+}
+.cerini-pagination-fill{
+  position:absolute;left:0;top:0;height:1px;background:#000;display:block;
+  transition:width .3s ease;
+}
+.section-main-products-grid .pagination-load-more{margin:16px 0 24px;text-align:center}
+.section-main-products-grid .pagination-load-more .btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  box-sizing:border-box;width:172px;height:44px;padding:10px 31px 9px;
+  border:1px solid #000;border-radius:0;background:transparent;
+  font-family:var(--body-font);font-size:14px;font-weight:400;line-height:19.12px;color:#000;
+}
+
+/* --- Descripción de la categoría, al pie (Figma 779:32985) --- */
+.cerini-collection-info{padding:36px 48px;text-align:center}
+.cerini-collection-info-text{
+  max-width:890px;margin:0 auto;
+  font-family:var(--body-font);font-size:14px;font-weight:400;line-height:19.12px;
+  color:#969696;text-align:center;
+}
+@media(max-width:767px){
+  .cerini-collection-info{padding:36px 16px}
+  .cerini-collection-info-text{max-width:309px}
+}
+
+/* --- Chrome viejo de la PLP que la barra reemplaza --- */
+.section-main-products-grid .product-list-sort-by,
+.section-main-products-grid .filters-controls-content,
+.section-main-products-grid .filters-desktop-heading{display:none!important}
+
+/* --- Iteración 2 · PLP: correcciones sobre el bloque de arriba --- */
+
+/* Hoja de filtros mobile anclada arriba (Figma 779:36395 → 375x690 en y=0).
+   El .modal-top de ipanema centra el sheet sobre su propia altura
+   (top:50% + translateY(-50%)), y con max-height:85vh eso lo dejaba en y≈61
+   con una franja del header asomando encima. */
+@media(max-width:767px){
+  .cerini-filters-sheet.modal-top{top:0;bottom:initial;transform:translateY(-100%)}
+  .cerini-filters-sheet.modal-top.modal-visible{top:0;bottom:initial;transform:translateY(0)}
+}
+
+/* Línea al pie de la foto, sólo en la grilla mobile de la PLP (Figma 779:34852,
+   hijo "MOBILE ONLY"). Va acotada a la grilla y no al componente de tarjeta:
+   el Figma sólo la dibuja acá, y la tarjeta se comparte con home, buscador y
+   relacionados (ver learnings: componente vs contexto). Si diseño la quiere en
+   todos lados, mover el scope a .product-item-card. */
+@media(max-width:767px){
+  body.template-category .section-main-products-grid .js-product-item-image-container-private{position:relative}
+  body.template-category .section-main-products-grid .js-product-item-image-container-private::after{
+    content:"";position:absolute;left:0;bottom:0;z-index:2;
+    width:91px;height:1px;background:#000;pointer-events:none;
+  }
+}
+
+/* "Ver filtros" / "Ocultar filtros" — los dos rótulos viajan en el markup
+   (filters-bar.tpl) y el swap lo hace [open], sin JS. Los textos son settings
+   de main-products-grid (filters_label / filters_label_open). */
+.cerini-plp-btn-label-open{display:none}
+.cerini-filters-dd[open] > .cerini-plp-btn .cerini-plp-btn-label-closed{display:none}
+.cerini-filters-dd[open] > .cerini-plp-btn .cerini-plp-btn-label-open{display:inline}
