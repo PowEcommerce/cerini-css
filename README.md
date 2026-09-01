@@ -1,27 +1,35 @@
-# cerini-css
+# cerini-css — ARCHIVADO (2026-08-31)
 
-CSS externo del theme **Cerini** (Tiendanube, modo compose-only) — mismo método que `kevingston-css`.
+> **Este repo ya no se usa.** Su contenido vive ahora dentro del tema, en
+> [`PowEcommerce/cerini`](https://github.com/PowEcommerce/cerini):
+>
+> | antes (acá)  | ahora (en el tema)     |
+> |--------------|------------------------|
+> | `theme.css`  | `static/css/custom.css` |
+> | `cerini.js`  | `static/js/custom.js`   |
+>
+> Se edita ahí y `nuvemshop theme push` lo publica. **No hace falta tocar dos
+> repos ni bumpear ningún `?v=N`.**
 
-## Por qué existe
-El campo `css_code` del theme tiene un límite de **15000 caracteres** y toda la web no entra.
-Solución: el CSS vive acá (sin límite, legible, versionado) y el theme lo carga con un
-`@import` chiquito desde `settings_data.json`.
+## Por qué existía
 
-## Cómo se conecta
-En el `css_code` del theme queda solo el loader:
+`css_code` tiene un tope de 15000 caracteres y la hoja no entraba, así que el CSS
+vivía acá y el tema lo cargaba con un `@import` desde `css_code`, servido por
+GitHub Pages.
 
-```css
-@import url("https://powecommerce.github.io/cerini-css/theme.css?v=1");
-```
+## Por qué se archivó
 
-## Flujo de trabajo
-1. Editás `theme.css` acá.
-2. `git push` a GitHub (repo `PowEcommerce/cerini-css`, GitHub Pages).
-3. Se actualiza en la tienda (según caché CDN, entre instantáneo y ~10 min).
+Ese tope es del **campo** `css_code`, no del tema: `static/css/` no lo tiene. Lo
+que impedía usarlo era que sin `theme fork` no se puede pushear `static/`. El tema
+se forkeó el 2026-08-31 y el split dejó de tener motivo.
 
-Para forzar refresco durante desarrollo, bumpear `?v=N` en el `@import` del `css_code`.
+Además el esquema tenía dos fallas propias:
 
-## Alcance (compose-only)
-Solo se puede editar CSS sobre el markup existente de Ipanema. Lo que requiere markup/JS
-nuevos (cucardas por categoría, favoritos, vista rápida, compra rápida) queda documentado en
-`cerini/FORK-TODO.md` para cuando TN habilite `theme fork`.
+1. **Publicar dependía de un push a otro repo.** El `?v=N` del `@import` sólo
+   bustea caché — no despliega nada. Una corrida escribió 340 líneas acá que nunca
+   se publicaron, y midió tres iteraciones contra una página sin estilos.
+2. **El CSS llegaba en una cadena de tres saltos** (HTML → `@import` a github.io →
+   `@import` a Google Fonts), y ninguno era precargable: el preload scanner no mira
+   dentro de un `@import`.
+
+Se deja el historial por referencia. No commitear nada nuevo acá.
